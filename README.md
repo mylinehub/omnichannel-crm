@@ -64,15 +64,16 @@ mvn clean package -Dmaven.test.skip=true
 nohup java -jar crm.jar > crm-output.log 2> crm-error.log &
 
 13. Swagger URLs
-http://app.mylinehub.com:8081/swagger-ui.html https://app.mylinehub.com:8080/swagger-ui.html
+http://localhost:8081/swagger-ui.html
+https://localhost:8080/swagger-ui.html
 
-14. Build & Deploy Frontend
+15. Build & Deploy Frontend
 ng build --prod Copy dist/ to /var/www/html and restart nginx
 
-15. Logging (journalctl)
+16. Logging (journalctl)
 journalctl -u mylinehub-backend.service journalctl -f -u mylinehub-backend.service
 
-16. Kill Backend (If Needed)
+17. Kill Backend (If Needed)
 sudo kill -9 $(lsof -ti :8080)
 
 Notes
