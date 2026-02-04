@@ -1,0 +1,15 @@
+<nb-card size = "small" class="componentLevelZoomCron">
+    <nb-card-header>{{ heading }}</nb-card-header>
+    <nb-card-body>
+      <div class="row" style="padding: 0.6250rem;">
+        <cron-editor [(cron)]="cronExpression" [disabled]="isCronDisabled" [(options)]="cronOptions"></cron-editor>
+        <hr />
+      </div>    
+    </nb-card-body>
+    <nb-card-footer>
+      <button class="cancel" nbButton status="danger" (click)="cancel()">Cancel</button><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <button nbButton status="success" (click)="submit()">Submit</button>
+    </nb-card-footer>
+  </nb-card>
+  
+  

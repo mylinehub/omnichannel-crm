@@ -1,0 +1,195 @@
+<div class="row">
+  <div class="col-lg-12">
+      <nb-accordion>
+         <nb-accordion-item>
+            <nb-accordion-item-header>📋 How to Add or View Details</nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <p><strong>Before you begin:</strong> Ensure your phone number, template, and variables are registered with Facebook.</p>
+
+              <br>
+
+              <h6>📝 <strong>Steps:</strong></h6>
+              <ul style="list-style-type: none; padding-left: 0;">
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">📱Click a phone number below to view its associated templates.</li>
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">📄Click a template to view its variables.</li>
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">🚫Phone numbers must not be registered on the WhatsApp mobile app.</li>
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">💾Chat history is saved securely on MyLineHub servers (WhatsApp does not provide API access).</li>
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">🔧Contact support for WhatsApp integration or custom telecom needs.</li>
+              </ul>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+
+
+          <nb-accordion-item>
+            <nb-accordion-item-header>📞 Contact Support</nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <ul style="list-style-type: none; padding-left: 0;">
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">
+                  <p><strong>Need help?</strong> Click the following 
+                    <a [href]="whatsAppSupportlink" target="_blank" rel="noopener">support link</a> 
+                    to connect with us via WhatsApp.
+                  </p>
+                </li>
+              </ul>
+              
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+
+      </nb-accordion>
+  </div>
+</div>
+<br>
+
+<div class="row">
+    <div class="col-lg-12">
+      <nb-card class="transformNbCardSummaryGraphHeightAdjustment">
+        <nb-card-header>
+          <div class="row">
+            <div class="col-lg-7">  
+              Summary&nbsp;&nbsp;
+              <button nbButton shape="round" size="small" status="success"
+                      (click)="startEmbeddedSignup()" [disabled]="embeddedSignupBusy">
+                           {{ embeddedSignupBusy ? 'Starting…' : 'Start Onboarding' }}
+              </button>
+            </div>
+            <div class="col-lg-5">
+              <div class="d-flex align-items-center">
+                <div style="text-align: center;" class="container">
+                  <!--<button nbButton shape="round" size="small" status="success" (click)="bulkUpload()">Bulk Upload</button>  -->
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </nb-card-header>
+        <nb-card-body class="transformNbCardSummaryGraphBodyAdjustment">
+          <div class="row transformDownTo70">
+            <ngx-charts-advanced-pie-chart
+              [scheme]="colorScheme"
+              [results]="single"
+              [view]="view"
+              [gradient]="gradient" >
+            </ngx-charts-advanced-pie-chart>
+          </div>
+        </nb-card-body>
+      </nb-card>
+     </div>  
+  </div>
+
+
+  <div class="row componentLevelTable">
+    <div class="col-lg-12">
+      <nb-card   class="classname">
+        <nb-card-header>  
+          <div class="row">
+            <div class="col-sm-6">
+              <h1>{{ tableHeading }}</h1>
+            </div>
+            <div class="col-sm-6 extraPaddingForMobile">
+              <div class="d-flex align-items-center">
+                <div id="downloadMainTableButton" style="text-align: left;" class="container">
+                  <label class="col-form-label">Export Table as:</label>
+                  <span class="align-items-center">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <select class="form-select" [(ngModel)]="downloadAs">
+                    <option value="xlsx">xlsx</option>
+                    <option value="pdf">pdf</option>
+                  </select>
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button nbButton shape="round" size="small" status="success" (click)="export()">
+                    Download
+                  </button>
+                </div>
+            </div>
+            </div>
+          </div>
+        </nb-card-header>
+       <nb-card-body>
+        <div class="row">
+          <ng2-smart-table [settings]="settings" [source]="source" (editConfirm)="onSaveConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)" (createConfirm)="onCreateConfirm($event)" (userRowSelect)="onUserRowSelect($event)" id="lastTable">
+          </ng2-smart-table>
+        </div>
+        <div class="row">
+          <br>
+        </div>
+        </nb-card-body>
+        
+      </nb-card>
+    </div>
+  </div>
+
+  <div class="row notOnMobile" *ngIf="showAction">
+    <div class="col-lg-12">
+        <nb-card>
+          <nb-card-header><span>&nbsp;&nbsp;&nbsp;<b>Assign Employee To Number</b></span></nb-card-header>
+          <nb-card-body>
+            
+            <div class="row">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button nbButton shape="round" size="small" status="success" (click)="assignEmployees()">Select Employees</button>
+                &nbsp;&nbsp;&nbsp;
+            </div>
+  
+          </nb-card-body>
+        </nb-card>
+    </div>
+  </div>
+
+  <div class="row componentLevelTable" *ngIf="showAction">
+    <div class="col-lg-12">
+      <nb-card   class="classname">
+        <nb-card-header> 
+          <div class="row">
+            <div class="col-sm-9">
+              <h1>{{ templateHeading }}</h1> <h8>Below templates belong to {{ currentNumberRecord.phoneNumber }}</h8>
+            </div>
+            <div class="col-sm-3">
+              <div class="d-flex align-items-right">
+                <label class="col-form-label"><h6># Total : {{ totalTemplateRecords }}</h6></label>
+              </div>
+            </div>
+          </div>
+        </nb-card-header>
+       <nb-card-body>
+        <div class="row">
+          <ng2-smart-table [settings]="templateSettings" [source]="templateSource" (editConfirm)="onTemplateSaveConfirm($event)" (deleteConfirm)="onTemplateDeleteConfirm($event)" (createConfirm)="onTemplateCreateConfirm($event)" (userRowSelect)="onTemplateUserRowSelect($event)" id="templateTable">
+          </ng2-smart-table>
+        </div>
+        <div class="row">
+          <br>
+        </div>
+        </nb-card-body>
+        
+      </nb-card>
+    </div>
+  </div>
+
+
+
+   <div class="row componentLevelTable" *ngIf="showTemplateVariable">
+    <div class="col-lg-12">
+      <nb-card   class="classname">
+        <nb-card-header> 
+          <div class="row">
+            <div class="col-sm-9">
+              <h1>{{ templateVariableHeading }}</h1> <h8>Below variables belong to {{ currentTemplateRecord.templateName }}</h8>
+            </div>
+            <div class="col-sm-3">
+              <div class="d-flex align-items-right">
+                <label class="col-form-label"><h6># Total : {{ totalTemplateVariableRecords }}</h6></label>
+              </div>
+            </div>
+          </div>
+        </nb-card-header>
+       <nb-card-body>
+        <div class="row">
+          <ng2-smart-table [settings]="templateVariableSettings" [source]="templateVariableSource" (editConfirm)="onTemplateVariableSaveConfirm($event)" (deleteConfirm)="onTemplateVariableDeleteConfirm($event)" (createConfirm)="onTemplateVariableCreateConfirm($event)" (userRowSelect)="onTemplateVariableUserRowSelect($event)" id="templateVariableTable">
+          </ng2-smart-table>
+        </div>
+        <div class="row">
+          <br>
+        </div>
+        </nb-card-body>
+        
+      </nb-card>
+    </div>
+  </div>

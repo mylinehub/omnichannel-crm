@@ -1,0 +1,11 @@
+<nb-card class="componentLevelZoomFD">
+    <nb-card-header>{{ heading }}</nb-card-header>
+    <nb-card-body>
+      <input nbInput placeholder="InputDate" [nbDatepicker]="dateTimePicker" [(ngModel)]="inputDate" >
+      <nb-date-timepicker withSeconds #dateTimePicker>  </nb-date-timepicker>                   
+    </nb-card-body>
+    <nb-card-footer>
+      <button class="cancel" nbButton status="danger" (click)="cancel()">Cancel</button><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <button nbButton status="success" (click)="submit()">Submit</button>
+    </nb-card-footer>
+  </nb-card>

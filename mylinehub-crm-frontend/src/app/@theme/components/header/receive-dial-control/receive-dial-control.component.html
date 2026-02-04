@@ -1,0 +1,59 @@
+<nb-card class="componentLevelZoomForReceiveDialCallComponent">
+    <!-- <nb-card-header>
+        Actions
+    </nb-card-header> -->
+    <nb-tabset>
+      <nb-tab [tabTitle]="headerVariableService.callType">
+        <nb-card>
+          <nb-card-body>
+ 
+                <span *ngIf="headerVariableService.callType == 'Incoming-Call'"><b>Caller Name&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;{{ headerVariableService.callerName }}</span><br>
+                <span><b>Caller Phone&nbsp;&nbsp;&nbsp;:</b>&nbsp;{{ headerVariableService.phoneNumber | hideStringFromEmployee }}</span><br>
+                <span *ngIf="headerVariableService.callType == 'Incoming-Call'"><b>Video Call&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;{{ headerVariableService.isVideoCall }}</span><br>
+                <span><b>Internal Call&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;{{ headerVariableService.isInternal }}</span><br>
+                <br>
+
+                <span *ngIf="!(headerVariableService.callInProgress)">
+                  <button *ngIf="headerVariableService.callType == 'Incoming-Call'" outline [status]="receiveStatus" size = "medium" shape="semi-round" (click)="receiveCall()" nbButton><nb-icon icon="phone-outline" [options]="{ animation: { type: 'shake', hover:'true', infinite:'true' } }"  [nbTooltip]="receiveCallToolTip" nbTooltipPlacement="top"></nb-icon></button>
+                  <span *ngIf="headerVariableService.callType == 'Incoming-Call'">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button outline [status]="rejectStatus" size = "medium" shape="semi-round" (click)="rejectCall()" nbButton><nb-icon icon="phone-off-outline" [options]="{ animation: { type: 'shake', hover:'true', infinite:'true' } }"  [nbTooltip]="rejectCallToolTip" nbTooltipPlacement="top"></nb-icon></button>
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </span>
+
+                <span *ngIf="headerVariableService.callInProgress">
+                  <h4><span>&nbsp;</span>Duration : {{ headerVariableService.timer }}</h4>
+                </span>
+                <br>
+<!-- 
+                <button nbButton outline size = "medium" shape="round" id="btn-ShowDtmf" (click)="ShowDtmfMenu('')" nbTooltip="show-dtmf-menu"><nb-icon icon="keyboard-o" pack="font-awesome"></nb-icon></button>    
+                <span>&nbsp;&nbsp;</span>
+                <button nbButton outline size = "medium" shape="round" id="line-+ lineObj.LineNumber+-btn-CancelTransfer" (click)="CancelTransferSession('')" nbTooltip="cancel-transfer-call"><nb-icon icon="reply" pack="font-awesome"></nb-icon></button>  
+                <span>&nbsp;&nbsp;</span>       
+                <button nbButton outline size = "medium" shape="round" id="btn-expand" (click)="ExpandVideoArea('')" nbTooltip="expand-video"><nb-icon icon="expand" pack="font-awesome"></nb-icon></button>
+                <br><br>
+                <button nbButton outline size = "medium" shape="round" id="btn-restore" (click)="RestoreVideoArea('')"><i class="fa fa-compress"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-ShowDtmf" (click)="ShowDtmfMenu('')"><i class="fa fa-keyboard-o"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-settings" (click)="ChangeSettings('', this)"><i class="fa fa-volume-up"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-present-src" (click)="ShowPresentMenu(this, '')"><i class="fa fa-video-camera"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-ShowCallStats" (click)="ShowCallStats('')"><i class="fa fa-area-chart"></i></button>
+                <br>
+                <button nbButton outline size = "medium" shape="round" id="btn-HideCallStats" (click)="HideCallStats('')"><i class="fa fa-area-chart"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-ShowTimeline" (click)="ShowCallTimeline('')"><i class="fa fa-list-ul"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-HideTimeline" (click)="HideCallTimeline('')"><i class="fa fa-list-ul"></i></button> -->
+
+          </nb-card-body>
+        </nb-card>
+      </nb-tab>
+      <!-- <nb-tab tabTitle="Share-Data">
+        <nb-card>
+          <nb-card-body>
+            <button nbButton outline size = "medium" shape="round"  nbTooltip="send any file" (click)="shareFile(event)"><i class="fas fa-upload  fa-fw" style="font-size: 1.3rem;color: rgb(78, 154, 129)"></i></button>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <button nbButton outline size = "medium" shape="round"  nbTooltip="you-tube-stream" (click)="connectYouTubeStream(event)"><i class="fab fa-youtube  fa-fw" style="font-size: 1.3rem;color: rgb(180, 11, 11);"></i></button>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <button nbButton outline size = "medium" shape="round"  nbTooltip="share-screen" (click)="shareScreen(event)"><i class="fas fa-expand  fa-fw" style="font-size: 1.3rem;color: rgb(0, 0, 0);"></i></button>
+          </nb-card-body>
+        </nb-card>
+      </nb-tab> -->
+    </nb-tabset>
+</nb-card>

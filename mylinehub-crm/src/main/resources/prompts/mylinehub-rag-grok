@@ -1,0 +1,469 @@
+## Section 1: Executive Summary
+
+### Overview
+
+MYLINEHUB is a software development company based in Noida, India. We specialize in building full-stack software solutions, with emphasis on communication automation—especially WhatsApp messaging workflows, telecommunication (voice) systems (like GSM gateways, PRI lines, IVR, predictive dialers), and advanced AI-driven chatbots using Retrieval-Augmented Generation (RAG) technology.
+
+Our core strengths:
+- **Full software stack:** Java and Python backends, Angular/React frontends, deep integration into telecommunication frameworks like FreePBX/Asterisk.
+- **Unified Operations:** Manage the full journey from an incoming WhatsApp message (even via Facebook/Meta ad), capture and store customer data, automate chat with AI bots (RAG-driven), transition to voice telephony, CRM dashboards – all within one centralized platform.
+
+**For Example:** If a customer contacts your WhatsApp after seeing your ad, MYLINEHUB will log their data automatically, let multiple agents reply, escalate to calls, and track the entire interaction in one place.
+
+***
+
+## Section 2: Company & Contact Overview
+
+- **Company Name:** MYLINEHUB
+- **Headquarters:** Noida, Uttar Pradesh, India
+- **Support Email:** [support@mylinehub.com](mailto:support@mylinehub.com)
+- **WhatsApp Support Number:** +91 9711761156
+- **Website:** [https://mylinehub.com](https://mylinehub.com)
+- **Business Model:** Software + Cloud + On-Premise solutions in CRM, WhatsApp automation, telephony, AI
+- **Client Base:** Niche clients in call centers, marketing automation, telecommunications (often under NDA).
+
+### Operating Models
+- **Cloud-based (SaaS):** Seat-based monthly billing. Immediate setup, minimal infra.
+- **On-premise:** Lifetime license. Client maintains their own servers, total data ownership.
+
+***
+
+
+## Section 3: Product & Service Portfolio
+
+### WhatsApp Automation CRM
+
+**What you get:**
+- Capture all incoming WhatsApp customer contacts, log them to CRM.
+- Send outbound, template-based & media messages.
+- Multi-agent access, full message thread tracking.
+- AI bot handoff: Automatic replies, escalate to human agents if needed.
+- Dashboard metrics: totals, AI/manual split, delivery reports, conversions.
+- Strictly follows WhatsApp's "24-hour message window" rules.
+- Free trial (100 messages), media storage add-ons.
+
+**How it works:**
+1. Customer sends WhatsApp to support number.
+2. Data logged, agents notified.
+3. AI replies (if set up) immediately.
+4. All actions trackable & exportable.
+
+#### Example Use Case
+*"A student sends a course inquiry on WhatsApp at midnight. The AI answers instantly, schedules a callback, and logs the conversation for a counselor to follow up in the morning."*
+
+***
+
+### Telecommunication Systems (Voice, IVR, Dialers)
+
+- Integrates GSM gateways (SIM-based) and PRI lines.
+- Supports IVR menus, progressive/predictive/preview dialers, multi-agent routing, live call analytics.
+- Recordings, sticky agent assignment, and high scalability via multiple servers.
+- *Note: Cold calling using random lists is strictly controlled in India (see legal notes).*
+
+#### Example Scenario
+*"Your sales team can call back every WhatsApp lead. Missed calls or voicemails trigger WhatsApp follow-ups automatically."*
+
+***
+
+### AI RAG Chatbot & Knowledge Engine
+
+- **Upload:** PDFs, Word, Excel, website links, audio/video transcripts.
+- **Processing:** Data split into contextual chunks, stored in secure vector DB with metadata for instant search.
+- **Use in Real Life:** Instant support chatbots, sales agents, internal tools for staff, knowledge base bots, automated order taking.
+
+#### Example FAQ
+- **Q:** What happens if my WhatsApp number gets blocked?
+- **A:** Platform ensures workflows comply with WhatsApp rules. If too many outbound template messages are sent, blocking is possible — but monitoring and compliance features keep risks low.
+
+***
+
+### Custom Software Development
+
+- Any backend/frontend logic (Java, Python, Angular, React, Node.js).
+- Rapid integration to your existing CRMs, payment gateways, APIs.
+- On-premise or cloud modules; lowest possible customization price.
+
+***
+
+## Section 4: Key Technology Stack
+
+| Layer               | Technologies                          |
+| ------------------- | --------------------------------------|
+| Frontend            | Angular, React                       |
+| Backend             | Java, Python                         |
+| Telephony Layer     | Asterisk, FreePBX                    |
+| Database            | MySQL, PostgreSQL, MongoDB           |
+| Hosting             | AWS cloud, Private India servers      |
+| Integrations        | WhatsApp Cloud API, GSM, PRI, Webhooks|
+| AI/NLP              | RAG pipeline, LLMs, Speech-to-Text    |
+| Security            | AES-256 encryption, RBAC, Isolation   |
+
+***
+
+
+
+
+
+## Section 5: Pricing & Billing Model
+
+| Component                   | Model         | Pricing (INR)                         |
+| --------------------------- | ------------ | --------------------------------------|
+| WhatsApp outgoing message   | Per message  | 1 per message                         |
+| Telecommunication seat      | Monthly      | 2,000 per seat                        |
+| On-Premise licence          | Lifetime     | 25,000 per user                        |
+| RAG processing (10M tokens) | One-time     | 10,000 per setup                      |
+| Media storage               | Monthly      | 1,000 per GB                          |
+| Language add-on             | Monthly      | Free -(Multilingual WhatsApp Chat), answer in same language as user asks question in|
+| Call recording              | Monthly      | 250 per user                          |
+| Preview dialer (SIM only)   | Monthly      | 300 per user                          |
+| Custom API integration      | Per API      | 50,000 (3-5 days effort)              |
+
+**Free Usage:** Register with GST, try 100 messages for free (no telephony in demo). Account deactivates 10 days after falling below min recharge unless topped up.
+
+***
+
+## Section 6: Legalities & Compliance
+
+- WhatsApp/Meta Cloud API only allows template messages to initiate a conversation (no editing messages after sending).
+- 24-hour response window after customer last interacts; after that, only templates allowed.
+- India’s laws: PRI numbers are landline only; GSM limited by device capacity; cold-calling from databases is not allowed.
+- MYLINEHUB never assumes legal responsibility for local number usage or call lists. Check with your country’s telecom regulator.
+- All data belongs to you—the client. It's isolated, encrypted, only a few admins have access.
+
+***
+
+## Section 7: Data Security & Privacy
+
+- Data is encrypted (AES-256) at rest and in transit.
+- Accounts split logically by organization.
+- Roles: Admin, Manager, Employee, with strict controls on actions and access.
+- Complete logs and audit trails kept.
+- Data import/export tools provided; GDPR-style compatibility for international customers.
+
+***
+
+## Section 8: Support & Maintenance
+
+| Support Type            | Details                                         |
+| ----------------------- | ----------------------------------------------- |
+| Basic (Demo Accounts)   | Free                                            |
+| Human 24×7              | Extra cost, based on infra/staff requirement    |
+| Complaint Channel       | WhatsApp/email above                            |
+| Response Time           | 2-4 business days                               |
+| On-Prem Maintenance     | 30% mark-up over dedicated employee salary      |
+| Role Creation           | By email request only for user/account security |
+
+*Max 5 users on a free account. Account goes inert if not recharged.*
+
+***
+
+## Section 9: RAG Integration: Steps & Client Inputs
+
+1. **Submit the Following:**
+   - Organization Name, Industry, Website, Media links, Internal Docs
+   - CRM/Telephony Use Case, Security Preferences, Support Needs
+
+#### Sample Submission
+
+```
+Organisation Name: [Your Org Name]
+Industry: [Industry Type]
+Website: [URL]
+YouTube Links: [List of URLs]
+Files Attached: [List of docs]
+AI Use Cases: [WhatsApp bot, voice dialer, etc.]
+Integration Type: [WhatsApp/Telephony/CRM]
+Security Mode: [Cloud or On-Premise]
+Support Expectation: [24×7, Business Hours, etc.]
+```
+
+2. **MYLINEHUB Onboarding:**
+    - Kickoff call, legal check, WhatsApp number registration, system setup (1-2 days).
+    - For telephony: provide SIMs or PRI details, seat assigned, go-live next working day.
+
+***
+
+## Section 10: Industry Use-Cases
+
+| Industry         | Example Use              | What It Automates           |
+|------------------|-------------------------|-----------------------------|
+| Real Estate      | Lead follow-up           | WhatsApp, call, CRM         |
+| Education        | Admissions               | Chatbot, updates            |
+| Healthcare       | Reports/appointments     | Automated WhatsApp, calls   |
+| E-commerce       | Orders, support          | CRM, AI sales               |
+| Call Centers     | High-volume calls        | Predictive/IVR/Sticky calls |
+| Banking/Fintech  | KYC, loan notices        | Reminders, chat             |
+
+***
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Section 11: Dashboards & Analytics
+
+**Dashboards:**
+- WhatsApp: Inbound/outbound messages, conversion rates, template utilization.
+- Telephony: Call counts, agent stats, predictive dialer results.
+- AI/RAG: Query accuracy, top docs accessed, usage stats.
+- Admin: Org-wide logs, storage usage, API consumption.
+
+**Reports:** Automated weekly/monthly Excel/PDF on sales, messages, calls, RAG knowledge use, billing.
+
+***
+
+## Section 12: Frequently Asked Questions (User-Oriented Main FAQs)
+
+### WhatsApp
+
+- **Can I send bulk messages?** Only with templates (approved by WhatsApp/Meta).
+- **Use existing WhatsApp number?** Yes, using whats app coexistance, setup charges INR10000, setup time 2-5 days
+- **Can I edit sent messages?** No, not possible by WhatsApp Cloud API.
+- **What if I exceed quota?** System will queue; alerts will be sent.
+- **Can I connect multiple numbers?** Yes (up to 10 numbers per account, depending on plan).
+- **Media support?** Yes, but media requires data storage add-on after free tier (50 MB free, then INR 1,000/GB/month).
+- **Multilingual support?** Yes, INR 2,000/month per extra language, setup needed (2-4 days).
+- **Referral/Reseller bonus?** Only for registered resellers (15% profit share, eligibility: 1 valid client). Contact support for details.
+
+### Telephony
+
+- **Work with PRI lines?** Yes (India: only landlines, with state-based codes).
+- **Automatic call recording?** Yes, charged per user; recordings securely stored.
+- **Own server install?** Yes, via on-premise edition.
+- **Concurrent calls?** Depends on GSM/PRI capacity; system scales to thousands via multiple servers.
+- **Call Billing?** Cloud INR2,000/seat/month (unlimited), usage model INR 1.5/call (moderate), INR 1/call (high volume).
+- **Call recording cost?** INR 250/user/month.
+- **Sticky call setup?** INR 3,000/user/month, min 10 users, 5-10 day setup.
+
+### AI & RAG
+
+- **How does RAG AI work?** Pulls your uploaded data, finds the best match, and answers.
+- **Train chatbot?** Upload your docs, RAG builds knowledge.
+- **Doc updates?** Five free re-uploads in first two months (after, new billing).
+- **WhatsApp + RAG bot?** Yes, AI can answer WhatsApp chats directly.
+- **Max document size?** Up to 10M tokens (~7,500 pages).
+
+***
+
+
+
+
+## Section 13: Integration Scenarios
+
+- **WhatsApp to CRM:** Customer sends message → entry created → AI/manuel reply → CRM/dashboards updated.
+- **Voice Call Workflow:** Agent logs in → predictive dialer runs → call/recording logs updated → CRM updated.
+- **RAG Chatbot:** User asks anything → RAG finds support doc → AI answers instantly, logs response.
+- **Omnichannel Loop:** WhatsApp, AI, call, CRM, analytics – works seamlessly together.
+
+***
+
+## Section 14: Advanced Features
+
+- Multiple Asterisk servers + single CRM = high scalability.
+- Microservices: Fault-tolerance, load-balanced, no single point of failure.
+- WhatsApp + Telephony unified in one system.
+- Centralized dashboards and roles for admins, managers, employees.
+- Custom module development for specific industries.
+- Internal chat , hidden from world , 3rd party , just for mylinehub
+- listen live call
+- Conference
+- Various custom needs covered quickly wit no code asterisk configuration / developmen freepbx
+- Expertize and deliver at areas where asterusk dev us required , so no pause . We have all kind of experts
+- As freepbx gice time conditions , dynamic routes, IVR , Queue creation etc firewall etc so we have it all , astetisk is safe , use lets entry free ssl
+- MYLINe sits over freepbx  It can manage multiple freepbx server atcentra k point
+=- centralized data
+- Web Phone - One one channel for one user for one call
+- Internattional calling
+- Outbound / inbound call both. 
+- Autodials created in mylinehub using java , so its not like vcidial sitting over asteruak , it mylinehub stting our freepb , getting advantage of freepbx abd wedeveloper all aut dilasling on lyinehub , so we haveeverythin
+- Whats app , singke customer interacts n ewhas app number , multiple employee can talk and see messages from one ustomef parallely
+- All types of cloud integratoon for whas app ad code creation
+
+
+
+***
+
+## Section 15: Security, Data Governance, & Compliance
+
+- Daily logs, audit trails, access level management.
+- Regular automatic backups (cloud); scripts provided for on-premise.
+- Default data retention: 12 months, archived after.
+- Full organization-level data isolation and encryption.
+- No source code provided (binary-only distribution for on-premise; clients must manage their own backups).
+
+***
+
+## Section 16: Support, Complaints & Human Help
+
+1. **For support:** Register on website using your GST.
+2. **International?** Email support, response in 2-4 business days.
+3. **Complaints:** Email [support@mylinehub.com](mailto:support@mylinehub.com) or WhatsApp +91 9711761156.
+4. **Human/24×7 support:** Available on paid plans, cost varies.
+5. **For resellers:** Requirements flexible (just need one actual client to start).
+
+***
+
+## Section 17: How to Prepare RAG Submission
+
+1. Submit required info as per format in Section 9.
+2. Kick-off call organized by MYLINEHUB.
+3. WhatsApp/Telephony number provided, registered, and set up by our team.
+4. Doc upload for RAG (Word, PDF, links, YouTube).
+5. Initial pilot/demo goes live (free, up to 3 pages/tokens).
+6. Billing starts only after commissioning.
+
+***
+
+## Section 18: Payment & Billing
+
+- No cash payments accepted.
+- Use NEFT/RTGS/UPI as per emailed instructions.
+- Custom dev charges are 100% prepaid.
+
+***
+
+***
+
+
+***
+
+## Section 21: Contact Info
+
+- **Email:** [support@mylinehub.com](mailto:support@mylinehub.com)
+- **Phone/WhatsApp:** +91 9711761156
+- **Website:** [https://mylinehub.com](https://mylinehub.com)
+- **For Partners/Resellers:** [partners@mylinehub.com](mailto:partners@mylinehub.com)
+- **Headquarters:** Noida, Uttar Pradesh, India
+
+***
+
+## Appendix
+
+**For more help:**  
+Browse our YouTube channel for product walk-throughs or log into the MYLINEHUB CRM portal for page instructions.
+
+
+## FAQ: VoIP Gateway Using ARI & AGI with AI & Custom Development
+
+### What is a VoIP Gateway and why do I need it?
+A VoIP Gateway connects your phone system to the internet, allowing calls to flow seamlessly between traditional phone lines and digital platforms.  
+**Business benefit:**  
+- Handle **high call volumes automatically** without hiring extra staff.  
+- Enable **AI-powered voice calls** for lead follow-ups, reminders, or surveys.  
+- Integrate all calls into your CRM for full **sales and support visibility**.
+
+---
+
+### How does MYLINEHUB use ARI, AGI, and AI for my business?
+- **Automated AI Calling:** Our custom solution can make **scheduled calls, follow-ups, and reminders** automatically using AI-generated voice.  
+- **Intelligent IVR and Routing:** AGI scripts let calls reach the right agent, queue intelligently, or provide self-service options.  
+- **CRM & Dashboard Integration:** Every call, message, and recording is logged in real-time, giving managers **full control and insights**.  
+- **Custom Workflows:** We can build **any business logic** � e.g., call leads only after specific events, or route high-value clients to senior agents.
+
+---
+
+### Can this work for real business scenarios?
+**Example 1: Auto Lead Follow-Up**  
+- AI calls new leads automatically.  
+- Questions are answered by AI first; if needed, escalates to a human agent.  
+- CRM logs all outcomes automatically.
+
+**Example 2: Payment Reminders / Subscription Calls**  
+- AI voice calls customers on schedule.  
+- Plays pre-recorded messages or dynamic updates.  
+- Reduces overdue payments and improves cash flow.
+
+**Example 3: Customer Support Automation**  
+- IVR menus handle FAQs automatically using AGI scripts.  
+- AI bot handles simple inquiries, escalates complex issues to human agents.  
+- Agents get complete context, reducing call time and improving satisfaction.
+
+---
+
+### Who benefits the most?
+- **Sales Teams:** Automate outreach, follow-ups, and lead nurturing.  
+- **Call Centers:** Handle higher volumes with **less staff and no downtime**.  
+- **Customer Support:** Provide **24�7 service** with AI + human hybrid system.  
+- **Businesses wanting custom workflows:** Every process can be tailored with **our development team**.
+
+---
+
+### Can it handle multiple channels and large-scale operations?
+Yes!  
+- Manage multiple SIP trunks, GSM/PRI, and VoIP channels simultaneously.  
+- **Load-balancing and failover** ensures zero missed calls.  
+- AI can **prioritize important leads**, route high-value calls, or schedule calls automatically.
+
+---
+
+### Can calls be recorded and tracked for quality and compliance?
+Absolutely.  
+- Each call is stored and linked to CRM records.  
+- Supervisors can monitor active calls or review recordings for **training and quality checks**.  
+- Compliance-friendly logs and reports are generated automatically.
+
+---
+
+### How secure is the system?
+- AES-256 encrypted calls ensure **customer data safety**.  
+- Role-based access ensures **only authorized personnel** can access recordings or modify call logic.  
+- Custom development ensures sensitive workflows remain **inside your organization**.
+
+---
+
+### How quickly can we set this up?
+- MYLINEHUB sets up AI + VoIP integration within **1�3 business days**.  
+- Includes CRM integration, AI call scripts, IVR setup, and multi-line configuration.  
+**Business impact:** Start automating calls immediately, improving sales and support efficiency.
+
+---
+
+### How does this save money and increase revenue?
+- Reduce manual calling, freeing agents for **high-value tasks**.  
+- Improve **lead conversion** via AI-driven follow-ups.  
+- Reduce missed calls and optimize call routing, saving operational costs.  
+- Fully customizable workflows ensure you only pay for what **directly adds value**.
+
+---
+
+### Can this scale as our business grows?
+Yes!  
+- Add agents, lines, and AI workflows on the fly.  
+- Increase outbound campaigns without downtime.  
+- Custom development ensures the system **grows with your unique business needs**.
+
+---
+
+### How is MYLINEHUB different from standard VoIP solutions?
+- Full **custom development** tailored to your CRM, AI strategy, and call workflows.  
+- AI + ARI + AGI integration for **intelligent automation**, not just manual dialing.  
+- Real-life scenarios built-in: automated lead calls, payment reminders, support IVR, surveys, and more.  
+- Centralized dashboards for **full business control and visibility**.  
+
+
+
+
+#Do not user history data
+#Add more frequently asked question from WEB , Add more details here , examples etc.
+#Work only on this prompt
+#Extend with examples more info from web regarding domain, Extend data from 50-150 lines to 600 lines - Its very important
+#Donot keep emoji ,dpecial chacter
+#Keep in MD format , mark comments
+#Do not create new sections / but you can add sub sections inside section - I have given two sections, keep output that way
+#Divide as per 1200 vhunk token size , in sub sections
+#Donot put extra new lines
+#Purpose is to make content rich as per sales speech , add exmaples and increase RAG document quality and length without having redundant data
+#Use easy words , for end users , they are non tehnical
+#Put content in a copy paste area (md file area / code area) - inine , so as when I copy , it does not have data from outer word such as [3] , number as this links etc.
+#Do not add [web:22][web:26][web:28][web:31][web:36][web:37][web:38] citations like this.

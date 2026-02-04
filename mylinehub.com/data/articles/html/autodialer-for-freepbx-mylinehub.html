@@ -1,0 +1,161 @@
+<!-- FILE: /data/articles/html/autodialer-for-freepbx-mylinehub.html -->
+<section>
+  <p>
+    FreePBX is widely used as a rock-solid PBX 📞
+    But when teams look for an <strong>autodialer</strong>, they often face a hard choice:
+    complex dialer stacks, heavy PBX customization, or fragile integrations.
+  </p>
+
+  <p>
+    This article explains how <strong>MYLINEHUB works as a clean autodialer for FreePBX</strong>
+    — without rewriting PBX logic or turning telephony into a maintenance nightmare.
+  </p>
+</section>
+
+<section>
+  <h2>The Traditional Problem with FreePBX Autodialers</h2>
+
+  <p>
+    Many autodialer solutions try to live <em>inside</em> FreePBX or Asterisk.
+    This usually leads to:
+  </p>
+
+  <ul>
+    <li>Direct database changes</li>
+    <li>Custom dialplan hacks</li>
+    <li>PBX upgrades becoming risky</li>
+    <li>Hard-to-debug call failures ⚠️</li>
+  </ul>
+
+  <p>
+    Over time, the PBX becomes tightly coupled with business logic — and any change
+    feels dangerous.
+  </p>
+</section>
+
+<section>
+  <h2>MYLINEHUB’s Approach: Autodialer Outside the PBX</h2>
+
+  <p>
+    MYLINEHUB follows a different design philosophy:
+  </p>
+
+  <p><strong>FreePBX remains a PBX. MYLINEHUB becomes the autodialer.</strong></p>
+
+  <p>
+    Instead of embedding logic into FreePBX:
+  </p>
+
+  <ul>
+    <li>MYLINEHUB connects using <strong>AMI</strong></li>
+    <li>Dialing rules live outside the PBX</li>
+    <li>Campaigns and pacing are controlled centrally</li>
+    <li>FreePBX only handles call routing</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Autodialer Architecture with FreePBX</h2>
+
+  <svg viewBox="0 0 900 280" style="width:100%;height:auto;border:1px solid #e5e7eb;border-radius:16px;background:#0b1220">
+    <rect x="70" y="90" width="230" height="120" rx="18" fill="#334155" />
+    <text x="120" y="145" fill="#ffffff" font-size="16" font-weight="700">FreePBX</text>
+    <text x="100" y="170" fill="#cbd5f5" font-size="13">IVR • Queues • SIP</text>
+
+    <rect x="350" y="70" width="240" height="160" rx="18" fill="#22c55e" />
+    <text x="405" y="135" fill="#052e16" font-size="18" font-weight="800">MYLINEHUB</text>
+    <text x="380" y="160" fill="#052e16" font-size="13">Autodialer Engine</text>
+    <text x="385" y="180" fill="#052e16" font-size="13">Campaigns • Pacing • APIs</text>
+
+    <rect x="650" y="90" width="200" height="120" rx="18" fill="#2563eb" />
+    <text x="690" y="145" fill="#ffffff" font-size="16" font-weight="700">Agents</text>
+    <text x="675" y="170" fill="#e5e7eb" font-size="13">Browser Phone</text>
+
+    <line x1="300" y1="150" x2="350" y2="150" stroke="#ffffff" stroke-width="4" />
+    <line x1="590" y1="150" x2="650" y2="150" stroke="#ffffff" stroke-width="4" />
+
+    <text x="315" y="130" fill="#e5e7eb" font-size="12">AMI</text>
+    <text x="605" y="130" fill="#e5e7eb" font-size="12">Calls</text>
+  </svg>
+
+  <p style="font-size:13px;color:#6b7280">
+    Diagram: MYLINEHUB controls dialing while FreePBX focuses on call routing
+  </p>
+</section>
+
+<section>
+  <h2>What You Get with MYLINEHUB as a FreePBX Autodialer</h2>
+
+  <ul>
+    <li>Predictive, progressive, and preview dialing</li>
+    <li>Agent availability-aware dialing</li>
+    <li>Call pacing without PBX overload</li>
+    <li>Live monitoring and supervisor controls 👀</li>
+    <li>Browser-based agent phones (no softphone installs)</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Operational Benefits</h2>
+
+  <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:14px">
+      <thead>
+        <tr style="background:#f1f5f9">
+          <th style="padding:10px;border:1px solid #e5e7eb;text-align:left">Area</th>
+          <th style="padding:10px;border:1px solid #e5e7eb;text-align:left">Benefit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:10px;border:1px solid #e5e7eb">PBX stability</td>
+          <td style="padding:10px;border:1px solid #e5e7eb">No dialplan or DB modifications</td>
+        </tr>
+        <tr>
+          <td style="padding:10px;border:1px solid #e5e7eb">Scaling</td>
+          <td style="padding:10px;border:1px solid #e5e7eb">Add Asterisk servers independently</td>
+        </tr>
+        <tr>
+          <td style="padding:10px;border:1px solid #e5e7eb">Upgrades</td>
+          <td style="padding:10px;border:1px solid #e5e7eb">FreePBX upgrades remain safe</td>
+        </tr>
+        <tr>
+          <td style="padding:10px;border:1px solid #e5e7eb">Reporting</td>
+          <td style="padding:10px;border:1px solid #e5e7eb">Centralized and customizable</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Why This Is a Vicidial Alternative for FreePBX Users</h2>
+
+  <p>
+    Vicidial tightly couples dialing logic with Asterisk.
+    MYLINEHUB deliberately keeps them separate.
+  </p>
+
+  <p>
+    For FreePBX users, this means:
+  </p>
+
+  <ul>
+    <li>No migration away from FreePBX</li>
+    <li>No duplicate Asterisk stacks</li>
+    <li>Modern UI and APIs without re-architecting</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Key Takeaway</h2>
+
+  <p>
+    An autodialer should not compromise PBX stability.
+  </p>
+
+  <p>
+    MYLINEHUB gives FreePBX users a <strong>clean, scalable autodialer</strong>
+    — powerful enough for enterprise operations, simple enough to maintain ⚡
+  </p>
+</section>

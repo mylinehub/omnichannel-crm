@@ -1,0 +1,168 @@
+<div class="row componentLevelTable">
+
+    <div class="col-lg-6">
+        <nb-card size="large">
+                      
+            <nb-card-header>
+                <h6><button nbButton status="success"><nb-icon icon="star"></nb-icon></button><span>&nbsp;&nbsp;</span>Customer Info Received : {{ previewCustomerDataService.dateReceived}} <span>&nbsp;&nbsp;&nbsp;&nbsp;</span></h6>
+            </nb-card-header>
+            <div class="picture" style.background-image="url('assets/images/{{ imageURL }}.png')"></div>
+            <div class="details">
+                  <nb-card>
+                    <nb-card-body>
+                        <div class="description">
+                              <div class="row">
+                                <div class="col-sm-4">
+                                  <b>Name: </b>{{ previewCustomerDataService.currentRecord.firstname }}<span>&nbsp;</span>{{ previewCustomerDataService.currentRecord.lastname }}
+                                </div>
+                                <div class="col-sm-4">
+                                  <b>Phone: </b>{{ previewCustomerDataService.currentRecord.phoneNumber }}
+                                </div>
+                                <div class="col-sm-4">
+                                  <b>Email: </b>{{ previewCustomerDataService.currentRecord.email }}
+                                </div>
+                              </div>
+                          </div>
+                          <br class="notOnMobile">
+                          <div class="description">
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <b>Converted: </b>{{ previewCustomerDataService.currentRecord.coverted }}
+                              </div>
+                              <div class="col-sm-4 notOnMobile">
+                                <b>Zip: </b>{{ previewCustomerDataService.currentRecord.zipCode }}
+                              </div>
+                              <div class="col-sm-4 notOnMobile">
+                                <b>City: </b>{{ previewCustomerDataService.currentRecord.city }}
+                              </div>
+                            </div>
+                        </div>
+                        <br>
+                          <div class="description notOnMobile">
+                            <div class="row">
+                              <div class="col-sm-4 ">
+                                <b>Country: </b>{{ previewCustomerDataService.currentRecord.country }}
+                              </div>
+                              <div class="col-sm-8">
+                                <b>Business: </b>{{ previewCustomerDataService.currentRecord.business }}
+                              </div>
+                            </div>
+                        </div>
+        
+                    </nb-card-body> 
+                  </nb-card>
+            </div>
+          </nb-card>
+    </div>
+
+  
+  <div class="col-lg-6">
+    <nb-card size="large">
+                  
+        <nb-card-header>
+            <h6><button nbButton status="success"><nb-icon icon="thermometer-plus-outline"></nb-icon></button><span>&nbsp;&nbsp;</span>Additonal Information</h6>
+        </nb-card-header>
+        <div class="picture" style.background-image="url('assets/images/{{ addtionalInfoImageURL }}.png')"></div>
+        <div class="details">
+          <nb-card>
+            <nb-card-body>
+                <div class="description">
+                      <div class="row">
+                        <div class="col-sm-4 notOnMobile">
+                          <b>IsCalled: </b>{{ previewCustomerDataService.currentRecord.iscalledonce }}
+                        </div>
+                        <div class="col-sm-4 ">
+                          <b>Remind Call: </b>{{ previewCustomerDataService.currentRecord.remindercalling }}
+                        </div>
+                        <div class="col-sm-4">
+                          <b>Cron: </b>{{ previewCustomerDataService.currentRecord.cronremindercalling }}
+                        </div>
+                      </div>
+                  </div>
+                  <br class="notOnMobile">
+                  <div class="description notOnMobile">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <b>Type: </b>{{ previewCustomerDataService.currentRecord.datatype }}
+                      </div>
+                      <div class="col-sm-8">
+                        <b>Pesel: </b>{{ previewCustomerDataService.currentRecord.pesel }}
+                      </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+            </nb-card-body> 
+          </nb-card>
+        </div>
+
+      </nb-card>
+</div>
+
+
+<div class="col-lg-6">
+  <nb-card size="large" class ="nbCardHeightAdjustmentWithButton">
+      <nb-tabset fullWidth>
+    
+        <nb-tab tabTitle="Customer Image">
+          <div class="row">
+           <div class="col-lg-12">
+            <div class="d-flex align-items-center">
+              <div style="text-align: center;" class="container">
+                  <br><br>
+                  <nb-card>
+                      <nb-card-body>
+                        <img class="customerPicImg" nbTooltipStatus="primary" [src]="previewCustomerDataService.base64ImageData" alt="not found" width="350" height="400">
+                      </nb-card-body>
+                    </nb-card>
+              </div>
+            </div>
+          </div>
+      </div>
+        </nb-tab>
+
+      </nb-tabset>
+    </nb-card>
+    
+</div>
+
+<div class="col-lg-6">
+  <nb-card size="large">
+      <nb-card-header><span>&nbsp;&nbsp;&nbsp;<b>Actions</b></span></nb-card-header>
+      <nb-card-body>
+        
+        <div class="row">
+          <div class="col-lg12" *ngFor="let statusCard of statusCards">
+            <ngx-card [title]="statusCard.title" [type]="statusCard.type" [currentRecord] = "previewCustomerDataService.currentRecord" (parent)="getChildData($event)">
+              <i [ngClass]="statusCard.iconClass"></i>
+            </ngx-card>
+          </div>
+        </div>
+        <br>
+        <div>
+          <h6>FILL IN REMARKS</h6>
+          <textarea nbInput fullWidth placeholder="Remarks" [(ngModel)]="previewCustomerDataService.currentRecord.description"></textarea>
+          <button style="margin-top: 0.9375rem;" nbButton status="success" (click)="submitDescription()">Submit</button>
+        </div>
+
+      </nb-card-body>
+  </nb-card>   
+</div>
+
+</div>
+
+
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card size="large" class="nbCardHeightAdjustmentWithButtonForProduct">
+      <nb-card-header>
+        <span>&nbsp;&nbsp;&nbsp;<b>Product Interest <u><i>(Total - {{ previewCustomerDataService.interestedProductsLength }})</i></u></b></span>
+      </nb-card-header>
+      <nb-card-body>          
+        <ngx-image-corousel [interestedProducts] = "previewCustomerDataService.interestedProducts" [currentRecord] = "previewCustomerDataService.currentRecord" [base64InterestedProductImageData]="previewCustomerDataService.base64InterestedProductImageData">
+        </ngx-image-corousel>
+      </nb-card-body>
+      </nb-card>   
+    </div>
+</div>
+

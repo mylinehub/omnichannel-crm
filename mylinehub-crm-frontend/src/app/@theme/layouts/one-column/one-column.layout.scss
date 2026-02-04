@@ -1,0 +1,86 @@
+@import '../../styles/themes';
+@import 'bootstrap/scss/mixins/breakpoints';
+@import '@nebular/theme/styles/global/breakpoints';
+
+@include nb-install-component() {
+  .menu-sidebar ::ng-deep .scrollable {
+    padding-top: nb-theme(layout-padding-top);
+  }
+}
+
+
+::ng-deep nb-layout-footer{
+  position: sticky;
+  bottom: 0; /* Sticks to the very top of the viewport */
+  z-index: 5; /* Ensure it stays above other content */
+  height:1%;
+}
+
+
+::ng-deep nb-layout-footer.footerAnimation {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  height: 8%;
+  z-index: 1000;
+  overflow: hidden;
+  transition: height 0.4s ease;
+  animation: shrinkFooter 0.4s ease 3s forwards; // Shrink after 3s
+  cursor: pointer;
+}
+
+::ng-deep nb-layout-footer.footerAnimation:hover,
+::ng-deep nb-layout-footer.footerAnimation:active {
+  height: 8% !important; // Restore height on hover or click
+  animation: none; // Cancel animation when interacted with
+}
+
+// Keyframes to shrink height from 8% to 1%
+@keyframes shrinkFooter {
+  to {
+    height: 0.3%;
+  }
+}
+
+
+  // ::ng-deep nb-sidebar.menu-sidebar {
+  //   z-index: 20000 !important;
+  // }
+
+  ::ng-deep nb-sidebar {
+
+    .main-container {
+      background-color: nb-theme(background-basic-color-1);
+      bottom: 0;
+      }
+    }
+
+// html, body, nb-layout {
+//   height: 100%;
+//   margin: 0;
+//   padding: 0;
+// }
+
+// ::ng-deep nb-layout {
+//   height: 100%;
+// }
+
+// ::ng-deep nb-sidebar.menu-sidebar {
+//   position: relative !important;
+//   height: auto !important;
+//   max-height: 97.5% !important;
+//   overflow: hidden !important;
+//   z-index: 20000 !important;
+
+//   .main-container {
+//     height: auto !important;
+//     max-height: 97.5% !important;
+//     overflow-y: auto !important;
+//   }
+
+//   .scrollable {
+//     height: auto !important;
+//     max-height: 97.5% !important;
+//     overflow-y: auto !important;
+//   }
+// }

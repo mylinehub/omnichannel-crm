@@ -1,0 +1,13 @@
+<nb-card class="dialog-card componentLevelZoom" accent="info">
+    <nb-card-header>Download Progress : {{ fileStorageService.multipleFileDownloadStatus.loaded }}MB / {{ fileStorageService.multipleFileDownloadStatus.total }}MB</nb-card-header>
+    <nb-card-body>
+        <div class="container">
+            <nb-progress-bar [value]="fileStorageService.multipleFileDownloadStatus.percent" [status]="status" [displayValue]="true"></nb-progress-bar>
+          </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton outline status="danger" (click)="dismiss('')">Close</button>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <button nbButton outline status="danger" (click)="cancel()">Cancel</button>
+    </nb-card-footer>
+</nb-card>

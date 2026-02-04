@@ -1,0 +1,11 @@
+.env
+.env.*
+*.key
+*.pem
+application-prod.properties
+application-prod.yml
+node_modules/
+dist/
+build/
+.target/
+.venv/

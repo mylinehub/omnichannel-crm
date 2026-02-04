@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/mylinehub_email
+    username: postgres
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        hbm2ddl:
+          auto: update
+
+logging:
+  level:
+    root: INFO
+    com.mylinehub.aiemail: INFO
+
+server:
+  port: 9090

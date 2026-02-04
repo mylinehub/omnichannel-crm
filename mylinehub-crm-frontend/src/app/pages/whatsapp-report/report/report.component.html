@@ -1,0 +1,298 @@
+<ng-container *ngIf="showDashboard">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <nb-accordion>
+        <nb-accordion-item>
+          <nb-accordion-item-header>📥 Loading & Reporting Instructions</nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <p><strong>Billing Note:</strong> The displayed amount reflects WhatsApp usage only. Telecom billing is handled separately.</p>
+
+            <br>
+
+            <h6>📝 <strong>Key Points:</strong></h6>
+            <ul style="list-style-type: none; padding-left: 0;">
+              <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">
+                📈 Graphs show up to 5 phone numbers linked to your organization. Use the selection bar to filter further.
+              </li>
+              <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">
+                📊 Contact support for custom reports or analytics.
+              </li>
+              <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">
+                🗃️ Reports are archived every 3 months. Reach out for older data access.
+              </li>
+            </ul>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+
+
+        <nb-accordion-item>
+            <nb-accordion-item-header>📞 Contact Support</nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <ul style="list-style-type: none; padding-left: 0;">
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">
+                  <p><strong>Need help?</strong> Click the following 
+                    <a [href]="whatsAppSupportlink" target="_blank" rel="noopener">support link</a> 
+                    to connect with us via WhatsApp.
+                  </p>
+                </li>
+              </ul>
+              
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+    </div>
+</div>
+<br>
+
+  <div class="row">
+   <div class="col-lg-12">
+    <nb-card>
+        <nb-card-header>
+          <div class="row">
+            <div class="col-lg-7">
+                <h5 style="letter-spacing: 0.1875rem;">Commulative Account Balance</h5>
+            </div>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <div class="row">
+             <div class="col-lg-3 col-sm-6 col-xs-6 totalAmountSpace">
+            <nb-card>
+                <nb-card-header style="text-align: center;"><h5>Total (INR)</h5></nb-card-header>
+                <nb-card-body>
+                <div style="display: flex; align-items: center; justify-content: center;"><h4>{{ totalAmount }}</h4></div>
+                </nb-card-body>
+            </nb-card>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-xs-6 totalAmountSpace">
+            <nb-card>
+                <nb-card-header style="text-align: center;"><h5>Spend (INR)</h5></nb-card-header>
+                <nb-card-body>
+                <div style="display: flex; align-items: center; justify-content: center;"><h4>{{ totalSpend }}</h4></div>
+                </nb-card-body>
+            </nb-card>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-xs-6">
+            <nb-card>
+                <nb-card-header style="text-align: center;"><h5>Remaining (INR)</h5></nb-card-header>
+                <nb-card-body>
+                <div style="display: flex; align-items: center; justify-content: center;"><h4>{{ totalAmount-totalSpend }}</h4></div>
+                </nb-card-body>
+            </nb-card>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-xs-6">
+            <nb-card>
+                <nb-card-header style="text-align: center;"><h5>Last Recharged Date</h5></nb-card-header>
+                <nb-card-body>
+                <div style="display: flex; align-items: center; justify-content: center;"><h4>{{ lastRecharged }}</h4></div>
+                </nb-card-body>
+            </nb-card>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+   </div>   
+  </div>
+  
+  <div class="row">
+   <div class="col-lg-12">
+    <nb-card>
+          <nb-card-header>
+            <div class="row">
+              <div class="col-lg-7">
+                  <h5 style="letter-spacing: 0.0625rem;"><mark>Step-1:</mark> Select Whats App Numbers</h5>
+              </div>
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+
+              <div class="row d-flex align-items-left">
+                <nb-form-field style="width: 100%;">
+                    <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+                    <input #autoMultipleNumberInput
+                    nbInput
+                    fullWidth
+                    type="text"
+                    class="searchAllNumberInput"
+                    (input)="onMultipleChange()"
+                    placeholder="Select Phone Number To Compare Stats"
+                    [nbAutocomplete]="autoCompleteNumber" />
+              
+                  <nb-autocomplete #autoCompleteNumber (selectedChange)="onMultipleSelectionChange($event)">
+                        <nb-option *ngFor="let option of whatsappReportDataServiceService.filteredOptions$ | async; let j = index;" [value]="option.phoneNumber">
+                          <div class="searchParticipantOption">
+                            ☎️ {{ option.phoneNumber }}
+                          </div>
+                        </nb-option>
+                  </nb-autocomplete>
+                  </nb-form-field>
+              </div>
+              <br>
+
+              <nb-tag-list fullWidth [size]="tagSetSize" (tagRemove)="onTagRemove($event)">
+                <nb-tag *ngFor="let tree of trees" [text]="tree" [removable]="trees.length > 0"></nb-tag>
+              </nb-tag-list>
+              
+              <div><br></div>
+
+             <div class="row">
+              <div class="col-lg-6">
+                <nb-card>
+                    <nb-card-header>
+                      <div class="row">
+                        <div id="bulkUploadButton" class="col-lg-7">
+                            <h5 style="letter-spacing: 0.3125rem;"><mark>Step-2:</mark> Select Date Range</h5>
+                        </div>
+                        <div id="refreshDashboard" class="col-lg-5 notOnMobile">
+                            <div class="d-flex align-items-center">
+                            <div style="text-align: center;" class="container">
+                                <button nbButton shape="round" size="small" status="success" (click)="refreshDashboard()">Refresh Dashboard</button>  
+                            </div>
+                            </div>
+                        </div>
+                      </div>
+                    </nb-card-header>
+                    <nb-card-body>
+                      <nb-button-group  [size]="dateSelectionSize" (valueChange)="updateSelectedRangeValue($event)">
+                        <button nbButtonToggle pressed value="Today">Today</button>
+                        <button nbButtonToggle value="Yesterday">Yesterday</button>
+                        <button nbButtonToggle value="Week">Week</button>
+                        <button nbButtonToggle value="Month">Month</button>
+                        <button nbButtonToggle value="Quater">Quater</button>
+                        <button nbButtonToggle value="Year">Year</button>
+                      </nb-button-group>
+                    </nb-card-body>
+                  </nb-card>
+              </div>   
+                <div class="col-lg-3">
+                <nb-card>
+                    <nb-card-header><h5>Amount Spend</h5></nb-card-header>
+                    <nb-card-body>
+                      <div style="display: flex; align-items: center; justify-content: left;"><h4>{{ totalAmountSpend }}</h4></div>
+                    </nb-card-body>
+                  </nb-card>
+              </div>
+
+                <div class="col-lg-3">
+                <nb-card>
+                    <nb-card-header><h5>Media Send (MB)</h5></nb-card-header>
+                    <nb-card-body>
+                      <div style="display: flex; align-items: center; justify-content: left;"><h4>{{ totalMediaSizeSendMB }}</h4></div>
+                    </nb-card-body>
+                  </nb-card>
+              </div>
+              </div> 
+
+              <div class="row">
+
+              <div class="col-lg-3">
+                <nb-card>
+                    <nb-card-header><h5>Messages Received</h5></nb-card-header>
+                    <nb-card-body>
+                      <div style="display: flex; align-items: center; justify-content: left;"><h4>{{ totalMessagesReceived }}</h4></div>
+                    </nb-card-body>
+                  </nb-card>
+              </div>
+
+              <div class="col-lg-3">
+                <nb-card>
+                    <nb-card-header><h5>Total - {{ totalMessagesDelivered+totalMessagesFailed+totalMessagesDeleted }}</h5></nb-card-header>
+                    <nb-card-body>
+                        <div style="display: flex; align-items: left; justify-content: left;">
+                          <div class="col-lg-3"> <b>Delivered</b> <br> {{ totalMessagesDelivered }} </div>
+                          <div class="col-lg-4" style="margin-left: 1.8750rem;"> <b>Failed</b> <br> {{ totalMessagesFailed }} </div>
+                          <div class="col-lg-3" style="margin-left: 1.8750rem;"> <b>Deleted</b> <br> {{ totalMessagesDeleted }} </div>
+                        </div>
+                    </nb-card-body>
+                  </nb-card>
+              </div>
+                
+              
+              <div class="col-lg-3">
+                <nb-card>
+                    <nb-card-header><h5>AI Tokens Send</h5></nb-card-header>
+                    <nb-card-body>
+                      <div style="display: flex; align-items: center; justify-content: left;"><h4>{{ totalTokenSend }}</h4></div>
+                    </nb-card-body>
+                  </nb-card>
+              </div>
+
+              <div class="col-lg-3">
+                <nb-card>
+                    <nb-card-header><h5>AI Token Received</h5></nb-card-header>
+                    <nb-card-body>
+                      <div style="display: flex; align-items: center; justify-content: left;"><h4>{{ totalTokenReceived }}</h4></div>
+                    </nb-card-body>
+                  </nb-card>
+              </div>
+              </div>
+          </nb-card-body>
+    </nb-card>
+  </div>   
+  </div>
+
+
+
+  <div class="row">
+   <div class="col-lg-12">
+    <nb-card>
+          <nb-card-header>
+            <div class="row">
+              <div class="col-lg-6">
+                  <h5 style="letter-spacing: 0.0625rem;"><mark>Step-3:</mark> Select Message Stats</h5>
+              </div>
+              <div class="col-lg-6">
+                  <nb-button-group  [size]="statsTypeSelectionSize" (valueChange)="updateSelectedStatsValue($event)">
+                        <button nbButtonToggle pressed value="Engagement">Engagement</button>
+                        <button nbButtonToggle value="Inbound">Inbound</button>
+                        <button nbButtonToggle value="Outbound">Outbound</button>
+                  </nb-button-group>
+              </div>
+            </div>
+          </nb-card-header>
+    </nb-card>
+  </div>   
+  </div>
+
+ 
+  <div class="row">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Pie</nb-card-header>
+        <nb-card-body>
+           <ngx-echarts-pie [ledgendData]="ngxPieLegend" [data]="ngxPieData" [seriesName]="selectedStatsType"></ngx-echarts-pie>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Bar Graph</nb-card-header>
+        <nb-card-body>
+           <ngx-echarts-bar [ledgendData]="ngxBarLegend" [data]="ngxBarData" [seriesName]="selectedStatsType"></ngx-echarts-bar>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Line</nb-card-header>
+        <nb-card-body>
+           <ngx-echarts-line [ledgendData]="ngxLineLegend" [xAxisData]="ngxLineXAxisData" [data]="ngxLineData"></ngx-echarts-line>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Area Stack</nb-card-header>
+        <nb-card-body>
+          <ngx-echarts-area-stack [ledgendData]="ngxAreaStackLegend" [xAxisData]="ngxAreaStackXAxisData" [data]="ngxAreaStackData"></ngx-echarts-area-stack>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+
+
+</ng-container>

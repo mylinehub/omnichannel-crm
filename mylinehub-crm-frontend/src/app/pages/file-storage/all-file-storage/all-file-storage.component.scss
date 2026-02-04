@@ -1,0 +1,563 @@
+@import '../../../@theme/styles/themes';
+@import 'bootstrap/scss/mixins/breakpoints';
+@import '@nebular/theme/styles/global/breakpoints';
+
+@import '~@nebular/theme/styles/globals';
+
+
+
+@include nb-install-component() {
+
+  
+
+::ng-deep {
+
+  ngx-d3-bar,
+  ngx-d3-pie,
+  ngx-charts-advanced-pie-chart{
+    display: block;
+    width: 100%;
+    height: nb-theme(card-height-small-1);
+
+    ::ng-deep {
+      .pie-label {
+        fill: nb-theme(text-basic-color);
+      }
+
+      text {
+        fill: nb-theme(text-hint-color);
+      }
+
+      .chart-legend {
+        .legend-labels {
+          background: nb-theme(background-basic-color-2);
+        }
+        .legend-label {
+          color: nb-theme(text-hint-color);
+          .active .legend-label-text {
+            color: nb-theme(text-basic-color);
+          }
+        }
+      }
+
+      .total-value,
+      .item-value,
+      .item-percent {
+        line-height: 1.25;
+      }
+
+      .legend-items {
+        overflow-y: hidden;
+      }
+    }}
+  
+  
+
+  nb-layout-column {
+    height: 80vw;
+  }
+
+  button + button {
+    margin-left: 1rem;
+  }
+
+  .dialog-card {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+
+  @media (min-width: 40rem) {
+    .dialog-card {
+      width: 30rem;
+    }
+  }
+
+  .picture {
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    border-top-left-radius: nb-theme(card-border-radius);
+    border-top-right-radius: nb-theme(card-border-radius);
+    flex: 1;
+  }
+
+  .details {
+    padding: nb-theme(card-padding);
+  }
+
+  .description {
+    text-align: justify;
+  }
+
+  nb-card-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: left;
+  }
+
+  nb-card-body{
+    overflow-x: hidden;
+  }
+ }
+
+ .folder-container {
+    padding: 1rem;
+    cursor: pointer;
+    height: 10rem; 
+    width: 10rem;
+  }
+  
+  .file{
+    width:100%;
+    height:100%;
+    padding: 1rem;
+    display :flex;
+  }
+
+  .file-bg-1{
+    background: nb-theme(background-basic-color-1);
+    //box-shadow: 0.0313rem 0.0313rem 0.0625rem nb-theme(text-basic-color);
+  }
+
+  .file-bg-2{
+    background: nb-theme(background-basic-color-2);
+    //box-shadow: 0.0313rem 0.0313rem 0.0625rem nb-theme(text-basic-color);
+  }
+
+  .file-search{
+    width:100%;
+    height:100%;
+    display :flex;
+  }
+
+  .file-header{
+    width:100%;
+    height:100%;
+    display :flex;
+    //box-shadow: 0.0313rem 0.0313rem 0.0625rem nb-theme(text-basic-color);
+  }
+
+  .file-left-icon{
+    position: relative;
+    height:0.4375rem;
+    width:0.6250rem;
+    float: left;
+    margin-top: 0.2500rem;
+    left:-0.8%;
+  }
+
+
+  .file-left-icon-button{
+    height:0.6250rem;
+    width:100%;
+    color: nb-theme(text-basic-color);
+  }
+
+  .file-left{
+    height:1.8750rem;
+    width:35%;
+    float: left;
+  }
+
+  .file-left-size{
+    height:1.8750rem;
+    width:10%;
+    float: left;
+  }
+  
+  .file-middle{
+    height:1.8750rem;
+    width:25%;
+    float: left;
+  }
+  
+  
+  .file-right{
+    height:1.8750rem;
+    width:30%;
+    float:left;
+  }
+
+  .individualDownloadButton{
+    padding-bottom: 1.5rem !important; 
+  }
+
+  .individualDeleteButton{
+    margin-left: 0px;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .file-left-search{
+    height:1.8750rem;
+    width:35%;
+    float: left;
+  }
+
+  .file-left-size-search{
+    height:1.8750rem;
+    width:10%;
+    float: left;
+    padding-left: 0.2500rem;
+    padding-right: 0.2500rem;
+  }
+  
+  .file-middle-search{
+    height:1.8750rem;
+    width:25%;
+    float: left;
+  }
+
+  .file-right-search{
+    height:1.8750rem;
+    width:30%;
+    float:left;
+  }
+
+  .file-right-inside-search{
+    position: relative;
+    left:30%;
+  }
+
+  .file-left-inner{
+    position: relative;
+    top:16%;
+  }
+  
+  .file-left-size-inner{
+    position: relative;
+    top:16%;
+  }
+
+  .file-middle-inner{
+    position: relative;
+    top:20%;
+  }
+
+  .file-right-inner{
+    position: relative;
+    left:35%;
+    bottom:18%;
+  }
+
+
+  .file-left-header{
+    height:1.8750rem;
+    width:35%;
+    float: left;
+    border: 0.1250rem solid nb-theme(text-hint-color);
+    border-radius: 0 0.1875rem 0.1875rem 0.1875rem;
+    //box-shadow: 0.0313rem 0.0313rem 0.0625rem nb-theme(text-basic-color);
+  }
+
+  .file-left-size-header{
+    height:1.8750rem;
+    width:10%;
+    float: left;
+    border: 0.1250rem solid nb-theme(text-hint-color);
+    border-radius: 0 0.1875rem 0.1875rem 0.1875rem;
+    //box-shadow: 0.0313rem 0.0313rem 0.0625rem nb-theme(text-basic-color);
+  }
+  
+  .file-middle-header{
+    height:1.8750rem;
+    width:25%;
+    float: left;
+    border: 0.1250rem solid nb-theme(text-hint-color);
+    border-radius: 0 0.1875rem 0.1875rem 0.1875rem;
+    //box-shadow: 0.0313rem 0.0313rem 0.0625rem nb-theme(text-basic-color);
+  }
+  
+  .file-right-header{
+    height:1.8750rem;
+    width:30%;
+    float:left;
+    border: 0.1250rem solid nb-theme(text-hint-color);
+    border-radius: 0 0.1875rem 0.1875rem 0.1875rem;
+    //box-shadow: 0.0313rem 0.0313rem 0.0625rem nb-theme(text-basic-color);
+  }
+
+
+//   .folder {
+//     width: 10rem;
+//     height: 5rem;
+//     margin: 0 auto;
+//     margin-top: 0.0000rem;
+//     position: relative;
+//     background-color: #708090;
+//     border-radius: 0 0.3750rem 0.3750rem 0.3750rem;
+//     box-shadow: 0.2500rem 0.2500rem 0.4375rem rgba(0, 0, 0, 0.59);
+//   }
+
+
+
+.upperPathItem:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+ .folder-text {
+    width:100%;
+    height:25%;
+    border: 0.1250rem solid nb-theme(text-hint-color);
+    border-radius: 0 0.1875rem 0.1875rem 0.1875rem;
+    box-shadow: 0.0000rem 0.0000rem 0.0000rem nb-theme(text-basic-color);
+    }
+
+ .folder-text-inner{
+          position: relative;
+          top:17%,
+    }
+
+  .folder-image {
+    width:100%;
+    height:75%;
+    border: 0.1250rem solid nb-theme(text-hint-color);
+    border-radius: 0 0.1875rem 0.1875rem 0.1875rem;
+    box-shadow: 0.0000rem 0.0000rem 0.0000rem nb-theme(text-basic-color);
+    }
+
+}
+
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 0.0625rem;
+  margin: -0.0625rem;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 0.0625rem;
+}
+
+
+//Mobile devices
+@media (max-width: 22.8000rem) {
+  ::ng-deep {
+
+    .folderManagementCard nb-card-body,
+    .fileManagementCard nb-card-body {
+      padding-left: 0px;;
+    }
+
+    .folderManagementCard > nb-card-body > nb-actions > nb-action,
+    .fileManagementCard > nb-card-body > nb-actions > nb-action{
+      padding-left: 0.3rem;
+      padding-right: 0.3rem;
+    }
+
+    .folderManagementCard > nb-card-body > nb-actions > nb-action > nb-action,
+    .fileManagementCard > nb-card-body > nb-actions > nb-action > nb-action{
+      padding-left: 0.3rem;
+      padding-right: 0.3rem;
+    }
+
+    .upperPath {
+        font-size: 80%; // 20% smaller than 100%
+      }
+
+    .allFoldersCard nb-card-body {
+      padding-left:0.0rem;
+    }
+
+    .folder-container {
+      height: 7.5rem !important; 
+      width: 7.5rem  !important;
+    }
+
+    .file-left-header,
+    .file-left-search,
+    .file-left {
+        width:65% !important ;
+      }
+      
+    .file-right-header,
+    .file-right-search,
+    .file-right{
+        width:35% !important;
+      }
+
+    .fileTableSearch,
+    .fileTableHeader{
+      font-size: 80%;
+    }
+
+    .select-all-checkbox > label > span.text{
+      padding-left: 0.2rem;
+    }
+
+    .file-right-inside-search{
+        top:10% !important;
+        left:15% !important;
+      }
+    
+    .fileListCard > nb-card-body{
+      padding: 0px;
+    }
+
+    .file-left-inner{
+      font-size: 80%;
+    }
+
+    .mobileFileRow{
+      font-size: 70% !important;
+    }
+
+  }
+
+}
+
+//Mobile devices
+@media (min-width: 22.81rem) and (max-width: 27.5000rem) {
+  ::ng-deep {
+
+    .folderManagementCard nb-card-body,
+    .fileManagementCard nb-card-body {
+      padding-left: 0px;;
+    }
+
+    .folderManagementCard > nb-card-body > nb-actions > nb-action,
+    .fileManagementCard > nb-card-body > nb-actions > nb-action{
+      padding-left: 0.4rem;
+      padding-right: 0.4rem;
+    }
+
+    .folderManagementCard > nb-card-body > nb-actions > nb-action > nb-action,
+    .fileManagementCard > nb-card-body > nb-actions > nb-action > nb-action{
+      padding-left: 0.4rem;
+      padding-right: 0.4rem;
+    }
+
+    .upperPath {
+        font-size: 80%; // 20% smaller than 100%
+      }
+
+    .allFoldersCard nb-card-body {
+      padding-left:0.5rem;
+    }
+
+    .folder-container {
+      height: 8rem !important; 
+      width: 8rem  !important;
+    }
+
+
+    .file-left-header,
+    .file-left-search,
+    .file-left {
+        width:65% !important ;
+      }
+      
+    .file-right-header,
+    .file-right-search,
+    .file-right{
+        width:35% !important;
+      }
+
+    .fileTableSearch,
+    .fileTableHeader{
+      font-size: 80%;
+    }
+
+    nb-checkbox > label > span.text{
+      padding-left: 0.2rem;
+    }
+
+    .file-right-inside-search{
+        top:10% !important;
+        left:15% !important;
+      }
+
+        
+    .fileListCard > nb-card-body{
+      padding: 0px;
+    }
+
+    .file-left-inner{
+      font-size: 80%;
+    }
+
+    .mobileFileRow{
+      font-size: 70% !important;
+    }
+
+    }
+}
+
+//Mobile devices
+@media (min-width: 27.5625rem) and (max-width: 34.3750rem){
+  ::ng-deep {
+    .folderManagementCard nb-card-body,
+    .fileManagementCard nb-card-body {
+      padding-left: 0px;;
+    }
+
+    .folderManagementCard > nb-card-body > nb-actions > nb-action,
+    .fileManagementCard > nb-card-body > nb-actions > nb-action{
+      padding-left: 0.4rem;
+      padding-right: 0.4rem;
+    }
+
+    .folderManagementCard > nb-card-body > nb-actions > nb-action > nb-action,
+    .fileManagementCard > nb-card-body > nb-actions > nb-action > nb-action{
+      padding-left: 0.4rem;
+      padding-right: 0.4rem;
+    }
+
+    .upperPath {
+      font-size: 80%; // 20% smaller than 100%
+    }
+
+    .allFoldersCard nb-card-body {
+      padding-left:0.5rem;
+    }
+
+    .folder-container {
+      height: 8rem !important; 
+      width: 8rem  !important;
+    }
+
+
+    .file-left-header,
+    .file-left-search,
+    .file-left {
+        width:65% !important ;
+      }
+      
+    .file-right-header,
+    .file-right-search,
+    .file-right{
+        width:35% !important;
+      }
+
+    .fileTableSearch,
+    .fileTableHeader{
+      font-size: 80%;
+    }
+
+    nb-checkbox > label > span.text{
+      padding-left: 0.2rem;
+    }
+
+    .file-right-inside-search{
+        top:10% !important;
+        left:15% !important;
+      }
+
+        
+    .fileListCard > nb-card-body{
+      padding: 0px;
+    }
+
+    .file-left-inner{
+      font-size: 80%;
+    }
+
+    .mobileFileRow{
+      font-size: 70% !important;
+    }
+
+  }
+}
+

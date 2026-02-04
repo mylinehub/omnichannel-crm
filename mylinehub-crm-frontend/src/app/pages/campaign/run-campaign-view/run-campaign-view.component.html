@@ -1,0 +1,393 @@
+<!-- ============================================================
+FILE: run-campaign-view.component.html
+============================================================ -->
+
+<!-- Top: Campaign + Run selectors -->
+<div class="row componentLevelZoom">
+  <div class="col-sm-6">
+    <nb-card>
+      <nb-card-header>Campaign</nb-card-header>
+      <nb-card-body>
+        <nb-select
+          fullWidth
+          placeholder="Select Campaign"
+          [(selected)]="selectedCampaignUi"
+          (selectedChange)="onCampaignChange($event)">
+          <nb-option [value]="null">-- Select Campaign --</nb-option>
+          <nb-option *ngFor="let id of campaignIds" [value]="id">{{ id }}</nb-option>
+        </nb-select>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-sm-6">
+    <nb-card>
+      <nb-card-header>
+        <span>Run</span>&nbsp;&nbsp;
+        <button
+          nbButton
+          size="tiny"
+          status="success"
+          outline
+          [disabled]="selectedCampaignId == null || selectedRunId == null"
+          (click)="downloadSelectedRunExcel()">
+          📥 Excel
+        </button>
+        &nbsp;  
+        <button
+          *ngIf="campaignInfo?.autodialertype === 'AI_CALL'"
+          nbButton
+          size="tiny"
+          status="success"
+          outline
+          [disabled]="selectedCampaignId == null || selectedRunId == null"
+          (click)="downloadSelectedRunRecording()">
+          📥 Recordings
+        </button>
+
+      </nb-card-header>
+      <nb-card-body>
+        <nb-select
+          fullWidth
+          placeholder="Select Run"
+          [(selected)]="selectedRunUi"
+          [disabled]="selectedCampaignId == null"
+          (selectedChange)="onRunChange($event)">
+          <nb-option [value]="null">-- Select Run --</nb-option>
+          <nb-option *ngFor="let id of runIds" [value]="id">{{ id }}</nb-option>
+        </nb-select>
+
+        <div *ngIf="!selectedCampaignId" style="margin-top: 8px; color:#8f9bb3;">
+          Select a campaign to enable run selection.
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<!-- Campaign Details (after campaign selection) -->
+<div class="row componentLevelZoom" *ngIf="selectedCampaignId != null">
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>Campaign Details</nb-card-header>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-sm-3">
+            <nb-card status="info" style="height: 7rem;">
+              <nb-card-header>Autodialer Type</nb-card-header>
+              <nb-card-body>{{ campaignInfo?.autodialertype || 'N/A' }}</nb-card-body>
+            </nb-card>
+          </div>
+
+          <div class="col-sm-3">
+            <nb-card status="success" style="height: 7rem;">
+              <nb-card-header>Manager ID</nb-card-header>
+              <nb-card-body>{{ campaignInfo?.managerId ?? 'N/A' }}</nb-card-body>
+            </nb-card>
+          </div>
+
+          <div class="col-sm-3">
+            <nb-card status="warning" style="height: 7rem;">
+              <nb-card-header>Last Updated</nb-card-header>
+              <nb-card-body>{{ campaignInfo?.lastUpdatedOn || campaignInfo?.lastUpdatedAt || 'N/A' }}</nb-card-body>
+            </nb-card>
+          </div>
+
+          <div class="col-sm-3">
+            <nb-card status="primary" style="height: 7rem;">
+              <nb-card-header>Parallel Lines</nb-card-header>
+              <nb-card-body>{{ campaignInfo?.parallelLines ?? 'N/A' }}</nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-sm-6" style="color:#8f9bb3;">
+            <b>Campaign ID:</b> {{ selectedCampaignId }}
+            <span style="margin-left:16px;"><b>Runs:</b> {{ runIds?.length || 0 }}</span>
+          </div>
+          <div class="col-sm-6" style="text-align:right; color:#8f9bb3;">
+            <span *ngIf="campaignInfoError" style="color:#d9534f;">{{ campaignInfoError }}</span>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+
+<!-- Selected Run Status Summary (ONLY when Campaign+Run selected and has data) -->
+ <div class="row" style="margin-top: 14px;" *ngIf="hasSelectedCountsOrData()">
+  <div class="col-lg-12">
+    <nb-card status="basic">
+      <nb-card-header>Selected Run - State Summary</nb-card-header>
+      <nb-card-body>
+
+        <div class="row" style="margin-bottom: 8px;">
+          <div class="col-sm-3">
+            <b>Campaign Name:</b> {{ selectedCampaignName || 'N/A' }}
+          </div>
+          <div class="col-sm-3">
+            <b>Run Date:</b> {{ selectedCampaignRunDate || 'N/A' }}
+          </div>
+          <div class="col-sm-3">
+            <b>Total Dialed:</b> {{ selectedTotalDialed || 0 }}
+          </div>
+          <div class="col-sm-3">
+            <b>Total Cost:</b> {{ selectedTotalCost || 0 }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3" *ngFor="let c of selectedCountsList">
+            <b>{{ c.key }}:</b> {{ c.value }}
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<!-- ===========================
+TABLE B: SELECTED RUN (HISTORY)
+=========================== -->
+<div class="row componentLevelZoom">
+  <div class="col-sm-4">
+    <nb-card>
+      <nb-card-header>Selected Run - Global Search</nb-card-header>
+      <nb-card-body>
+        <nb-form-field style="width: 100%;">
+          <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+          <input
+            #selectedSearchName
+            id="selectedSearchName"
+            (input)="onSelectedSearchTextChange()"
+            type="text"
+            nbInput
+            fullWidth
+            shape="rectangle"
+            placeholder=""
+            [(ngModel)]="selectedSearchString">
+        </nb-form-field>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-sm-2">
+    <nb-card>
+      <nb-card-header>Selected Run # of pages</nb-card-header>
+      <nb-card-body>
+        <div style="display:flex;align-items:center;justify-content:center;">
+          <h4>{{ selectedTotalPages }}</h4>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-sm-3">
+    <nb-card>
+      <nb-card-header>Page Size</nb-card-header>
+      <nb-card-body>
+        <nb-form-field style="width:100%;">
+          <nb-icon nbPrefix icon="layers-outline"></nb-icon>
+          <input
+            nbInput
+            fullWidth
+            type="number"
+            min="1"
+            step="1"
+            [(ngModel)]="selectedPageSizeUi"
+            (ngModelChange)="onSelectedPageSizeChange()"
+            (blur)="onSelectedPageSizeBlur()"
+            placeholder="Page Size" />
+        </nb-form-field>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-sm-3">
+    <nb-card>
+      <nb-card-header>Selected Run - Page Number</nb-card-header>
+      <nb-card-body>
+        <nb-form-field style="width: 100%;">
+          <nb-icon nbPrefix icon="hash-outline" pack="eva"></nb-icon>
+          <input
+            #selectedAutoPageNumber
+            id="selectedAutoPageNumber"
+            nbInput
+            fullWidth
+            type="text"
+            placeholder="Page Number"
+            [(ngModel)]="selectedPageNumberUi"
+            (ngModelChange)="onSelectedPageNumberChange()"
+            (blur)="onSelectedPageNumberBlur()"
+            (keydown)="verifyNumericConstraint($event)" />
+        </nb-form-field>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row componentLevelTable">
+  <div class="col-lg-12">
+    <nb-card class="classname">
+      <nb-card-header>
+        <div class="row">
+          <div class="col-sm-12">
+            <h1>Selected Run (History)</h1>
+            <div style="color:#8f9bb3; font-size: 12px;">
+              DB-only (stable pagination). Loads only when both Campaign + Run are selected.
+            </div>
+          </div>
+        </div>
+      </nb-card-header>
+
+      <nb-card-body>
+        <div class="row">
+          <ng2-smart-table
+            [settings]="selectedTableSettings"
+            [source]="selectedSource"
+            id="selectedRunTable">
+          </ng2-smart-table>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-sm-6" style="color:#8f9bb3;">
+            <span *ngIf="!selectedCampaignId">Select a campaign to enable runs.</span>
+            <span *ngIf="selectedCampaignId && !selectedRunId">Select a run to load history logs.</span>
+          </div>
+          <div class="col-sm-6" style="text-align:right;">
+            <span *ngIf="selectedLoadError" style="color:#d9534f;">{{ selectedLoadError }}</span>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<!-- ===========================
+TABLE A: CURRENT RUN (LIVE)
+=========================== -->
+<div class="row componentLevelZoom">
+  <div class="col-sm-4">
+    <nb-card>
+      <nb-card-header>Current Run - Global Search</nb-card-header>
+      <nb-card-body>
+        <nb-form-field style="width: 100%;">
+          <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+          <input
+            #currentSearchName
+            id="currentSearchName"
+            (input)="onCurrentSearchTextChange()"
+            type="text"
+            nbInput
+            fullWidth
+            shape="rectangle"
+            placeholder=""
+            [(ngModel)]="currentSearchString">
+        </nb-form-field>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-sm-2">
+    <nb-card>
+      <nb-card-header>Current Run # of pages</nb-card-header>
+      <nb-card-body>
+        <div style="display:flex;align-items:center;justify-content:center;">
+          <h4>{{ currentTotalPages }}</h4>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-sm-3">
+    <nb-card>
+      <nb-card-header>Page Size</nb-card-header>
+      <nb-card-body>
+        <nb-form-field style="width:100%;">
+          <nb-icon nbPrefix icon="layers-outline"></nb-icon>
+          <input
+            nbInput
+            fullWidth
+            type="number"
+            min="1"
+            step="1"
+            [(ngModel)]="currentPageSizeUi"
+            (ngModelChange)="onCurrentPageSizeChange()"
+            (blur)="onCurrentPageSizeBlur()"
+            placeholder="Page Size" />
+        </nb-form-field>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+
+  <div class="col-sm-3">
+    <nb-card>
+      <nb-card-header>Current Run - Page Number</nb-card-header>
+      <nb-card-body>
+        <nb-form-field style="width: 100%;">
+          <nb-icon nbPrefix icon="hash-outline" pack="eva"></nb-icon>
+          <input
+            #currentAutoPageNumber
+            id="currentAutoPageNumber"
+            nbInput
+            fullWidth
+            type="text"
+            placeholder="Page Number"
+            [(ngModel)]="currentPageNumberUi"
+            (ngModelChange)="onCurrentPageNumberChange()"
+            (blur)="onCurrentPageNumberBlur()"
+            (keydown)="verifyNumericConstraint($event)" />
+        </nb-form-field>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row componentLevelTable">
+  <div class="col-lg-12">
+    <nb-card class="classname">
+      <nb-card-header>
+        <div class="row">
+          <div class="col-sm-12">
+            <h1>Current Run (Live - {{ runNumber }})
+              <button
+                nbButton
+                size="tiny"
+                status="success"
+                outline
+                [disabled]="!selectedCampaignId || currentLoading"
+                (click)="refreshCurrentLiveTable()">
+                Refresh
+              </button>
+            </h1>
+
+            <div style="color:#8f9bb3; font-size: 12px;">
+              Memory overlay snapshot of current running campaign ({{ selectedCampaignId }})
+            </div>
+          </div>
+        </div>
+      </nb-card-header>
+
+      <nb-card-body>
+        <div class="row">
+          <ng2-smart-table
+            [settings]="currentTableSettings"
+            [source]="currentSource"
+            id="currentRunTable">
+          </ng2-smart-table>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-sm-6" style="color:#8f9bb3;">
+            <span *ngIf="!selectedCampaignId">Select a campaign to load current run logs.</span>
+          </div>
+          <div class="col-sm-6" style="text-align:right;">
+            <span *ngIf="currentLoadError" style="color:#d9534f;">{{ currentLoadError }}</span>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

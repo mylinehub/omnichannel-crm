@@ -1,0 +1,187 @@
+[
+  {
+    "slug": "crm-telecom-api-integration-mylinehub",
+    "title": "Connecting Your CRM with the Power of Telecom Using APIs",
+    "category": "Telecom",
+    "tags": [
+      "crm-telecom-integration",
+      "telecom-api",
+      "call-center-api",
+      "whatsapp-api",
+      "on-premise-autodialer",
+      "asterisk"
+    ],
+    "excerpt": "Learn how modern teams connect CRM systems with Calls, WhatsApp, and contact center operations using APIs — without cloud lock-in or loss of data ownership.",
+    "datePublished": "2026-02-03",
+    "dateModified": "2026-02-03",
+    "author": "MYLINEHUB Team",
+    "readingTime": "10 min",
+    "published": true,
+    "featuredImage": "/images/hero-premium-onprem.png",
+    "contentHtml": "/data/articles/html/crm-telecom-api-integration-mylinehub.html"
+  },
+  {
+    "slug": "loosely-coupled-multi-asterisk-architecture-mylinehub",
+    "title": "Loosely Coupled Architecture: How MYLINEHUB Controls Multiple Asterisk Servers Cleanly",
+    "category": "Telecom",
+    "tags": [
+      "multi-asterisk",
+      "loosely-coupled-architecture",
+      "asterisk-autodialer",
+      "on-premise-contact-center",
+      "freepbx",
+      "vicidial-alternative"
+    ],
+    "excerpt": "Understand why loosely coupled architecture matters in modern contact centers and how MYLINEHUB controls multiple Asterisk servers without tight dependency or performance bottlenecks.",
+    "datePublished": "2026-02-03",
+    "dateModified": "2026-02-03",
+    "author": "MYLINEHUB Team",
+    "readingTime": "9 min",
+    "published": true,
+    "featuredImage": "/images/hero-multi-asterisk.png",
+    "contentHtml": "/data/articles/html/loosely-coupled-multi-asterisk-architecture-mylinehub.html"
+  },
+  {
+    "slug": "freepbx-mylinehub-integration-flow",
+    "title": "FreePBX + MYLINEHUB Integration Flow: Keeping Telephony Clean While Scaling Operations",
+    "category": "Telecom",
+    "tags": [
+      "freepbx",
+      "asterisk-integration",
+      "on-premise-autodialer",
+      "contact-center-architecture",
+      "crm-telecom-integration",
+      "vicidial-alternative"
+    ],
+    "excerpt": "Learn how MYLINEHUB integrates with FreePBX using a clean, non-intrusive approach—keeping IVRs and queues stable while enabling advanced dialing, CRM workflows, and reporting.",
+    "datePublished": "2026-02-03",
+    "dateModified": "2026-02-03",
+    "author": "MYLINEHUB Team",
+    "readingTime": "8 min",
+    "published": true,
+    "featuredImage": "/images/hero-freepbx-integration.png",
+    "contentHtml": "/data/articles/html/freepbx-mylinehub-integration-flow.html"
+  },
+  {
+    "slug": "autodialer-for-freepbx-mylinehub",
+    "title": "Autodialer for FreePBX → MYLINEHUB: Clean Integration Without Complexity",
+    "category": "Telecom",
+    "tags": [
+      "freepbx-autodialer",
+      "on-premise-autodialer",
+      "asterisk-dialer",
+      "vicidial-alternative",
+      "contact-center-architecture"
+    ],
+    "excerpt": "Discover how MYLINEHUB works as a powerful autodialer for FreePBX—without modifying PBX internals or adding operational complexity.",
+    "datePublished": "2026-02-03",
+    "dateModified": "2026-02-03",
+    "author": "MYLINEHUB Team",
+    "readingTime": "8 min",
+    "published": true,
+    "featuredImage": "/images/hero-freepbx-autodialer.png",
+    "contentHtml": "/data/articles/html/autodialer-for-freepbx-mylinehub.html"
+  },
+  {
+    "slug": "sim-based-vs-server-based-autodialer",
+    "title": "SIM-Based vs Server-Based Autodialer: Choosing the Right Dialing Architecture",
+    "category": "Telecom",
+    "tags": [
+      "sim-based-autodialer",
+      "server-based-autodialer",
+      "asterisk-dialer",
+      "on-premise-autodialer",
+      "call-center-architecture"
+    ],
+    "excerpt": "A practical comparison of SIM-based and server-based autodialers—covering architecture, scalability, compliance, costs, and which business size each model truly fits.",
+    "datePublished": "2026-02-03",
+    "dateModified": "2026-02-03",
+    "author": "MYLINEHUB Team",
+    "readingTime": "9 min",
+    "published": true,
+    "featuredImage": "/images/hero-sim-vs-server.png",
+    "contentHtml": "/data/articles/html/sim-based-vs-server-based-autodialer.html"
+  },
+  {
+    "slug": "what-is-omnichannel-crm",
+    "title": "What Is Omnichannel CRM? Meaning, Benefits & How It Works",
+    "category": "CRM",
+    "tags": [
+      "omnichannel-crm",
+      "omnichannel",
+      "crm",
+      "whatsapp",
+      "contact-center"
+    ],
+    "excerpt": "Omnichannel CRM connects calls, WhatsApp, email, and support workflows into one customer timeline—so teams respond faster, automate follow-ups, and report accurately.",
+    "datePublished": "2026-02-03",
+    "dateModified": "2026-02-03",
+    "author": "MYLINEHUB Team",
+    "readingTime": "9 min",
+    "published": true,
+    "featuredImage": "/images/omnichannel-crm-hero.png",
+    "contentHtml": "/data/articles/html/what-is-omnichannel-crm.html"
+  },
+  {
+    "slug": "omnichannel-vs-multichannel",
+    "title": "Omnichannel vs Multichannel: What’s the Difference and Which One Do You Need?",
+    "category": "CRM",
+    "tags": [
+      "omnichannel",
+      "multichannel",
+      "crm",
+      "customer-experience",
+      "contact-center"
+    ],
+    "excerpt": "Multichannel means you operate on many channels. Omnichannel means all channels share the same customer context. Learn the differences, examples, and the right choice for your business size.",
+    "datePublished": "2026-02-03",
+    "dateModified": "2026-02-03",
+    "author": "MYLINEHUB Team",
+    "readingTime": "8 min",
+    "published": true,
+    "featuredImage": "/images/omnichannel-vs-multichannel.png",
+    "contentHtml": "/data/articles/html/omnichannel-vs-multichannel.html"
+  },
+  {
+    "slug": "what-is-cpaas",
+    "title": "What Is CPaaS? Meaning, Examples, Pros and Limitations",
+    "category": "Telecom",
+    "tags": [
+      "cpaas",
+      "cloud-telephony",
+      "telecom-api",
+      "voice-api",
+      "whatsapp-api"
+    ],
+    "excerpt": "CPaaS (Communications Platform as a Service) provides cloud APIs for voice and messaging. Learn what it is, where it fits, and where CPaaS-only setups hit limits for contact centers.",
+    "datePublished": "2026-02-03",
+    "dateModified": "2026-02-03",
+    "author": "MYLINEHUB Team",
+    "readingTime": "8 min",
+    "published": true,
+    "featuredImage": "/images/what-is-cpaas.png",
+    "contentHtml": "/data/articles/html/what-is-cpaas.html"
+  },
+  {
+    "slug": "exotel-vs-ozonetel-vs-mylinehub",
+    "title": "Exotel vs Ozonetel vs MYLINEHUB: Omnichannel, CPaaS and Autodialer Architecture Compared",
+    "category": "Telecom",
+    "tags": [
+      "exotel",
+      "ozonetel",
+      "cpaas",
+      "omnichannel-crm",
+      "autodialer",
+      "asterisk",
+      "contact-center"
+    ],
+    "excerpt": "A practical, architecture-first comparison of Exotel, Ozonetel, and MYLINEHUB—focused on CPaaS vs contact-center control layers, omni-channel workflows, on-prem/hybrid options, and Asterisk compatibility.",
+    "datePublished": "2026-02-03",
+    "dateModified": "2026-02-03",
+    "author": "MYLINEHUB Team",
+    "readingTime": "10 min",
+    "published": true,
+    "featuredImage": "/images/exotel-ozonetel-mylinehub-comparison.png",
+    "contentHtml": "/data/articles/html/exotel-vs-ozonetel-vs-mylinehub.html"
+  }
+]

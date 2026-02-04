@@ -1,0 +1,331 @@
+@use '@nebular/theme/styles/globals' as *;
+
+.modal-open { overflow-y: hidden; }
+
+:host {
+  $auth-layout-padding: 2.5rem;
+
+  nb-card {
+    margin: 0;
+    height: calc(100vh - 2 * #{$auth-layout-padding});
+  }
+
+     #backButton {
+        position: sticky;
+        top: 7%;
+        left: 10%;
+        margin-left: 10%;
+        z-index: 200;
+        animation: tickey 0.6s ease-in-out;
+      }
+
+      @keyframes tickey {
+        0% { transform: translateY(-10%); opacity: 0; }
+        50% { transform: translateY(3%); opacity: 1; }
+        100% { transform: translateY(0); }
+      }
+
+  .navigation .link {
+    display: inline-block;
+    text-decoration: none;
+
+    nb-icon {
+      font-size: 2rem;
+      vertical-align: middle;
+    }
+  }
+
+  .links nb-icon {
+    font-size: 2.5rem;
+  }
+
+  nb-card-body {
+    display: flex;
+    width: 100%;
+  }
+
+  nb-auth-block {
+    margin: auto;
+  }
+
+
+  ::ng-deep .input-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+::ng-deep .input-container input {
+  padding-right: 0.5rem;
+}
+
+::ng-deep .password-icon {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+  @include media-breakpoint-down(sm) {
+    nb-card {
+      border-radius: 0;
+      height: 100vh;
+    }
+  }
+
+  ::ng-deep {
+    nb-layout .layout .layout-container .content .columns nb-layout-column {
+      padding: $auth-layout-padding;
+
+      @include media-breakpoint-down(sm) {
+        padding: 0;
+      }
+    }
+
+     nb-card-body.registerBody{
+    height:9.3750rem;
+    }
+    
+  }
+}
+
+
+/* Background animation remains same */
+.bg {
+  animation: slide 3s ease-in-out infinite alternate;
+  background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+  bottom: 0;
+  left: -50%;
+  opacity: 0.4;
+  position: fixed;
+  right: -50%;
+  top: 0;
+  z-index: -1;
+}
+
+.bg2 {
+  animation-direction: alternate-reverse;
+  animation-duration: 4s;
+}
+.bg3 {
+  animation-duration: 5s;
+}
+
+/* Main content wrapper */
+.content {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 3rem 2rem;
+  max-width: 600px;
+  width: 90%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Error message */
+.errorSpan {
+  display: block;
+  color: #fff;
+  background-color: #e53935;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Headings inside each step */
+.mobileHeading {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  color: #2c3e50;
+}
+
+/* Paragraph under headings */
+.lorem {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+/* Hide on mobile if needed */
+.notOnMobile {
+  display: block;
+}
+
+
+h1 {
+  font-family:monospace;
+}
+
+@keyframes slide {
+  0% {
+    transform:translateX(-25%);
+  }
+  100% {
+    transform:translateX(25%);
+  }
+}
+
+
+
+//Mobile devices
+@media (max-width: 22.5999rem) {
+  ::ng-deep {
+
+    .notOnMobile{
+          display:none;
+    }
+
+    .componentLevelZoomForAuthForm {
+    transform: scale(0.88);
+    transform-origin: top left;
+    width: 113.6364%;   /* 100 / 0.88 */
+    height: 113.6364%;
+    display: inline-block;
+  }
+
+  
+  .componentLevelZoomFormMargin{
+    margin-left:6%;
+  }
+
+     .componentLevelZoomForAuth {
+      transform: scale(0.7);
+      transform-origin: top left;
+      width: 142.8571%;  /* 100 / 0.7 */
+      height: 142.8571%;
+      display: inline-block;
+    }
+
+    .componentLevelZoomMargin{
+           margin-left:3.5%;
+         margin-top: 35%;
+        }
+    }
+}
+
+//Mobile devices
+@media (min-width: 22.6rem) and (max-width: 24.5000rem) {
+  ::ng-deep {
+
+    .notOnMobile{
+          display:none;
+    }
+
+    .componentLevelZoomForAuthForm {
+    transform: scale(0.88);
+    transform-origin: top left;
+    width: 113.6364%;   /* 100 / 0.88 */
+    height: 113.6364%;
+    display: inline-block;
+  }
+
+  
+  .componentLevelZoomFormMargin{
+    margin-left:6%;
+  }
+
+     .componentLevelZoomForAuth {
+      transform: scale(0.7);
+      transform-origin: top left;
+      width: 142.8571%;  /* 100 / 0.7 */
+      height: 142.8571%;
+      display: inline-block;
+    }
+
+    .componentLevelZoomMargin{
+        margin-left:7%;
+         margin-top: 35%;
+        }
+    }
+}
+
+//Mobile devices
+@media (min-width: 24.5001rem) and (max-width: 33.0000rem){
+::ng-deep {
+
+  .notOnMobile{
+          display:none;
+    }
+      
+     
+
+  .componentLevelZoomForAuthForm {
+    transform: scale(0.88);
+    transform-origin: top left;
+    width: 113.6364%;   /* 100 / 0.88 */
+    height: 113.6364%;
+    display: inline-block;
+  }
+
+  
+  .componentLevelZoomFormMargin{
+    margin-left:6%;
+  }
+
+  .componentLevelZoomForAuth {
+  transform: scale(0.7);
+  transform-origin: top left;
+  width: 142.8571%;  /* 100 / 0.7 */
+  height: 142.8571%;
+  display: inline-block;
+}
+
+  
+  .componentLevelZoomMargin{
+    margin-left:17.5%;
+    margin-top: 35%;
+  }
+}
+}
+
+//Mobile devices
+@media (min-width: 33.0001rem) and (max-width: 34.3750rem){
+::ng-deep {
+
+  .notOnMobile{
+          display:none;
+    }
+
+    .componentLevelZoomForAuthForm {
+    transform: scale(0.88);
+    transform-origin: top left;
+    width: 113.6364%;   /* 100 / 0.88 */
+    height: 113.6364%;
+    display: inline-block;
+  }
+
+  
+  .componentLevelZoomFormMargin{
+    margin-left:6%;
+  }
+
+  .componentLevelZoomForAuth {
+  transform: scale(0.7);
+  transform-origin: top left;
+  width: 142.8571%;  /* 100 / 0.7 */
+  height: 142.8571%;
+  display: inline-block;
+}
+
+
+  
+  .componentLevelZoomMargin{
+    margin-left:20%;
+    margin-top: 35%;
+  }
+  
+}
+}
+
+

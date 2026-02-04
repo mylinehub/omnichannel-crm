@@ -1,0 +1,52 @@
+::ng-deep [role=tab] {
+    color: black;
+    background-color: #0080FF;
+    margin: 0.1875rem;
+    padding: 0.6250rem 1.0625rem;
+    border-style: 0.1250rem solid
+}
+
+
+
+
+::ng-deep .cron-editor-container {
+
+    margin-top: 1.8750rem;
+
+}
+
+
+::ng-deep .well{
+
+    margin-top: 0.5000rem;
+
+}
+
+
+// //Mobile devices
+// @media (max-width: 25.0000rem) {
+//   ::ng-deep {
+//       .componentLevelZoomCron{
+//         zoom:47%;
+//       }
+// }
+// }
+
+
+// //Mobile devices
+// @media (min-width: 25.0625rem) and (max-width: 27.5000rem) {
+//   ::ng-deep {
+//       .componentLevelZoomCron{
+//         zoom:53%;
+//       }
+// }
+// }
+
+// //Mobile devices
+// @media (min-width: 27.5625rem) and (max-width: 34.3750rem){
+//     ::ng-deep {
+//         .componentLevelZoomCron{
+//             zoom:56%;
+//         }
+//     }
+// }

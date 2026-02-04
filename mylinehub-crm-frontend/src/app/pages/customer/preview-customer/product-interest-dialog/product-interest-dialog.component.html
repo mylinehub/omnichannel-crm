@@ -1,0 +1,14 @@
+<nb-card class="componentLevelZoom">
+    <nb-card-header>{{ heading }}</nb-card-header>
+    <nb-card-body>
+      <nb-select multiple placeholder="Select Products" [(selected)]="selectedProductList" style="width:15.6250rem;">
+          <nb-option *ngFor="let data of allProducts; let i = index;"  [value]="data.id" selected>{{ data.name }}</nb-option>
+      </nb-select>
+
+      <br>
+    </nb-card-body>
+    <nb-card-footer>
+      <button class="cancel" nbButton status="danger" (click)="cancel()">Cancel</button><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <button nbButton status="success" (click)="submit()">Submit</button>
+    </nb-card-footer>
+  </nb-card>

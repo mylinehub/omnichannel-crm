@@ -1,0 +1,82 @@
+
+.input-item{
+    margin-top: 0.6250rem;
+    margin-bottom: 0.6250rem;
+}
+
+// .input-container{
+//     background-color: greenyellow;
+// }
+
+.mandatory-asterisk{
+    position: absolute;
+    left:90%;
+}
+
+
+
+
+//Mobile devices
+@media (max-width: 22.8000rem) {
+    .input-container{
+        font-size: 75%;
+    }
+
+    .inputAttachFileWidth{
+        width: 12rem;
+        font-size: 90%;
+    }
+
+    .inputWidth{
+        width: 15rem;
+    }
+
+    .mandatory-asterisk{
+        position: absolute;
+        left:83%;
+    }
+
+}
+
+//Mobile devices
+@media (min-width: 22.81rem) and (max-width: 27.5000rem) {
+    .input-container{
+        font-size: 80%;
+    }
+
+    .inputAttachFileWidth{
+        width: 14rem;
+        font-size: 90%;
+    }
+
+    .inputWidth{
+        width: 17.5rem;
+    }
+
+    .mandatory-asterisk{
+        position: absolute;
+        left:85%;
+    }
+}
+
+
+//Mobile devices
+@media (min-width: 27.5625rem) and (max-width: 34.3750rem){
+    .input-container{
+        font-size: 88%;
+    }
+
+    .inputAttachFileWidth{
+        width: 15rem;
+    }
+
+    .inputWidth{
+        width: 19rem;
+    }
+
+    .mandatory-asterisk{
+        position: absolute;
+        left:87%;
+    }
+
+}

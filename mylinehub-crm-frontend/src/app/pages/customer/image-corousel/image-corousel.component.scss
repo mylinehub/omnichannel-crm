@@ -1,0 +1,128 @@
+
+.outerCarousel{
+    width:100%;
+    height:100%;
+    overflow: hidden;
+    // display:inline-flex;
+    // align-items: center;
+    // justify-content: center;
+}
+
+.moveButtons{
+  margin-left: 40%;
+}
+
+.carousel {
+    width: 48.1250rem; /* ❶ */
+    height: 50.0000rem;
+    margin-left: 1%;
+    overflow: hidden; /* ❷ */
+  }
+  
+  .inner {
+    white-space: nowrap; /* ❸ */
+  }
+  
+  .card {
+    width: 15.6250rem;
+    margin-right: 0.6250rem;
+    display: inline-flex;
+  
+    /* optional */
+    height: 17.8125rem;
+    // background-color: #39b1bd;
+    // color: white;
+    border-radius: 0.2500rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+//   .inner {
+//     transition: transform 0.2s; /* ❹ */
+//     /* ... */
+//   }
+  
+  /* optional */
+  button {
+    margin-right: 0.3125rem;
+    margin-top: 0.6250rem;
+  }
+
+
+//   //Mobile devices
+// @media (max-width: 27.5000rem) {
+//   ::ng-deep {
+
+//       .extraPaddingForMobile{
+//         padding-top: 0.2500rem;
+//         padding-bottom: 0.2500rem;
+//       }
+
+//       .extraPaddingForCourosel{
+//           padding-top: 10%;
+//         }
+
+//       .notOnMobile{
+//         display:none;
+//       }
+
+//       .componentLevelTopGraph{
+//         zoom:60%;
+//       }
+
+//       .componentLevelTable{
+//         zoom:70%;
+//       }
+
+//       .componentLevelZoom{
+//         zoom:75%;
+//       }
+
+//       .componentLevelZoom80{
+//         zoom:80%;
+//       }
+
+//       nb-card.nbCardHeightAdjustment{
+//         height: 23.1250rem;
+//       }
+//     }
+// }
+
+// //Mobile devices
+// @media (min-width: 27.5625rem) and (max-width: 34.3750rem){
+
+//   .extraPaddingForMobile{
+//     padding-top: 0.2500rem;
+//     padding-bottom: 0.2500rem;
+//   }
+
+//   .extraPaddingForCourosel{
+//           padding-top: 10%;
+//         }
+
+//   .notOnMobile{
+//     display:none;
+//   }
+
+//   .componentLevelTopGraph{
+//         zoom:60%;
+//       }
+
+//   .componentLevelTable{
+//         zoom:72%;
+//       }
+
+
+//   .componentLevelZoom{
+//     zoom:70%;
+//   }
+
+//   .componentLevelZoom80{
+//         zoom:80%;
+//       }
+      
+//   nb-card.nbCardHeightAdjustment{
+//     height: 23.1250rem;
+//   }
+// }
+

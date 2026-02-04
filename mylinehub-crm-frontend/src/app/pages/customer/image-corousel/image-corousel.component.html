@@ -1,0 +1,50 @@
+<!-- <nb-tabset fullWidth>
+            <nb-tab   *ngFor="let data of interestedProducts; let k = index;" tabTitle="{{ k  }}">
+              <div class="row">
+               <div class="col-lg-12">
+                <div class="d-flex align-items-center">
+                  <div style="text-align: center;" class="container">
+                      <br><br>
+                      <nb-card>
+                          <nb-card-header>
+                            {{ data.name }} 
+                          </nb-card-header>
+                          <nb-card-body>
+                            <img [src]= "base64InterestedProductImageData[k]" alt="not found" width="250" height="300">
+                          </nb-card-body>
+                        </nb-card>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </nb-tab>
+</nb-tabset> -->
+
+<div id="outerCarousel" class="outerCarousel">
+  <br>
+  <div class="moveButtons">
+    <!-- <button (click)="prev()">prev</button>
+    <button (click)="next()">next</button> -->
+    <button id="prev" nbButton status="danger" (click)="prev()"><nb-icon icon="arrow-back-outline"></nb-icon></button>
+    <button id="next" nbButton status="danger" (click)="next()"><nb-icon icon="arrow-forward-outline"></nb-icon></button>
+  </div>
+  <br>
+  <br>
+  <div class="carousel extraPaddingForCourosel" id="carousel">
+    <div class="inner" id="inner" [style.transform]="innerTransform" [style.transition]="innerTransition">
+      <div class="card" *ngFor="let product of interestedProducts; let i = index;" id="card-{{ i }}">
+        <div class="cardImage">
+          <img class="productCorouselCardImage" [src]= "base64InterestedProductImageData[i]" alt="not found" width="250" height="285">
+        </div>
+        <br>
+        <div class="cardText">
+          {{ product.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ 
+ 

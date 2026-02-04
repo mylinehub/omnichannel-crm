@@ -1,0 +1,217 @@
+<ng-container *ngIf="showDashboard">
+
+  <div class="row">
+  <div class="col-lg-12">
+      <nb-accordion>
+         <nb-accordion-item>
+            <nb-accordion-item-header>🗺️ Employee Calls Comparison</nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <p><strong>Start by Selecting Employees:</strong><br>
+                Initially, the graphs display the first 5 employees, maximum — even if more are available.
+              </p>
+              <br>
+
+              <h6><strong>📌 How to Use the Call Overview:</strong></h6>
+              <ul style="list-style-type: none; padding-left: 0;">
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">👥 Choose employees & date range to compare</li>
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">📊 Explore interactive graphs</li>
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">🎭 Click on an employee name in the graph to hide their stats</li>
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">⏱️ Use time-based filters for deeper insights</li>
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">📞 Contact our team for custom reports or charts</li>
+              </ul>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+
+          <nb-accordion-item>
+            <nb-accordion-item-header>📞 Contact Support</nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <ul style="list-style-type: none; padding-left: 0;">
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">
+                  <p><strong>Need help?</strong> Click the following 
+                    <a [href]="whatsAppSupportlink" target="_blank" rel="noopener">support link</a> 
+                    to connect with us via WhatsApp.
+                  </p>
+                </li>
+              </ul>
+              
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+
+      </nb-accordion>
+  </div>
+</div>
+<br>
+
+   <div>
+    <nb-card>
+      <nb-card-header>
+          <div class="row">
+            <div id="bulkUploadButton" class="col-lg-7">
+                <h5 style="letter-spacing: 0.3125rem;"><mark>Step-1:</mark> Select Employees</h5>
+            </div>
+          </div>
+        </nb-card-header>
+      <nb-card-body>
+          <div class="row d-flex align-items-left">
+            <nb-form-field style="width: 100%;">
+                <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+                <input #autoMultipleEmployeeInput
+                nbInput
+                fullWidth
+                type="text"
+                class="searchAllParticipantsInput"
+                (input)="onMultipleChange()"
+                placeholder="Select Employee To Compare"
+                [nbAutocomplete]="autoCompleteCall" />
+          
+              <nb-autocomplete #autoCompleteCall (selectedChange)="onMultipleSelectionChange($event)">
+          
+                    <nb-option *ngFor="let option of messageListDataService.multipleFilteredCallOptions$ | async; let j = index;" [value]="option.extension">
+                      <div class="searchParticipantOption" *ngIf="option?.firstName !== undefined">
+                        <nb-user *ngIf="option.iconImageData != null"
+                                  [name]="option?.firstName.trim() + ' '+option?.lastName.trim()"
+                                  [onlyPicture]="false"
+                                  [showInitials]="true"
+                                  [picture]="'data:image/'+option?.imageType+';base64,'+option?.iconImageByteData | replace:'/image':''">
+                        </nb-user>
+                        <nb-user *ngIf="option.iconImageData == null"
+                                  [name]="option?.firstName.trim() + ' '+option?.lastName.trim()"
+                                  [onlyPicture]="false"
+                                  [showInitials]="true">
+                        </nb-user>
+                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ option.extension }} - {{ option.role }}
+                      </div>
+                    </nb-option>
+              </nb-autocomplete>
+              </nb-form-field>
+          </div>
+          <br>
+
+          <nb-tag-list fullWidth [size]="tagSetSize" (tagRemove)="onTagRemove($event)">
+            <nb-tag *ngFor="let tree of trees" [text]="tree" [removable]="trees.length > 0"></nb-tag>
+          </nb-tag-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="row">
+   <div class="col-lg-6">
+    <nb-card>
+        <nb-card-header>
+          <div class="row">
+            <div id="bulkUploadButton" class="col-lg-7">
+                <h5 style="letter-spacing: 0.3125rem;"><mark>Step-2:</mark> Select Date Range</h5>
+            </div>
+            <div id="refreshDashboard" class="col-lg-5 notOnMobile">
+                <div class="d-flex align-items-center">
+                <div style="text-align: center;" class="container">
+                    <button nbButton shape="round" size="small" status="success" (click)="refreshDashboard()">Refresh Dashboard</button>  
+                </div>
+                </div>
+            </div>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <nb-button-group [size]="dateSelectionSize" (valueChange)="updateSelectedRangeValue($event)">
+            <button nbButtonToggle pressed value="Today">Today</button>
+            <button nbButtonToggle value="Yesterday">Yesterday</button>
+            <button nbButtonToggle value="Week">Week</button>
+            <button nbButtonToggle value="Month">Month</button>
+            <button nbButtonToggle value="Quater">Quater</button>
+            <button nbButtonToggle value="Year">Year</button>
+          </nb-button-group>
+        </nb-card-body>
+      </nb-card>
+   </div>   
+
+   <div class="col-lg-2">
+     <nb-card>
+        <nb-card-header><h5>Funds (INR)</h5></nb-card-header>
+        <nb-card-body>
+            <div style="display: flex; align-items: left; justify-content: left;">
+              <div> <b>Total</b> <br> {{ totalAmount }} </div>
+              <div style="margin-left: 1.8750rem;"> <b>Spend</b> <br> {{ totalSpend }} </div>
+            </div>
+        </nb-card-body>
+      </nb-card>
+   </div>
+
+   <div class="col-lg-2">
+      <nb-card>
+        <nb-card-header><h5>Total Calls - {{ totalCalls }}</h5></nb-card-header>
+        <nb-card-body>
+            <div style="display: flex; align-items: left; justify-content: left;">
+              <div> <b>Incoming</b> <br> {{ incomingCalls }} </div>
+              <div style="margin-left: 1.8750rem;"> <b>Outgoing</b> <br> {{ outgoingCalls }} </div>
+            </div>
+        </nb-card-body>
+      </nb-card>
+   </div>
+
+   <div class="col-lg-2">
+      <nb-card>
+        <nb-card-header><h5>Calls Stats</h5></nb-card-header>
+        <nb-card-body>
+            <div style="display: flex; align-items: left; justify-content: left;">
+              <div> <b>Patched</b> <br> {{ connectedCalls }} </div>
+              <div style="margin-left: 1.8750rem;"> <b>Converted</b> <br> {{ converted }} </div>
+            </div>
+        </nb-card-body>
+      </nb-card>
+   </div>
+
+  </div> 
+
+
+  <div class="row">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Pie</nb-card-header>
+        <nb-card-body>
+          <ngx-echarts-pie [ledgendData]="ngxPieLegend" [data]="ngxPieData"></ngx-echarts-pie>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Bar Graph</nb-card-header>
+        <nb-card-body>
+          <ngx-echarts-bar [ledgendData]="ngxBarLegend" [data]="ngxBarData"></ngx-echarts-bar>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Line</nb-card-header>
+        <nb-card-body>
+          <ngx-echarts-line [ledgendData]="ngxLineLegend" [xAxisData]="ngxLineXAxisData" [data]="ngxLineData"></ngx-echarts-line>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Area Stack</nb-card-header>
+        <nb-card-body>
+          <ngx-echarts-area-stack [ledgendData]="ngxAreaStackLegend" [xAxisData]="ngxAreaStackXAxisData" [data]="ngxAreaStackData"></ngx-echarts-area-stack>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <!-- <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Bar Animation</nb-card-header>
+        <nb-card-body>
+          <ngx-echarts-bar-animation></ngx-echarts-bar-animation>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Multiple x-axis</nb-card-header>
+        <nb-card-body>
+          <ngx-echarts-multiple-xaxis></ngx-echarts-multiple-xaxis>
+        </nb-card-body>
+      </nb-card>
+    </div> -->
+  </div>
+</ng-container>

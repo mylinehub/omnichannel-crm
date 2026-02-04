@@ -1,0 +1,239 @@
+<ng-container *ngIf="showDashboard">
+
+    <div class="row">
+      <div class="col-lg-12">
+          <nb-accordion>
+            <nb-accordion-item>
+              <nb-accordion-item-header>🧭Track Calls Instructions</nb-accordion-item-header>
+              <nb-accordion-item-body>
+                <p><strong>🚀 Before You Start:</strong>  
+                  Lets discuss how you can make <strong>best use of</strong> this page.
+                </p>
+                <br>
+
+                <h6><strong>✅ Steps to Use the Call Tracker:</strong></h6>
+                <ul style="list-style-type: none; padding-left: 0;">
+                  <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">🔍 <strong>Global Search & Date Range</strong> lets you instantly find recent call records using any keyword.</li>
+                  <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">⚡ The page is <strong>backend-paginated</strong> for faster performance — even with millions of records.</li>
+                  <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">📑 Choose how many records to display with the <strong>entries-per-page</strong> setting.</li>
+                  <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">📥 Downloads only include your <strong>current view</strong>. For full data access, use our <strong>backend APIs</strong>.</li>
+                  <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">💾 To support high-volume traffic, we maintain <strong>in-memory data storage</strong> on our servers.</li>
+                  <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">🕒 <strong>Chat History</strong> shows data older than 1 hour. For recent activity, check the <strong>in-memory records</strong> section.</li>
+                  <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">📈 Charts in the dashboard reflect <strong>Chat History</strong> only — they don’t include in-memory data.</li>
+                  <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">🤝 For custom needs or integrations, please reach out to <strong>Support</strong>.</li>
+                </ul>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+          </nb-accordion>
+      </div>
+    </div>
+    <br>
+
+  <div class="row componentLevelZoom">
+   <div class="col-lg-6">
+    <nb-card class="componentLevelZoomForDaySelection">
+        <nb-card-header>
+          <div class="row">
+            <div id="bulkUploadButton" class="col-lg-7">
+                <h5 style="letter-spacing: 0.3125rem;"><mark>Step-1:</mark> Select Date Range</h5>
+            </div>
+            <div id="refreshDashboard" class="col-lg-5 notOnMobile">
+                <div class="d-flex align-items-center">
+                <div style="text-align: center;" class="container">
+                    <button nbButton shape="round" size="small" status="success" (click)="refreshDashboard()">Refresh Dashboard</button>  
+                </div>
+                </div>
+            </div>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <nb-button-group [size]="dateSelectionSize" (valueChange)="updateSelectedRangeValue($event)">
+            <button nbButtonToggle pressed value="Today">Today</button>
+            <button nbButtonToggle value="Yesterday">Yesterday</button>
+            <button nbButtonToggle value="Week">Week</button>
+            <button nbButtonToggle value="Month">Month</button>
+            <button nbButtonToggle value="Quater">Quater</button>
+            <button nbButtonToggle value="Year">Year</button>
+          </nb-button-group>
+        </nb-card-body>
+      </nb-card>
+   </div>   
+   <div class="col-lg-2">
+    <nb-card>
+        <nb-card-header><h5>Total Calls - {{ totalCalls }}</h5></nb-card-header>
+        <nb-card-body>
+            <div style="display: flex; align-items: left; justify-content: left;">
+              <div> <b>Incoming</b> <br> {{ incomingCalls }} </div>
+              <div style="margin-left: 1.8750rem;"> <b>Outgoing</b> <br> {{ outgoingCalls }} </div>
+            </div>
+        </nb-card-body>
+      </nb-card>
+   </div>
+
+   <div class="col-lg-2">
+    <nb-card>
+        <nb-card-header><h5>Patched Calls</h5></nb-card-header>
+        <nb-card-body>
+          <div style="display: flex; align-items: center; justify-content: center;"><h4>{{ connectedCalls }}</h4></div>
+        </nb-card-body>
+      </nb-card>
+   </div>
+
+   <div class="col-lg-2">
+    <nb-card>
+        <nb-card-header><h5>Converted</h5></nb-card-header>
+        <nb-card-body>
+          <div style="display: flex; align-items: center; justify-content: center;"><h4>{{ converted }}</h4></div>
+        </nb-card-body>
+      </nb-card>
+   </div>
+  </div> 
+
+
+  <div class="row componentLevelZoom">
+    <div class="col-sm-3">
+      <nb-card>
+        <nb-card-header>
+          <mark>Step-2:</mark> Call Details Global Search
+        </nb-card-header>
+        <nb-card-body>
+          <div class="row d-flex align-items-left">
+            <nb-form-field style="width: 100%;">
+                <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+                <input #searchName id="searchName"   (input)="onSearchTextChange()" type="text" nbInput fullWidth shape="rectangle" placeholder="" [(ngModel)]="searchString">
+              </nb-form-field>
+        </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-sm-3">
+      <nb-card>
+        <nb-card-header>
+          <mark>Step-3:</mark> Page Size
+        </nb-card-header>
+        <nb-card-body>
+            <nb-form-field style="width: 100%;">
+              <nb-icon nbPrefix icon="hash-outline" pack="eva"></nb-icon>
+              <input id = "autoPageSize"
+                nbInput
+                fullWidth
+                type="text"
+                (keydown)="verifyAlphaNumericConstraintforSize($event)"
+                placeholder="Page Size"
+                [(ngModel)]="currentPageSize"/>
+        
+            </nb-form-field>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-sm-3">
+      <nb-card>
+        <nb-card-header>
+          # of pages
+        </nb-card-header>
+        <nb-card-body>
+           <div style="display: flex; align-items: center; justify-content: center;"><h4>{{ totalPages }}</h4></div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-sm-3">
+      <nb-card>
+        <nb-card-header>
+          <mark>Step-4:</mark> Page Number
+        </nb-card-header>
+        <nb-card-body>
+            <nb-form-field style="width: 100%;">
+              <nb-icon nbPrefix icon="hash-outline" pack="eva"></nb-icon>
+              <input id = "autoPageNumber"
+                nbInput
+                fullWidth
+                type="text"
+                (keydown)="verifyAlphaNumericConstraint($event)"
+                placeholder="Page Number"
+                [(ngModel)]="currentPageNumber"/>
+        
+            </nb-form-field>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+
+  <div class="row componentLevelTable">
+    <div class="col-lg-12">
+      <nb-card   class="classname">
+        <nb-card-header> 
+          <div class="row">
+            <div class="col-sm-6">
+              <h1>{{ tableHeading }}</h1>
+            </div>
+            <div class="col-sm-6">
+            </div>
+          </div>
+        </nb-card-header>
+       <nb-card-body>
+        <div class="row">
+          <ng2-smart-table [settings]="settings" [source]="source"  id="lastTable">
+          </ng2-smart-table>
+        </div>
+        <div class="row">
+          <br>
+        </div>
+        </nb-card-body>
+        
+      </nb-card>
+    </div>
+  </div>
+
+  <div class="row componentLevelTable">
+    <div class="col-lg-12">
+      <nb-card   class="classname">
+        <nb-card-header> 
+          <div class="row">
+            <div class="col-sm-6">
+              <h1>{{ inMemoryTableHeading }}</h1>
+            </div>
+            <div class="col-sm-6">
+            </div>
+          </div>
+        </nb-card-header>
+       <nb-card-body>
+        <div class="row">
+          <ng2-smart-table [settings]="inMemorySettings" [source]="inMemorySource" id="inMemoryLastTable">
+          </ng2-smart-table>
+        </div>
+        <div class="row">
+          <br>
+        </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+ 
+</ng-container>
+
+<!-- <nb-card>
+    <nb-card-body>
+      <div><b>Employee Call History</b></div>
+    </nb-card-body>
+</nb-card>
+
+<nb-card>
+    <div [nbSpinner]="loadingPrevious"></div>
+    <nb-list
+      nbInfiniteList
+      listenWindowScroll
+      [threshold]="500"
+      (topThreshold)="loadPrevious()"
+      (bottomThreshold)="loadNext()"
+      nbListPageTracker
+      [pageSize]="pageSize"
+      [startPage]="startPage"
+      (pageChange)="updateUrl($event)">
+      <nb-list-item *ngFor="let newsPost of news">
+        <ngx-call-post [post]="newsPost"></ngx-call-post>
+      </nb-list-item>
+      <nb-list-item *ngFor="let _ of placeholders">
+        <ngx-call-post-placeholder></ngx-call-post-placeholder>
+      </nb-list-item>
+    </nb-list>
+</nb-card> -->

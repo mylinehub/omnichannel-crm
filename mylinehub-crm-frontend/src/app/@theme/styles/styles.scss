@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+// themes - our custom or/and out of the box themes
+@import 'themes';
+
+// framework component themes (styles tied to theme variables)
+@import '@nebular/theme/styles/globals';
+@import '@nebular/auth/styles/globals';
+
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/grid';
+
+// loading progress bar theme
+@import './pace.theme';
+
+@import './layout';
+@import './overrides';
+
+// install the framework and custom global styles
+@include nb-install() {
+
+  // framework global styles
+  @include nb-theme-global();
+  @include nb-auth-global();
+
+  @include ngx-layout();
+  // loading progress bar
+  @include ngx-pace-theme();
+
+  @include nb-overrides();
+
+
+
+
+  html, body {
+    // height: 100%;
+    overflow-x: hidden;
+  }
+
+  // nb-layout {
+  //   height: 100%;
+  // }
+
+    /* Hide scrollbar while still scrollable */
+  html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;
+  }
+
+  // body {
+  //   padding-top: env(safe-area-inset-top);
+  //   padding-bottom: env(safe-area-inset-bottom);
+  //   overflow-y: auto;
+  // }
+
+
+/* Webkit Browsers */
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background: nb-theme(background-basic-color-2);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: nb-theme(text-hint-color);
+  border-radius: 6px;
+  border: 2px solid nb-theme(background-basic-color-2);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin; // options: auto | thin | none (no px support)
+  scrollbar-color: nb-theme(text-hint-color) nb-theme(background-basic-color-2);
+}
+
+};

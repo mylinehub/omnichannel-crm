@@ -1,0 +1,29 @@
+    <nb-card class="cardBoxShadow" style="max-height: 25rem;">
+        <nb-card-body>
+            <div class="row">
+                <div [ngClass]="hasButtons ? 'col-5' : 'col-12'">  
+                    <div class="d-flex align-items-center justify-content-center">
+                          <img class = "userImg" nbTooltip="Click to download" nbTooltipStatus="primary" [src]= "'data:image/'+record?.imageType+';base64,'+record?.iconImageData | replace:'/image':''" alt="not found" width="75" height="75">
+                     </div>
+                  </div>
+                  <div  *ngIf="hasButtons" class="col-7" style="padding-left: 0.0000rem;">
+                     <div class="h-100 d-flex flex-column align-items-center justify-content-center">
+                        <div class="row" style="padding-top: 0.10rem;" *ngIf="type == 'engaged'  && (!headerVariableService.callInProgress)" ><button class="actionButton" nbButton status="danger" size="tiny"  nbTooltip="bridge-conference"  (click)= "bridgeConference()"><nb-icon icon="plus-outline"></nb-icon> Bridge</button></div>
+                        <div class="row" style="padding-top: 0.10rem;" *ngIf="type == 'engaged'  && (!headerVariableService.callInProgress)" ><button  class="actionButton" nbButton status="danger" size="tiny"  nbTooltip="listen-quietly"  (click)= "quietly()"><nb-icon icon="phone"></nb-icon> Quietly</button></div>
+                        <div class="row" style="padding-top: 0.10rem;" *ngIf="type == 'engaged' && callStarted && (!recording) && headerVariableService.callInProgress"><button  class="actionButton" nbButton status="warning" size="tiny"  nbTooltip="start-record" (click)= "startRecord()"><nb-icon icon="recording-outline"></nb-icon> Record</button></div>
+                        <div class="row" style="padding-top: 0.10rem;" *ngIf="type == 'engaged' && callStarted && (recording) && headerVariableService.callInProgress"><button  class="actionButton" nbButton status="warning" size="tiny"  nbTooltip="stop-record" (click)= "stopRecord()"><nb-icon icon="recording-outline"></nb-icon> Stop</button></div>
+                        <div class="row" style="padding-top: 0.10rem;" *ngIf="type == 'engaged' && callStarted && headerVariableService.callInProgress"><button  class="actionButton" nbButton status="danger" size="tiny"  nbTooltip="end-call" (click)= "hungUpCall()"><nb-icon icon="phone-off-outline"></nb-icon> HungUp</button></div>             
+                        <div class="row" style="padding-top: 0.10rem;" *ngIf="type == 'idle' && (!headerVariableService.callInProgress)"><button  class="actionButton" nbButton status="success" size="tiny"  nbTooltip="make-call" (click)= "makeAudioCall()"><nb-icon icon="phone"></nb-icon> Audio</button></div>
+                        <div class="row" style="padding-top: 0.10rem;" *ngIf="type == 'idle' && (!headerVariableService.callInProgress)"><button  class="actionButton" nbButton status="success" size="tiny"  nbTooltip="make-call" (click)= "makeVideoCall()"><nb-icon icon="video"></nb-icon> Video</button></div>
+                     </div>
+                  </div>
+            </div>
+            <div class="row" style="margin-top: 0.8rem;">
+                <div class="col-12">  
+                    <div class="d-flex align-items-center justify-content-center">
+                         <strong>{{ record.firstName }}<span class="notOnMobile">&nbsp;{{ record.lastName }}</span></strong>
+                    </div>
+                </div>
+            </div> 
+        </nb-card-body> 
+    </nb-card>

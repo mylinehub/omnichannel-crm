@@ -1,0 +1,562 @@
+<form action="">
+    <input (change)="onFilechange($event)" class="form-control visuallyhidden" type="file" name="file" id="file-input">
+  </form>
+
+  <form action="">
+    <input (change)="onProfilePicUpload($event)" class="form-control visuallyhidden" type="file" name="file" id="onProfilePicUpload">
+  </form>
+
+  <form action="">
+    <input (change)="onDocOneUpload($event)" class="form-control visuallyhidden" type="file" name="file" id="onDocOneUpload">
+  </form>
+
+  <form action="">
+    <input (change)="onDocTwoUpload($event)" class="form-control visuallyhidden" type="file" name="file" id="onDocTwoUpload">
+  </form>
+
+<div class="row">
+    <div class="col-lg-12">
+      <nb-accordion>
+        <nb-accordion-item>
+          <nb-accordion-item-header>👥 Management Instructions</nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <p>Follow these guidelines to efficiently manage employee records and ensure smooth onboarding:</p>
+
+            <ul style="list-style-type: none; padding-left: 0;">
+              <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">📤 Use the bulk uploader to add multiple employees at once.</li>
+              <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">➕ You can also add individual employees manually.</li>
+              <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">📧 Newly added employees will receive their login credentials via email or phone.</li>
+              <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">📦 We offer packages that support unlimited employee additions.</li>
+              <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">🔒 For security reasons, employee addition and deletion are not available through the user interface.</li>
+              <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">✔️ All new employee documents must be verified by your organization.</li>
+              <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">📂 Employee details and documents should be submitted directly to support for processing.</li>
+            </ul>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+
+
+        <nb-accordion-item>
+            <nb-accordion-item-header>📞 Contact Support</nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <ul style="list-style-type: none; padding-left: 0;">
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">
+                  <p><strong>Need help?</strong> Click the following 
+                    <a [href]="whatsAppSupportlink" target="_blank" rel="noopener">support link</a> 
+                    to connect with us via WhatsApp.
+                  </p>
+                </li>
+              </ul>
+              
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+    </div>
+</div>
+<br>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <nb-card class="transformNbCardSummaryGraphHeightAdjustment">
+        <nb-card-header>
+          <div class="row">
+            <div class="col-lg-7">  
+              Summary
+            </div>
+            <div id="bulkUploadButton" class="col-lg-5">
+              <div class="d-flex align-items-center">
+                <div style="text-align: center;" class="container">
+                  <!-- <button class="notOnMobile" nbButton shape="round" size="small" status="success" (click)="bulkUpload()">Bulk Upload</button>   -->
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </nb-card-header>
+        <nb-card-body class="transformNbCardSummaryGraphBodyAdjustment">
+          <div class="row transformDownTo70">
+              <ngx-charts-advanced-pie-chart
+                  [scheme]="colorScheme"
+                  [results]="single"
+                  [view]="view"
+                  [gradient]="gradient" >
+              </ngx-charts-advanced-pie-chart>
+          </div>
+        </nb-card-body>
+      </nb-card>
+     </div>  
+  </div>
+  
+  <div class="row notOnMobile">
+    <div class="col-lg-12">
+      <nb-card size="medium">
+        <nb-card-body>
+          <nb-stepper orientation="vertical" (stepChange)="handleStepChange($event)">
+            <nb-step label="First step">
+              <h4>Search Guide #1</h4>
+              <br>
+              <p class="lorem">
+                <br>
+                <b>Step 1</b>, explains what you require to do in next steps. This as a whole is a searching ladder. By default the system brings all records associated with organization for this module.
+              </p>
+              <p class="lorem">
+                <b>Step 2</b>, will ask you to choose search criteria from the drop down. <b>Step 3</b>, takes details for the 'type of search' selected in <b>Step 2</b>. <b>Step 4</b>, finally asks for confirmation and submission.
+              </p>
+              <br>
+              <button nbButton disabled nbStepperNext>prev</button>
+              <button nbButton nbStepperNext>next</button>
+            </nb-step>
+            <nb-step label="Second step">
+              <h4>Search Criteria #2</h4>
+              <br>
+              <div id="step2">
+                <div class="row">
+                  <div class="col-sm-6">  
+                    <nb-card size = "tiny">
+                      <nb-card-header>
+                        <nb-tag-list>
+                          <nb-tag status="success" appearance="filled" text="1"></nb-tag>
+                        </nb-tag-list>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Search Type
+                      </nb-card-header>
+                      <nb-card-body>
+                        <nb-radio-group name="search"
+                                        status="warning"
+                                        (valueChange)="onRadioChange($event)">
+                          <nb-radio *ngFor="let radioOption of radioOptions"
+                                    [checked]="radioOption.checked"
+                                    [disabled]="radioOption.disabled"
+                                    [value]="radioOption.value">
+                            {{ radioOption.label }}
+                          </nb-radio>
+                        </nb-radio-group>
+                      </nb-card-body>
+                    </nb-card>
+                  </div>
+  
+                  <div class="col-sm-6">   
+                    <div class="step2LeftContainer">
+                      <p><img src="../../../../assets/images/searchStepper2.png" alt="auth-page-image" width="200" height="130"> </p>
+                        <nb-tag-list>
+                          <nb-tag status="success" appearance="filled" text="2"></nb-tag>
+                        </nb-tag-list>
+                        <span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;Search On&nbsp;<nb-icon nbPrefix icon="alert-circle-outline"></nb-icon></span>  
+                        <br><br>
+                        <div>
+                          <nb-select [(selected)]="selectedOption" id="selectComponent" (selectedChange)="dropDownChange($event)" placeholder="Criteria : Search By" status="warning" optionsWidth = 260>
+  
+                            <nb-option-group *ngFor="let dropDownOption of dropDownOptions; let i = index;">
+                              <nb-option value="{{i}}">
+                                {{ dropDownOption.label }}
+                              </nb-option>
+                            </nb-option-group>
+  
+                            
+                          </nb-select>                  
+                        </div>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm-12"> 
+                    <br>
+                    <button nbButton nbStepperPrevious>prev</button>
+                    <button nbButton id = "stepTwoNextButton" [disabled]="stepTwoNextButton" nbStepperNext>next</button>
+                  </div>
+  
+                </div>
+              </div>
+             
+            </nb-step>
+            <nb-step label="Third step">
+              <h4>Search Input #3</h4>
+              <p class="lorem">
+                <br>
+                There are various features such as <b>search, filter</b> etc. which you can find in below table. By default below table loads all data related to organization. Then why we require this search stepper? 
+              </p>
+              <p class="lorem">
+                <b>System performance</b> sometimes becomes bottleneck when it has to cater large data set. In this case you use this stepper to first restrict data from server, which can be further filtered using below table.
+              </p>
+  
+              <div class="row">
+                <div class="col-sm-4" *ngFor="let input of inputs; let j = index;">
+                  
+                      <nb-card status="success">
+                        <nb-card-header>{{input}}</nb-card-header>
+                        <nb-card-body>
+                          <input nbInput placeholder="InputString" *ngIf ="types[j] == 'string'" [(ngModel)]="inputValues[j]" (change)="stepInputChange()">
+                          <input nbInput placeholder="InputNumber" *ngIf ="types[j] == 'number'" (change)="stepInputChange($event)" [(ngModel)]="inputValues[j]" >
+                          <nb-toggle *ngIf ="types[j] == 'boolean'" (checkedChange)="stepInputChange($event)" [(ngModel)]="inputValues[j]"></nb-toggle>
+                          <!--<input nbInput placeholder="InputDate" [nbDatepicker]="dateTimePicker" *ngIf ="types[j] == 'date'">-->
+                          <input nbInput placeholder="InputDate" [nbDatepicker]="dateTimePicker"*ngIf ="types[j] == 'date'" [(ngModel)]="inputValues[j]" >
+                          <nb-datepicker (dateChange)="valueChanged($event)" #dateTimePicker></nb-datepicker>
+  
+                        </nb-card-body>
+                      </nb-card>
+  
+                </div>
+              </div>
+  
+              <br>
+              <button nbButton nbStepperPrevious>prev</button>
+              <button nbButton id = "stepThreeNextButton" [disabled]="stepThreeNextButton" nbStepperNext>next</button>
+            </nb-step>
+            <nb-step label="Fourth step">
+              <h4>CONFIRM SEARCH #4</h4>
+              <p><img src="../../../../assets/images/stepSearch.png" alt="auth-page-image" width="400" height="250"> </p>    
+              <button nbButton nbStepperPrevious>prev</button>
+              <button nbButton disabled nbStepperNext>next</button>
+              <span class="align-items-center">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <button nbButton shape="round" size="small" status="success" (click)="search()">Search</button>
+            </nb-step>
+          </nb-stepper>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  
+  <div class="row">
+      <div class="col-lg-12">
+        <nb-card>
+          <nb-card-header> 
+            <div class="row">
+              <div class="col-sm-6">
+                <h1>{{ tableHeading }}</h1>
+              </div>
+              <div class="col-sm-6">
+                <div class="d-flex align-items-center">
+                  <div id="downloadMainTableButton" style="text-align: left; padding-top:2.5%" class="container">
+                    <label class="col-form-label notOnMobile">Export Table as:</label>
+                    <span class="align-items-center notOnMobile">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <select class="form-select" [(ngModel)]="downloadAs">
+                      <option value="xlsx">xlsx</option>
+                      <option value="pdf">pdf</option>
+                    </select>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <button nbButton shape="round" size="small" status="success" (click)="export()">
+                      Download
+                    </button>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <ng2-smart-table [settings]="settings" [source]="source" (editConfirm)="onSaveConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)" (createConfirm)="onCreateConfirm($event)" (userRowSelect)="onUserRowSelect($event)" id="lastTable">
+            </ng2-smart-table>
+          </div>
+          <div class="row">
+            <br>
+          </div>
+          </nb-card-body>
+          
+        </nb-card>
+      </div>
+  </div>
+  
+  <div class="row" *ngIf="showDetail">
+    <div class="col-lg-12">
+      <nb-card style="max-height: 30rem;"> 
+        <nb-card-header><span>&nbsp;&nbsp;&nbsp;<b>Row Details</b></span></nb-card-header>
+        <nb-card-body>
+          
+          <div class="row">
+            <div class="col-sm-4" *ngFor="let key of keys; let i = index;">
+              <nb-card status="success" style="height: 7rem;">
+                <nb-card-header>{{key}}</nb-card-header>
+                <nb-card-body>
+                  {{values[i]}}
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+  
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  
+  <div class="row" *ngIf="showAction">
+    <div class="col-lg-12">
+        <nb-card>
+          <nb-card-header><span>&nbsp;&nbsp;&nbsp;<b>Actions</b></span></nb-card-header>
+          <nb-card-body>
+            
+            <div class="row">
+              <div class="col-xxxl-3 col-md-6" *ngFor="let statusCard of statusCards">
+                <ngx-all-cards [title]="statusCard.title" [type]="statusCard.type" [currentRecord] = "currentRecord" (parent)="getChildData($event)">
+                  <i [ngClass]="statusCard.iconClass"></i>
+                </ngx-all-cards>
+              </div>
+            </div>
+  
+          </nb-card-body>
+        </nb-card>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="showAction">
+    <div class="col-lg-12">
+        <nb-card style="max-height: 25rem;">
+          <nb-card-header class="paddingBottomZero">
+             <div class="row extraPaddingForMobile">
+              <div class="col-sm-5">
+                <nb-icon class="recording" icon="stop-circle-outline" status="danger"></nb-icon><span style="vertical-align: middle;">&nbsp;&nbsp;<b>Call Recording By Date</b></span>
+              </div>
+              <div class="col-sm-7 extraPaddingForMobile">
+                <input nbInput id="inputDateForCallRecording" class="inputDateForCallRecording" style="width:9rem;" fieldSize="small" placeholder="InputDate" [nbDatepicker]="datePicker" [(ngModel)]="inputRecordingDate" >
+                <nb-datepicker #datePicker></nb-datepicker>
+                <span>&nbsp;&nbsp;</span>
+                <button nbButton shape="round" size="small" status="success" (click)="getAllRecordingForDay()">Submit</button>  
+              </div>
+            </div>  
+          </nb-card-header>
+          <nb-card-body *ngIf="allRecordings.length != 0">
+            <div class="row extraPaddingForMobile">
+                <div class="col-lg-6" *ngFor="let recording of allRecordings; let i = index;">
+                  <!--<button nbButton ghost status="success" (click) = "getCurrentRecording(allRecordings[i],i)"></button><span>&nbsp;&nbsp;&nbsp;<b>{{ recording.title }}</b></span>-->
+                  <button nbButton ghost status="success"  [nbPopover]="component" nbPopoverPlacement="bottom" [nbPopoverContext]="{recording:recording,inputRecordingDateSubmitted:inputRecordingDateSubmitted,organization:organization,domain:currentRecord?.domain,extension:currentRecord?.extension}" nbButton [allRecordings] = "allRecordings" [i] = "i"><nb-icon [icon]="allRecordings[i].icon"></nb-icon><span>&nbsp;<span class="notOnMobile">&nbsp;&nbsp;</span><b class="recordingText">{{ recording.title }}</b></span></button>   
+                </div>
+            </div>
+          </nb-card-body>
+        </nb-card>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="showDetail">
+
+    <div class="col-lg-6">
+        <nb-card size="large">
+                      
+            <nb-card-header>
+                <h6><button nbButton status="success"><nb-icon icon="star"></nb-icon></button><span>&nbsp;&nbsp;</span>Basic Information <span>&nbsp;&nbsp;&nbsp;&nbsp;</span><button nbButton shape="round" size="small" status="success" (click)="updateWebPassword()" class="notOnMobile">Reset Web Password</button><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><button nbButton shape="round" size="small" status="success" (click)="updateExtensionPassword()" class="notOnMobile">Telephony  Password</button></h6>
+            </nb-card-header>
+            <div class="picture" style.background-image="url('assets/images/{{ imageURL }}.png')"></div>
+            <div class="details">
+              <div class="row align-items-center"><h4>{{ currentRecord?.firstName }}<span>&nbsp;</span>{{ currentRecord?.lastName }}</h4> <h6><span class="notOnMobile">&nbsp;&nbsp;</span>(Extension : {{  currentRecord?.extension }})</h6></div>
+              
+              <nb-card class="notOnMobile">
+                <nb-card-body class="notOnMobile">
+                    <div class="description notOnMobile">
+                        <b>Role : </b>{{ currentRecord?.role }}<span  class="notOnMobile">, <b>ID : </b>{{ currentRecord?.id }}, <b class="notOnMobile">Department : </b>{{ currentRecord?.departmentName }},</span> <span class="notOnMobile"><b>Organization : </b>{{ currentRecord?.organization }}</span>
+                      </div>
+                      <p class="notOnMobile"> </p>
+                    <div class="description notOnMobile">
+                        <b>Cost Calculation : </b>{{ currentRecord?.costCalculation }}, <b>Sex : </b>{{ currentRecord?.sex }}, <b>Pesel : </b>{{ currentRecord?.pesel }}
+                      </div>
+                </nb-card-body> 
+              </nb-card>
+              
+              <p class="notOnMobile"> </p>
+              <div class="description notOnMobile ">
+                <b>Alloted Number 1 : </b>{{ currentRecord?.allotednumber1 }}, <b>Alloted Number 2 : </b>{{ currentRecord?.allotednumber2 }}
+              </div>
+              <div class="description">
+                <b>Phone Number : </b>{{ currentRecord?.phonenumber }}
+              </div>
+              
+            </div>
+
+          </nb-card>
+    </div>
+    
+
+    <div class="col-lg-6">
+        <nb-card size="large" class ="nbCardHeightAdjustmentWithButton">
+            <nb-tabset fullWidth>
+              <nb-tab tabTitle="Profile Picture">
+                <div class="row">
+                 <div class="col-lg-12">
+                  <div class="d-flex align-items-center">
+                    <div style="text-align: center;" class="container">
+                        <br><br>
+                        <nb-card>
+                          <nb-card-header>
+                              <button nbButton shape="round" size="small" status="success" (click)="onProfilePicButton()">Upload</button>  
+                            </nb-card-header>
+                            <nb-card-body>
+                              <a download="profilePic.png" [href]="base64ImageData[0]"><img class="profilePicImg" nbTooltip="Click to download" nbTooltipStatus="primary" [src]= "base64ImageData[0]" alt="not found" width="250" height="300"></a>
+                            </nb-card-body>
+                          </nb-card>
+                    </div>
+                  </div>
+                </div>
+            </div>
+              </nb-tab>
+          
+              <nb-tab tabTitle="Document One">
+              <div class="row">
+               <div class="col-lg-12">
+                <div class="d-flex align-items-center">
+                    <div style="text-align: center;" class="container">
+                        <br><br>
+                        <nb-card>
+                          <nb-card-header>
+                            <button nbButton shape="round" size="small" status="success" (click)="onDocOneButton()">Upload</button>  
+                          </nb-card-header>
+                            <nb-card-body>
+                              <a download="docOne.png" [href]="base64ImageData[1]"><img class="doc1Img" nbTooltip="Click to download" nbTooltipStatus="primary" [src]= "base64ImageData[1]" alt="not found" width="450" height="300"></a> 
+                            </nb-card-body>
+                          </nb-card>
+                    </div>
+                  </div>
+                </div>
+            </div>
+                
+              </nb-tab>
+
+              <nb-tab tabTitle="Document Two">
+              <div class="row">
+               <div class="col-lg-12">
+                <div class="d-flex align-items-center">
+                    <div style="text-align: center;" class="container">
+                        <br><br>
+                        <nb-card>
+                          <nb-card-header>
+                            <button nbButton shape="round" size="small" status="success" (click)="onDocTwoButton()">Upload</button>  
+                          </nb-card-header>
+                          <nb-card-body>
+                            <a download="docTwo.png" [href]="base64ImageData[2]"><img class="doc2Img" nbTooltip="Click to download" nbTooltipStatus="primary" [src]= "base64ImageData[2]" alt="not found" width="450" height="300"></a> 
+                          </nb-card-body>
+                        </nb-card>
+                    </div>
+                  </div>
+                </div>
+            </div> 
+              </nb-tab>
+
+            </nb-tabset>
+          </nb-card>
+          
+    </div>
+        
+        <div class="col-lg-6">
+          <nb-card size="large">
+                        
+              <nb-card-header>
+                  <h6><button nbButton status="success"><nb-icon icon="thermometer-plus-outline"></nb-icon></button><span>&nbsp;&nbsp;</span>Additonal Information</h6>
+              </nb-card-header>
+              <div class="picture" style.background-image="url('assets/images/{{ addtionalInfoImageURL }}.png')"></div>
+              <div class="details">
+                <nb-card>
+                  <nb-card-body>
+                      <div class="description">
+                            <div class="row notOnMobile">
+                              <div class="col-sm-4 ">
+                              <b>Locked&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>{{ currentRecord?.isLocked }}
+                            </div>
+                            <div class="col-sm-4">
+                              <b>Enabled&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>{{ currentRecord?.isEnabled }}
+                            </div>
+                            <div class="col-sm-4">
+                              <b>Protocol&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>{{ currentRecord?.protocol }}
+                            </div>
+                            </div>
+                        </div>
+                        <br class="notOnMobile">
+                        <div class="description">
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <b>Call-Mobile&nbsp;&nbsp;: </b>{{ currentRecord?.callonnumber }}
+                            </div>
+                            <div class="col-sm-4 notOnMobile">
+                              <b>Use-2-Line&nbsp;&nbsp;: </b>{{ currentRecord?.useSecondaryAllotedLine }}
+                            </div>
+                            <div class="col-sm-4">
+                              <b>Manager#&nbsp;&nbsp;&nbsp;&nbsp;: </b>{{ currentRecord?.transfer_phone_1 }}
+                            </div>
+                          </div>
+                      </div>
+                      <br class="notOnMobile">
+                        <div class="description">
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <b>Supervisor&nbsp;&nbsp;&nbsp;: </b>{{ currentRecord?.transfer_phone_2 }}
+                            </div>
+                            <div class="col-sm-4 notOnMobile">
+                              <b>Doc-One&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>{{ currentRecord?.governmentDocumentID1 }}
+                            </div>
+                            <div class="col-sm-4 notOnMobile">
+                              <b>Doc-Two&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>{{ currentRecord?.governmentDocumentID2 }}
+                            </div>
+                          </div>
+                      </div>
+
+                  </nb-card-body> 
+                </nb-card>
+              </div>
+
+            </nb-card>
+      </div>
+
+
+      <div class="col-lg-6">
+        <nb-card size="large">
+        <nb-card-body>
+          <span class="h3 location">Parked Channels</span>
+          <span class="date"><i><b>Extension : </b><u>{{  currentRecord?.extension }}</u></i></span>
+
+          <div class="today">
+            <span class="today-temperature h1">Live Stats&deg; (Total- {{ currentRecord?.totalparkedchannels }})</span>
+            <nb-icon icon="layers-outline" pack="eva" class="today-icon"></nb-icon>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3" *ngFor="let park of parkedValues; let i = index;">
+              <nb-card [status]="parkedStatus[i]" >
+                <nb-card-header style="height: 2rem; margin: '0.0000rem'; padding: '0.0000rem';">
+                  <div class="d-flex align-items-center">
+                    <div style="text-align: center;" class="container">
+                          Slot {{ i }}
+                    </div>
+                  </div>
+                </nb-card-header>
+                <nb-card-body style="height: 3rem;">
+                  {{ park }}
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+      </div>
+</div>
+
+<div class="row" *ngIf="showDetail">
+  <div class="col-lg-12">
+    <nb-card   class="classname">
+      <nb-card-header> 
+        <div class="row">
+          <div class="col-sm-6">
+            <h1>{{campaignHeading }}</h1>
+          </div>
+          <div class="col-sm-6 extraPaddingForMobile">
+            <div class="d-flex align-items-center">
+              <div style="text-align: left; padding-top:2.5%" class="container">
+                <label class="col-form-label notOnMobile">Export Table as:</label>
+                <span class="align-items-center notOnMobile">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <select class="form-select" [(ngModel)]="downloadAsCampaign">
+                  <option value="xlsx">xlsx</option>
+                  <option value="csv">pdf</option>
+                </select>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <button nbButton shape="round" size="small" status="success" (click)="campaignExport()">
+                  Download
+                </button>
+              </div>
+          </div>
+          </div>
+        </div>
+      </nb-card-header>
+     <nb-card-body>
+      <div class="row">
+        <ng2-smart-table [settings]="campaignSettings" [source]="campaignSource" id="campaignTable">
+        </ng2-smart-table>
+      </div>
+      <div class="row">
+        <br>
+      </div>
+      </nb-card-body>
+      
+    </nb-card>
+  </div>
+</div>

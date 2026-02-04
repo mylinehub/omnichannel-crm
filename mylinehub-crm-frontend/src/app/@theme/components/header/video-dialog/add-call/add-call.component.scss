@@ -1,0 +1,49 @@
+@import '../../../../styles/themes';
+@import 'bootstrap/scss/mixins/breakpoints';
+@import '@nebular/theme/styles/global/breakpoints';
+
+@import '~@nebular/theme/styles/globals';
+
+
+
+@include nb-install-component() {
+
+  ::ng-deep {
+
+    nb-card{
+      height: 100%;
+      width: 100%;
+      padding: 0.0000rem;
+      margin: 0.0000rem;
+    }
+
+
+    nb-card nb-card-header{
+      height: 4.3750rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+  }
+
+    // .calling-card{
+
+    // }
+    .callingDiv {
+              // display: none;
+              width:100%;
+              height:1.8750rem;
+              // background-color: yellow;
+            }
+
+    .callInput{
+              height:100%;
+              width:100%;
+              background-color: nb-theme(input-basic-background-color);
+              color: nb-theme(input-basic-text-color);
+              padding:0.6250rem;
+              border:0;
+              box-shadow:0 0 0.9375rem 0.2500rem rgba(0,0,0,0.06);
+            }
+
+    }}

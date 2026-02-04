@@ -1,0 +1,58 @@
+<div class="row componentLevelZoom">
+  <div style = "width: 50.0000rem;">
+    <nb-card size="large">
+        <nb-card-header> 
+          <div class="row">
+            <div class="col-lg-11">
+              <h3>{{ tableHeading }}</h3>
+            </div>
+            <div class="col-lg-1">
+              <button nbButton ghost (click)="onClose()"><nb-icon icon="close-circle-outline"></nb-icon></button>
+            </div>
+          </div> 
+        </nb-card-header>
+      <nb-card-body>
+        <div>
+          <br><br><br>
+        </div>
+        <div class="row">
+          <input type="Country" nbInput placeholder="Country" [(ngModel)]="country">
+          <span style="display: flex; align-items: center; justify-content: center;">&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;</span>
+          <input type="City" nbInput placeholder="City" [(ngModel)]="city">
+          <span style="display: flex; align-items: center; justify-content: center;">&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;</span>
+          <input type="Zip" nbInput placeholder="Zip" [(ngModel)]="zip">
+        </div>
+        <div><br></div>
+        <div class="row" style="display: flex; align-items: center; justify-content: center;">
+          <span *ngIf="!(isAndOperator)" (click)="changeIsAndOperator()"><h5>OR</h5></span>
+          &nbsp;&nbsp;
+          <span *ngIf="isAndOperator" (click)="changeIsAndOperator()"><h5>AND</h5></span>
+        </div>
+        <div><br></div>
+        <div class="row">
+          <input type="Business" nbInput placeholder="Business" [(ngModel)]="business">
+          <span style="display: flex; align-items: center; justify-content: center;">&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;</span>
+          <input type="Data Type" nbInput placeholder="Data Type" [(ngModel)]="dataType">
+          <span style="display: flex; align-items: center; justify-content: center;">&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;</span>
+          <input type="Description" nbInput placeholder="Description" [(ngModel)]="description">
+        </div>
+        <div><br><br></div>
+        <div class="row">
+          <h6 *ngIf="showTotalRecordsPannel">Total Records : {{ totalRecords }}</h6>
+        </div>
+        <div><br></div>
+        <div class="row">
+          <input *ngIf="showTotalRecordsPannel" type="number" nbInput placeholder="Start" [(ngModel)]="start">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <input *ngIf="showTotalRecordsPannel" type="number" nbInput placeholder="Limit" [(ngModel)]="limit">
+        </div>
+        <br>
+        <div class="row">
+          <button nbButton shape="round" size="small" status="success" (click)="getRecords()">Record Count</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <button nbButton shape="round" size="small" status="success" (click)="onSubmit()">Submit</button>
+        </div>
+      </nb-card-body>
+      </nb-card>
+  </div>
+</div>

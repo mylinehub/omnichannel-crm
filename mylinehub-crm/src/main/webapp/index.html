@@ -1,0 +1,101 @@
+<html>
+	<head>
+	    <title>Chat WebSocket</title>
+	    
+	    <script src="resources/js/sockjs-0.3.4.js"></script>
+	    <script src="resources/js/stomp.js"></script>
+	    
+	    <script type="text/javascript">
+
+	        var stompClient = null;
+
+	        function setConnected(connected) {
+
+	            document.getElementById('connect').disabled = connected;
+	            document.getElementById('disconnect').disabled = !connected;
+	            document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
+	            document.getElementById('response').innerHTML = '';
+	        }
+
+	        function connect() {
+
+	            //var socket = new SockJS('/chat');
+	            
+	            /*var socket = new SockJS('/chat',
+	                    null,
+	                   {
+	                       transports: ['xhr-streaming'], 
+	                       headers: {'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmFnb2VsQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNjg2NjY4OTI2LCJleHAiOjE2ODc4MDQyMDB9.ML8s1RfLUEh5_1QToKyP4hR4jYQEsN5m73dzSGqg6FAEygMtb77PXM2ylM6Zt8dQQhu8Xa-m7dxCtZdioDt-DQ' }
+	                   });*/
+	   
+	            
+	            var socket = new SockJS('/chat', {headers : {'Authorization' : 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmFnb2VsQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNjg2NjY4OTI2LCJleHAiOjE2ODc4MDQyMDB9.ML8s1RfLUEh5_1QToKyP4hR4jYQEsN5m73dzSGqg6FAEygMtb77PXM2ylM6Zt8dQQhu8Xa-m7dxCtZdioDt-DQ' }
+                });
+	            
+	             
+	            stompClient = Stomp.over(socket);
+
+	            stompClient.connect({}, function(frame) {
+
+	            	setConnected(true);
+	                console.log('Connected: ' + frame);
+	                stompClient.subscribe('/event/host-tune-perform', function(messageOutput) {
+
+	                    showMessageOutput(JSON.parse(messageOutput.body));
+	                });
+	            });
+	        }
+
+	        function disconnect() {
+
+	            if(stompClient != null) {
+	                stompClient.disconnect();
+	            }
+
+	            setConnected(false);
+	            console.log("Disconnected");
+	        }
+
+	        function sendMessage() {
+
+	        	var from = document.getElementById('from').value;
+	            var text = document.getElementById('text').value;
+	            stompClient.send("/mylinehub/sendevent", {}, JSON.stringify({'organization':from, 'messagetype':text}));
+	        }
+
+	        function showMessageOutput(messageOutput) {
+
+	            var response = document.getElementById('response');
+	            var p = document.createElement('p');
+	            p.style.wordWrap = 'break-word';
+	            p.appendChild(document.createTextNode(messageOutput.from + ": " + messageOutput.text + " (" + messageOutput.time + ")"));
+	            response.appendChild(p);
+	        }
+
+	    </script>
+	    
+	</head>
+	
+	<body onload="disconnect()">
+
+		<div>
+		
+		
+			<div>
+				<input type="text" id="from" placeholder="Choose a nickname"/>
+			</div>
+			<br />
+		    <div>
+		        <button id="connect" onclick="connect();">Connect</button>
+		        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+		    </div>
+		    <br />
+		    <div id="conversationDiv">
+		        <input type="text" id="text" placeholder="Write a message..."/>
+		        <button id="sendMessage" onclick="sendMessage();">Send</button>
+		        <p id="response"></p>
+		    </div>
+		</div>
+
+	</body>
+</html>

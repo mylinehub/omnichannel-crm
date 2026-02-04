@@ -1,0 +1,24 @@
+package com.mylinehub.crm.rag.enums;
+
+public enum IntentType {
+    PRICING,
+    PRODUCT_INQUIRY,
+    CATALOG_REQUEST,
+    PAYMENT_QUERY,
+    PASSWORD_RESET,
+    AGENT_REQUEST,
+    FOLLOW_UP,
+    FUTURE_UPDATE,
+    SUPPORT_TICKET,
+    COMPLAINT,
+    PERSONAL_MESSAGE,
+    GROUP_FORWARD,
+    BLOCK_USER,
+    GREETING,
+    GENERAL_QUERY,
+    ORDER_STATUS,
+    SCHEDULE_CALL,
+    REFUND,
+    RETURN,
+    UNKNOWN
+}

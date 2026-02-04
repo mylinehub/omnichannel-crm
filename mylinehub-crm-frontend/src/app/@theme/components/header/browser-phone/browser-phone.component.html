@@ -1,0 +1,161 @@
+<nb-card class="componentLevelZoomForBrowserPhone">
+    <nb-card-header>
+      <br>
+      <nb-toggle (checkedChange)="toggleBrowserPhone($event)" [(checked)]="headerVariableService.isBrowserPhoneOnline" [status]="headerVariableService.isOnlineStatus">{{ headerVariableService.browserPhoneTitle }}</nb-toggle>
+    </nb-card-header>
+    <nb-tabset>
+      <nb-tab tabTitle="Dial-Pad">
+        <nb-card>
+          <nb-card-body>
+            
+            <div style="text-align:center; margin-top:0.9375rem"><input id="dialText" class="dialTextInput" [(ngModel)]="headerVariableService.dialValue" style="width:10.6250rem; height:2.0000rem"><span>&nbsp;&nbsp;</span><button id=dialDeleteKey  nbButton outline size = "small" shape="semi-round" (click)="keyPress('del')" nbTooltip="back-space">⌫</button></div>
+            <table cellspacing=10 cellpadding=1 style="margin-left:auto; margin-right: auto">
+            <tr><td><button class=dialButtons (click)="keyPress('1')"><div>1</div><span>(-)+</span></button></td>
+            <td><button class=dialButtons (click)="keyPress('2')"><div>2</div><span>ABC</span></button></td>
+            <td><button class=dialButtons (click)="keyPress('3')"><div>3</div><span>DEF</span></button></td></tr>
+            <tr><td><button class=dialButtons (click)="keyPress('4')"><div>4</div><span>GHI</span></button></td>
+            <td><button class=dialButtons (click)="keyPress('5')"><div>5</div><span>JKL</span></button></td>
+            <td><button class=dialButtons (click)="keyPress('6')"><div>6</div><span>MNO</span></button></td></tr>
+            <tr><td><button class=dialButtons (click)="keyPress('7')"><div>7</div><span>PQRS</span></button></td>
+            <td><button class=dialButtons (click)="keyPress('8')"><div>8</div><span>TUV</span></button></td>
+            <td><button class=dialButtons (click)="keyPress('9')"><div>9</div><span>WXYZ</span></button></td></tr>
+            <tr><td><button class=dialButtons (click)="keyPress('*')">*</button></td>
+            <td><button class=dialButtons (click)="keyPress('0')">0</button></td>
+            <!-- <td><button class=dialButtons (click)="keyPress('+')">+</button></td> -->
+            <td><button class=dialButtons (click)="keyPress('#')">#</button></td></tr>
+            </table>
+            <br>
+            <div style="text-align: center; margin-bottom:0.9375rem">
+            <button (click)="dialByLine('audio')" nbButton outline size = "large" shape="semi-round"  id=dialAudio><nb-icon icon="phone"  nbTooltip="audio call"></nb-icon></button>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <button (click)="dialByLine('video')" nbButton outline size = "large" shape="semi-round"  id=dialVideo><nb-icon icon="video"  nbTooltip="video call"></nb-icon></button>
+            
+          </div>
+
+          </nb-card-body>
+        </nb-card>
+      </nb-tab>
+      <nb-tab tabTitle="Control">
+        <nb-card>
+          <nb-card-body>
+          
+            <div class="top-heading">Enable-Disable</div>
+            <div class="box-icons">
+            <button nbButton outline size = "medium" shape="round" id="auto-answer-enable" (click)="autoAnswerCall('false')" nbTooltip="disable-auto-answer" *ngIf="headerVariableService.autoAnswer"><i class="fa fa-phone  fa-fw" style="transform: rotate(135deg);font-size: 1.3rem;color: rgb(139, 203, 43) "></i></button> 
+            <button nbButton outline size = "medium" shape="round" id="auto-answer-disable" (click)="autoAnswerCall('true')" nbTooltip="enable-auto-answer" *ngIf="!headerVariableService.autoAnswer"><i class="fa fa-phone-slash  fa-fw" style="transform: rotate(135deg);font-size: 1.3rem;color: grey "></i></button> 
+           
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>    
+            <button nbButton outline size = "medium" shape="round" id="btn-Conference" (click)="autoConferenceCall('true')" nbTooltip="start-auto-conference" *ngIf="!headerVariableService.autoConference"><i class="fas fa-users-slash  fa-fw" style="font-size: 1.3rem;color: grey"></i></button>
+            <button nbButton outline size = "medium" shape="round" id="btn-CancelConference" (click)="autoConferenceCall('false')" nbTooltip="cancel-auto-conference" *ngIf="headerVariableService.autoConference"><i class="fas fa-users  fa-fw" style="font-size: 1.3rem;color:  rgb(139, 203, 43)"></i></button>    
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <button nbButton outline size = "medium" shape="round" id="btn-Conference" (click)="autoVideoCall('true')" nbTooltip="start-auto-video" *ngIf="!headerVariableService.autoVideo"><i class="fas fa-video-slash  fa-fw" style="font-size: 1.3rem;color: grey"></i></button>
+            <button nbButton outline size = "medium" shape="round" id="btn-CancelConference" (click)="autoVideoCall('false')" nbTooltip="pause-auto-video" *ngIf="headerVariableService.autoVideo"><i class="fas fa-video  fa-fw" style="font-size: 1.3rem;color: rgb(139, 203, 43)"></i></button>    
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <br> <br>
+            <button nbButton outline size = "medium" shape="round" id="do-not-disturb-enable" (click)="doNotDisturbCall('false')" nbTooltip="disable-do-not-disturb" *ngIf="headerVariableService.doNotDisturb"><i class="fa fa-ban  fa-fw" style="transform: rotate(135deg);font-size: 1.3rem;color: rgb(139, 203, 43) "></i></button> 
+            <button nbButton outline size = "medium" shape="round" id="do-not-disturb-disable" (click)="doNotDisturbCall('true')" nbTooltip="enable-do-not-disturb" *ngIf="!headerVariableService.doNotDisturb"><i class="fa fa-ban  fa-fw" style="transform: rotate(135deg);font-size: 1.3rem;color: grey "></i></button> 
+          
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <button nbButton outline size = "medium" shape="round" id="btn-disable-start-video-full-screen" (click)="startFullScreenVideoCall('false')" nbTooltip="disable-start-video-full-screen" *ngIf="headerVariableService.startVideoFullScreen"><i class="fa fa-expand fa-fw" style="transform: rotate(135deg);font-size: 1.3rem;color: rgb(139, 203, 43) "></i></button> 
+            <button nbButton outline size = "medium" shape="round" id="btn-enable-start-video-full-screen" (click)="startFullScreenVideoCall('true')" nbTooltip="enable-start-video-full-screen" *ngIf="!headerVariableService.startVideoFullScreen"><i class="fa fa-expand fa-fw" style="transform: rotate(135deg);font-size: 1.3rem;color: grey "></i></button> 
+
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <button nbButton outline size = "medium" shape="round" id="btn-disable-call-waiting" (click)="changeCallWaiting('false')" nbTooltip="disable-call-waiting" *ngIf="headerVariableService.callWaiting"><i class="fa fa-stopwatch fa-fw" style="font-size: 1.3rem;color: rgb(139, 203, 43) "></i></button> 
+            <button nbButton outline size = "medium" shape="round" id="btn-enablecall-waiting" (click)="changeCallWaiting('true')" nbTooltip="enable-call-waiting" *ngIf="!headerVariableService.callWaiting"><i class="fa fa-stopwatch fa-fw" style="font-size: 1.3rem;color: grey "></i></button> 
+
+
+          </div>
+
+            <div class="top-heading">Mic-Device</div>
+            <div class="box-button">
+            <nb-button-group (valueChange)="micChanged($event)">
+              <button *ngFor="let item of headerVariableService.micList; let i = index" [(pressed)]="headerVariableService.currentMic[i]" nbButtonToggle [value]="item">{{ item | slice:0:15 }}</button>
+              
+            </nb-button-group>
+            </div>
+          
+            <div class="top-heading">Speaker-Device</div>
+            <div class="box-button">
+            <nb-button-group (valueChange)="speakerChanged($event)">
+              <button *ngFor="let item of headerVariableService.speakerList; let i = index" [(pressed)]="headerVariableService.currentSpeaker[i]" nbButtonToggle [value]="item">{{ item | slice:0:15 }}</button>
+
+            </nb-button-group>
+            </div>
+
+            <div class="top-heading">Video-Device</div>
+            <div class="box-button">
+            <nb-button-group (valueChange)="videoChanged($event)">
+              <button *ngFor="let item of headerVariableService.videoList; let j = index" [(pressed)]="headerVariableService.currentVideo[j]" nbButtonToggle [value]="item">{{ item | slice:0:15 }}</button>
+             
+            </nb-button-group>
+            </div>
+
+
+          </nb-card-body>
+        </nb-card>
+      </nb-tab>
+
+      <nb-tab tabTitle="Config">
+        <nb-card>
+          <nb-card-body>
+            
+            <div class="top-heading">Video-Orientation</div>
+            <div class="box-button">
+            <nb-button-group (valueChange)="videoOrientationChanged($event)">
+              <button *ngFor="let item of headerVariableService.videoOrientation; let j = index" [(pressed)]="headerVariableService.currentVideoOrientation[j]" nbButtonToggle [value]="item">{{ item }}</button>
+          
+            </nb-button-group>
+            </div>
+
+            <div class="top-heading">Video-Quality</div>
+            <div class="box-button">
+            <nb-button-group (valueChange)="videoQualityChanged($event)">
+              <button *ngFor="let item of headerVariableService.videoQuality; let j = index" [(pressed)]="headerVariableService.currentVideoQuality[j]" nbButtonToggle [value]="item">{{ item }}</button>
+              
+            </nb-button-group>
+            </div>
+
+            <div class="top-heading">Video-Frame-Rate</div>
+            <div class="box-button">
+            <nb-button-group (valueChange)="videoFrameRateChanged($event)">
+              <button *ngFor="let item of headerVariableService.videoFrameRate; let j = index" [(pressed)]="headerVariableService.currentVideoFrameRate[j]" nbButtonToggle [value]="item">{{ item }}</button>
+           
+            </nb-button-group>
+            </div>
+
+            <div class="top-heading">
+                <span class="top-heading">Auto-Gain-Control</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="top-heading">Echo-Cancellation</span>
+            </div>
+            
+            <div class="box-button">
+                <span>
+                <nb-button-group (valueChange)="autoGainControlChanged($event)">
+                  <button *ngFor="let item of headerVariableService.autoGainControl; let j = index" [(pressed)]="headerVariableService.currentAutoGainControl[j]" nbButtonToggle [value]="item">{{ item }}</button>
+                  
+                </nb-button-group>
+                </span>
+
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span>
+                <nb-button-group (valueChange)="echoCancellationChanged($event)">
+                  <button *ngFor="let item of headerVariableService.echoCancellation; let j = index" [(pressed)]="headerVariableService.currentEchoCancellation[j]" nbButtonToggle [value]="item">{{ item }}</button>
+                </nb-button-group>
+                </span>
+            </div>
+
+
+            <div class="top-heading">Noise-Supression</div>
+            <div class="box-button">
+            <nb-button-group (valueChange)="noiseSeperationChanged($event)">
+              <button *ngFor="let item of headerVariableService.noiseSeperation; let j = index" [(pressed)]="headerVariableService.currentNoiseSeperation[j]" nbButtonToggle [value]="item">{{ item }}</button>
+              
+            </nb-button-group>
+            </div>
+
+          </nb-card-body>
+        </nb-card>
+      </nb-tab>
+
+    </nb-tabset>
+</nb-card>

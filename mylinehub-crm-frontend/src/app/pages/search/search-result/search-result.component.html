@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-xxxl-12">
+        <nb-card>
+          <nb-card-header>Search Results</nb-card-header>
+
+          <nb-list>
+            <nb-list-item *ngFor="let newsPost of searchCard.news">
+              <ngx-search-post [post]="newsPost"></ngx-search-post>
+            </nb-list-item>
+            <nb-list-item *ngFor="let _ of searchCard.placeholders">
+              <ngx-search-post-placeholder></ngx-search-post-placeholder>
+            </nb-list-item>
+          </nb-list>
+        </nb-card>
+    </div>
+
+   <!-- <div class="col-md-12 col-lg-6 col-xxxl-6">
+      <nb-card>
+        <nb-card-header>Search Results</nb-card-header>
+        <nb-list
+          nbInfiniteList
+          listenWindowScroll
+          [threshold]="500"
+          (bottomThreshold)="loadNext(searchCard)">
+          <nb-list-item *ngFor="let newsPost of searchCard.news">
+            <ngx-search-post [post]="newsPost"></ngx-search-post>
+          </nb-list-item>
+          <nb-list-item *ngFor="let _ of searchCard.placeholders">
+            <ngx-search-post-placeholder></ngx-search-post-placeholder>
+          </nb-list-item>
+        </nb-list>
+      </nb-card>
+  </div> -->
+
+</div>

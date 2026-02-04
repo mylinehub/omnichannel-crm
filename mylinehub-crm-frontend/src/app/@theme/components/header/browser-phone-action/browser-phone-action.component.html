@@ -1,0 +1,69 @@
+<nb-card class="componentLevelZoomForBrowserPhoneAction">
+    <!-- <nb-card-header>
+        Actions
+    </nb-card-header> -->
+    <nb-tabset>
+      <nb-tab tabTitle="Current-Call">
+        <nb-card>
+          <nb-card-body>
+ 
+                <button nbButton outline size = "medium" shape="round" id="btn-Mute" (click)="mutession('false')" nbTooltip="unmute-call" *ngIf="headerVariableService.isMute"><i class="fas fa-microphone-slash fa-fw" style="font-size: 1.3rem;color:  rgb(177, 134, 55)"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-Unmute" (click)="mutession('true')" nbTooltip="mute-call" *ngIf="!headerVariableService.isMute"><i class="fas fa-microphone  fa-fw" style="font-size: 1.3rem;color:  rgb(177, 134, 55)"></i></button>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <button nbButton outline size = "medium" shape="round" id="btn-Hold" (click)="holdSession('false')" nbTooltip="unhold-call" *ngIf="headerVariableService.isHold"><i class="fas fa-play-circle  fa-fw" style="font-size: 1.3rem;color:  rgb(216, 162, 162)"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-Unhold" (click)="holdSession('true')" nbTooltip="hold-call" *ngIf="!headerVariableService.isHold"><i class="fas fa-pause-circle  fa-fw" style="font-size: 1.3rem;color:  rgb(216, 162, 162)"></i></button>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <button nbButton outline size = "medium" shape="round" id="btn-End" (click)="endSession()" nbTooltip="end-call"><i class="fa fa-phone  fa-fw" style="transform: rotate(135deg);font-size: 1.3rem;color: rgba(255, 0, 0, 0.736) "></i></button> 
+                <br><br>
+               
+                
+                <button nbButton outline size = "medium" shape="round" id="btn-CancelTransfer" (click)="attendedTransferSession('false')" nbTooltip="transfer-attended-call" *ngIf="!headerVariableService.isTransfer"><i class="fas fa-reply  fa-fw" style="transform: rotateY(180deg);font-size: 1.3rem;color: rgb(196, 196, 64)"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-Transfer" (click)="attendedTransferSession('true')" nbTooltip="cancel-transferred-attended-call" *ngIf="headerVariableService.isTransfer"><i class="fa fa-reply  fa-fw" style="font-size: 1.3rem;color: rgb(17, 142, 17)"></i></button>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <button nbButton outline size = "medium" shape="round" id="btn-Transfer" (click)="startUnAttendedTransferSession()" nbTooltip="transfer-unattended-call"><i class="fas fa-mars-stroke  fa-fw" style="font-size: 1.3rem;color: rgb(158, 27, 158)"></i></button>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <button nbButton outline size = "medium" shape="round" id="btn-start-recording" (click)="recordingFunc('false')" nbTooltip="stop-recording" *ngIf="headerVariableService.isRecording"><i class="far fa-dot-circle  fa-fw" style="font-size: 1.3rem;color:  rgb(215, 53, 53)"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-stop-recording" (click)="recordingFunc('true')" nbTooltip="start-recording" *ngIf="!headerVariableService.isRecording"><i class="fas fa-circle  fa-fw" style="font-size: 1.3rem;color:  black"></i></button>
+                <br><br>
+
+                <button nbButton outline size = "medium" shape="round" id="btn-Conference" (click)="conferenceCall('true')" nbTooltip="start-conference" *ngIf="!headerVariableService.isConference"><i class="fas fa-users-slash  fa-fw" style="font-size: 1.3rem;color: rgba(19, 18, 18, 0.701)"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-CancelConference" (click)="conferenceCall('false')" nbTooltip="cancel-conference" *ngIf="headerVariableService.isConference"><i class="fas fa-users  fa-fw" style="font-size: 1.3rem;color:  rgba(19, 18, 18, 0.701)"></i></button>    
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <button nbButton outline size = "medium" shape="round" id="btn-Conference" (click)="videoFunc('true')" nbTooltip="start-video" *ngIf="!headerVariableService.isVideoStream"><i class="fas fa-video-slash  fa-fw" style="font-size: 1.3rem;color: grey"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-CancelConference" (click)="videoFunc('false')" nbTooltip="pause-video" *ngIf="headerVariableService.isVideoStream"><i class="fas fa-video  fa-fw" style="font-size: 1.3rem;color: grey"></i></button>    
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <br>
+
+<!-- 
+                <button nbButton outline size = "medium" shape="round" id="btn-ShowDtmf" (click)="ShowDtmfMenu('')" nbTooltip="show-dtmf-menu"><nb-icon icon="keyboard-o" pack="font-awesome"></nb-icon></button>    
+                <span>&nbsp;&nbsp;</span>
+                <button nbButton outline size = "medium" shape="round" id="line-+ lineObj.LineNumber+-btn-CancelTransfer" (click)="CancelTransferSession('')" nbTooltip="cancel-transfer-call"><nb-icon icon="reply" pack="font-awesome"></nb-icon></button>  
+                <span>&nbsp;&nbsp;</span>       
+                <button nbButton outline size = "medium" shape="round" id="btn-expand" (click)="ExpandVideoArea('')" nbTooltip="expand-video"><nb-icon icon="expand" pack="font-awesome"></nb-icon></button>
+                <br><br>
+                <button nbButton outline size = "medium" shape="round" id="btn-restore" (click)="RestoreVideoArea('')"><i class="fa fa-compress"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-ShowDtmf" (click)="ShowDtmfMenu('')"><i class="fa fa-keyboard-o"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-settings" (click)="ChangeSettings('', this)"><i class="fa fa-volume-up"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-present-src" (click)="ShowPresentMenu(this, '')"><i class="fa fa-video-camera"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-ShowCallStats" (click)="ShowCallStats('')"><i class="fa fa-area-chart"></i></button>
+                <br>
+                <button nbButton outline size = "medium" shape="round" id="btn-HideCallStats" (click)="HideCallStats('')"><i class="fa fa-area-chart"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-ShowTimeline" (click)="ShowCallTimeline('')"><i class="fa fa-list-ul"></i></button>
+                <button nbButton outline size = "medium" shape="round" id="btn-HideTimeline" (click)="HideCallTimeline('')"><i class="fa fa-list-ul"></i></button> -->
+
+          </nb-card-body>
+        </nb-card>
+      </nb-tab>
+      <nb-tab tabTitle="Share-Data">
+        <nb-card>
+          <nb-card-body>
+            <!-- <button nbButton outline size = "medium" shape="round"  nbTooltip="send any file" (click)="shareFile()"><i class="fas fa-upload  fa-fw" style="font-size: 1.3rem;color: rgb(78, 154, 129)"></i></button>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> -->
+            <button nbButton outline size = "medium" shape="round"  nbTooltip="you-tube-stream" (click)="connectYouTubeStream()"><i class="fab fa-youtube  fa-fw" style="font-size: 1.3rem;color: rgb(180, 11, 11);"></i></button>
+            <!-- <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <button nbButton outline size = "medium" shape="round"  nbTooltip="share-screen" (click)="shareScreen()"><i class="fas fa-expand  fa-fw" style="font-size: 1.3rem;color: rgb(0, 0, 0);"></i></button> -->
+          </nb-card-body>
+        </nb-card>
+      </nb-tab>
+    </nb-tabset>
+</nb-card>

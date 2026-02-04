@@ -1,0 +1,612 @@
+// Import Nebular theme and global styles
+@import '../../../@theme/styles/themes';
+@import 'bootstrap/scss/mixins/breakpoints';
+@import '@nebular/theme/styles/global/breakpoints';
+@import '~@nebular/theme/styles/globals';
+
+@include nb-install-component() {
+
+  ::ng-deep {
+
+    nb-toggle.no-margin-toggle label {
+      margin-bottom: 0 !important;
+    }
+
+    nb-accordion-item-header {
+      padding-left: 0.5rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      padding-right: 0px;
+    }
+
+    nb-accordion-item-body .item-body {
+        padding:0px;
+        margin:0px;
+    }
+
+    .chatHeadDivCol {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            gap: 10px;
+            padding:0px;
+            margin:0px;
+            padding-top:0.5rem;
+            padding-bottom:0.5rem;
+    }
+
+    .chatHeadDivColSelectDisplay{
+      height:100%;
+      width:100%;
+      background:nb-theme(background-basic-color-2);
+    }
+    .chatHeadDivColChatInfo{
+      background:nb-theme(background-basic-color-3);
+    }
+
+    .supportNumbersDiv{
+      width: 100%;
+      height: 100%; 
+    }
+
+     .chatDiv {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
+        min-height: 0;
+      }
+
+    nb-chat {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 0; // Important for flex children!
+        overflow: hidden; // prevents double scrollbars
+    }
+
+    nb-chat .scrollable {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch; // smooth mobile scroll
+      min-height: 0; // absolutely essential for flex child
+    }
+
+    nb-chat.status-basic .header {
+      padding:0.6rem;
+      margin:0px;
+    }
+
+    nb-card-body.listAllWhatsAppParticipantsBody{
+      padding:0px;
+    }
+
+
+    .chatContainer{
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      height: 100vh; 
+      width: 100%;
+    }
+
+    .chatControl{
+      width:100%;
+    }
+
+    .chatData{
+      width: 100%; 
+      flex: 1; 
+      overflow: hidden;
+    }
+
+    .customerdiv{
+      width: 100%;
+      height: 100%; 
+      overflow:hidden; 
+      padding: 0.15rem;
+    }
+
+    .customerCard{
+      width: 100%;
+      height: 100%; 
+      max-height: 100%; 
+      overflow-y: auto; 
+    }
+
+    .customerCardBody {
+        display: flex;
+        justify-content: center;  /* horizontal center */
+        align-items: center;      /* vertical center */
+        flex-direction: column;   /* stack content vertically */
+        height: 100%;             /* ensure it takes full height */
+        text-align: center;       /* center text inside */
+      }
+
+    
+    .customerImageDiv{
+        height: 9rem; 
+        width: 8.5rem; 
+        margin-bottom: 0.6rem; 
+        margin-right: 1rem;
+        border: 1px solid #ccc;
+    }
+
+    .customerImage{
+      height: 100%; 
+      width: 100%; 
+      object-fit: cover;
+    }
+
+    .customerNameDive{
+      margin-bottom: 1rem;
+    }
+
+    .customerName{
+       font-size: 1.7rem; 
+       padding:0.5rem;
+       display: inline-block; 
+       word-break: normal; 
+       overflow-wrap: break-word; 
+       white-space: normal; 
+       max-width: 100%;
+       margin-bottom: 1rem;
+    }
+
+    .leftDisplayPanel{
+      width: 33.33%;
+      height: 100%; 
+      background:nb-theme(background-basic-color-1);
+    }
+
+    .rightDisplayPanel{
+      width: 66.67%;
+      height: 100%; 
+      padding-left:0.4rem;
+    }
+
+    //Participant Css    
+    .listAllWhatsAppParticipants nb-card {
+    height: 100%;
+    width: 100%;
+    padding: 0.0000rem;
+    margin: 0.0000rem;
+    }
+
+    .listAllWhatsAppParticipantsScroll > nb-list > nb-list-item{
+      height: 100%;
+    width: 100%;
+    padding: 0.6250rem;
+    margin: 0.0000rem;
+    }
+
+    .searchAllWhatsAppParticipants {
+    width:100%;
+    height:8%;
+    padding:0.0000rem;
+    // background-color: yellow;
+    }
+
+    .searchAllWhatsAppParticipantsInput{
+    height:100%;
+    width:100%;
+    background-color: nb-theme(input-basic-background-color);
+    color: nb-theme(input-basic-text-color);
+    margin:0.0000rem;
+    padding: 0.0000rem;
+    border:0;
+    box-shadow:0 0 0.9375rem 0.2500rem rgba(0,0,0,0.06);
+    }
+
+    .listAllWhatsAppParticipants{
+    display: inline-block;
+    width:100%;
+    height:92%;
+    box-shadow: #d6dee1;
+    }
+
+    .listAllWhatsAppParticipantsScroll{
+    overflow-y: scroll;
+    height: 100%;
+    width: 100%;
+
+      // For WebKit browsers (Chrome, Edge, Safari)
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: nb-theme(background-basic-color-2);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: nb-theme(text-hint-color);
+        border-radius: 4px;
+        border: 2px solid nb-theme(background-basic-color-2);
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: nb-theme(text-basic-color);
+      }
+
+      // For Firefox
+      scrollbar-width: thin;
+      scrollbar-color: nb-theme(text-hint-color) nb-theme(background-basic-color-2);
+
+    }
+
+    .listAllWhatsAppParticipantsContainerDot{
+    // display: block;
+    // width: 4%;
+    // height :100%;
+    // padding:0.0000rem;
+    // margin:0.0000rem;
+    // background-color: #00D68F;
+
+    display: block;
+    width: 2%;
+    height: 3rem;
+    padding: 0.0000rem;
+    margin: 0.0000rem;
+    margin-right: 0.5rem;
+    }
+              
+  .listAllWhatsAppParticipantsElements {
+    display: flex;
+    align-items: center; /* vertical center */
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    /* background-color: blue; */ /* Uncomment for debug */
+  }
+
+  .listAllWhatsAppParticipantsElements:hover {
+    background-color: #a8bbbf;
+  }
+
+  .listAllWhatsAppParticipantsElements:active {
+    background-color: nb-theme(input-basic-background-color);
+  }
+
+  .listAllWhatsAppParticipantsContainer {
+    display: flex;
+    align-items: center; /* vertically center content */
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    padding: 0;
+    margin: 0;
+    /* background-color: orange; */
+  }
+
+  .listAllWhatsAppParticipantsElement {
+    width: 100%;
+    height: 100%;
+    /* background-color: red; */
+  }
+
+  .listAllWhatsAppParticipantsActions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* right align the buttons */
+    width: 50%;
+    padding: 0;
+    margin: 0;
+    /* background-color: yellow; */
+  }
+
+  .listAllWhatsAppParticipantsButtons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: auto;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    /* background-color: pink; */
+  }
+
+  .listAllWhatsAppParticipantsAction {
+    /* Optional: Button styling */
+  }
+
+  .listAllWhatsAppParticipantsBadge {
+    margin-left: auto;
+    order: 2;
+  }
+
+  .clearAllWhatsAppParticipants {
+    display: inline-block;
+    width: 100%;
+    height: 7%;
+  }
+
+  .clearAllWhatsAppButton {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0;
+  }
+
+  .participantWhatsAppDataButton {
+    position: relative;
+    bottom: 5%;
+    z-index: 999;
+  }
+
+
+    .chat-input-container {
+      width:100%;
+      height:100%;
+      display: flex;
+      align-items: center;
+      gap: 8px; /* space between input and buttons */
+    }
+
+    .chat-input-container input {
+      flex: 1; /* makes the input expand to fill available space */
+    }
+
+    .chat-icon-button {
+      flex-shrink: 0; /* prevent buttons from shrinking */
+    }
+
+
+    .chatRowSpan{
+       display: inline-block; /* or block */
+       border-bottom: 1px solid #ccc; /* Example border */
+       width:100%
+    }
+
+    /* Ensure nb-card-body is scrollable */
+    .whatsAppCardBody {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .whatsAppChatArea {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0.5rem;
+    }
+
+    .whatsapp-date {
+      // font-size: 0.6rem;   /* smaller than default small */
+      background:nb-theme(background-basic-color-3);
+    }
+
+    .status-text {
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    .status-deleted {
+      color: grey;
+    }
+
+    .status-failed {
+      color: red;
+    }
+
+    .status-read {
+      color: blue;
+    }
+
+    .status-delivered {
+      color: green;
+    }
+
+    .status-sent {
+      color: orange;
+    }
+
+    .status-pending {
+      color: black;
+    }
+
+
+    .whatsapp-name {
+      margin: 0;
+      line-height: 1.0000rem;
+      font-size: 0.7500rem;
+      font-weight: 700;
+      color: var(--whatsapp-message-text);
+    }
+
+    .whats-app-message-justify{
+      text-align: justify;
+    }
+
+    .whatsapp-message-wrapper {
+      display: flex;
+      padding: 1.0000rem 0;
+      text-align: left;
+    }
+    .whatsapp-message-wrapper.whatsapp-reverse {
+      flex-direction: row-reverse;
+      background: nb-theme(background-basic-color-2);
+      padding-right: 0.5rem;
+    }
+    .whatsapp-message-wrapper.whatsapp-reverse .whats-app-message-reverse {
+      margin-left: auto;
+      border-radius: 1.0000rem 0.0000rem 1.0000rem 1.0000rem;
+    }
+    .whatsapp-message-wrapper.whatsapp-reverse .whatsapp-profile-picture {
+      margin-right: 0.0000rem;
+      margin-left: 0.7500rem;
+    }
+    .whatsapp-message-wrapper.whatsapp-reverse .whatsapp-name{
+      text-align: right;
+    }
+
+    .whatsapp-date-rev-container {
+       display: flex;
+       justify-content: flex-end;
+       padding-right:0.75rem;
+    }
+
+
+    .whatsapp-message-wrapper.whatsapp-straight .whatsapp-message-content{
+      margin-right: 2.05rem;
+    }
+            
+    .whatsapp-message-wrapper.whatsapp-reverse .whatsapp-message-content{
+      margin-left: 5.4625rem;
+    }
+              
+    .whatsapp-message-file {
+      border: 0.0625rem solid var(--whatsapp-message-bg);
+      width: 100%;
+      margin-top: 1.0000rem;
+      border-radius: 0.2500rem;
+      padding: 0.5000rem;
+      display: flex;
+    }
+    .whatsapp-message-file .whats-app-sketch {
+      border-radius: 0.2500rem;
+      padding: 0.1250rem;
+      background-color: #fdeee2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2.0000rem;
+      height: 2.0000rem;
+    }
+    .whatsapp-message-file .whats-app-sketch svg {
+      width: 1.2500rem;
+      height: 1.2500rem;
+    }
+
+
+     .whats-app-file-info {
+        flex: 1;
+        padding: 0 2.5000rem 0 0.5000rem;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23b8b8b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-download' viewBox='0 0 24 24'%3E%3Cpath d='M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3'/%3E%3C/svg%3E%0A");
+        background-position: center right 0.7500rem;
+        background-size: 1.2500rem;
+        background-repeat: no-repeat;
+        font-size: 0.7500rem;
+      }
+
+      .whats-app-file-name {
+        color: nb-theme(input-basic-text-color);
+      }
+
+      .whats-app-file-size {
+        color: #b8b8b8;
+      }
+
+      .whats-app-mention {
+        color: #7c80fd;
+      }
+
+      .visuallyhidden {
+         border: 0;
+         clip: rect(0 0 0 0);
+         height: 0.0625rem;
+         margin: -0.0625rem;
+         overflow: hidden;
+         padding: 0;
+         position: absolute;
+         width: 0.0625rem;
+      }
+
+  } // ::ng-deep end
+
+} // nb-install-component end
+
+
+
+//Mobile devices
+@media (max-width: 27.5000rem) {
+  ::ng-deep {
+
+        nb-card-body.whatsAppCardBody{
+          padding-left: 0.4rem !important;
+           padding-right: 0.6rem !important;
+        }
+
+        .whatsAppChatArea {
+          padding: 0rem !important;
+        }
+
+        .currentChatInfoText {
+            font-size: 0.7em; /* 50% of the current font size */
+            padding-left: 0px !important;
+            }
+
+         .leftDisplayPanel{
+            width: 100% !important;
+          }
+
+          .rightDisplayPanel{
+            width: 0% !important;;
+          }
+
+          .customerImageDiv{
+              height: 7rem !important; 
+              width: 7rem !important; 
+            }
+
+          .customerName{
+              font-size: 1.3rem !important;
+            }
+    }
+}
+
+//Mobile devices
+@media (min-width: 27.5625rem) and (max-width: 34.3750rem){
+  ::ng-deep {
+
+        nb-card-body.whatsAppCardBody{
+          padding-left: 0.4rem !important;
+           padding-right: 0.6rem !important;
+        }
+
+        .whatsAppChatArea {
+          padding: 0rem !important;
+        }
+        .currentChatInfoText {
+            font-size: 0.75em; /* 50% of the current font size */
+            padding-left: 0px !important;
+            }
+
+         .leftDisplayPanel{
+            width: 100% !important;
+          }
+
+          .rightDisplayPanel{
+            width: 0% !important;;
+          }
+          .customerImageDiv{
+              height: 7rem !important; 
+              width: 7rem !important; 
+            }
+
+          .customerName{
+              font-size: 1.3rem !important;
+            }
+
+  }
+}
+
+//Mobile devices , again for bigger screens
+@media (min-width: 34.38rem){
+  ::ng-deep {
+
+    .chatHeadDivColChatInfo {
+      padding-left:1.5rem !important;
+    }
+
+    .chatHeadDivColSelectDisplay {
+      padding-left:0.5rem !important;
+    }
+
+  }
+}

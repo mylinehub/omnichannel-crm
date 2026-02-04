@@ -1,0 +1,248 @@
+
+@import '../../../styles/themes';
+@import 'bootstrap/scss/mixins/breakpoints';
+@import '@nebular/theme/styles/global/breakpoints';
+
+@import '~@nebular/theme/styles/globals';
+
+
+
+@include nb-install-component() {
+
+    ::ng-deep {
+
+      nb-card.componentLevelZoomForNotification{
+       width:32rem;
+       height:22rem;
+       margin-bottom: 0.8rem;
+     }
+
+        nb-list-item {
+                    padding: 0.0000rem;
+                    margin: 0.0000rem;
+                    padding-top:0.0000rem;
+                    }
+        
+    .clearAllButton {
+              width:100%;
+              height:3.7500rem;
+            }
+
+        .alert{
+            width:100%
+        }
+            
+        .alert>.start-icon {
+            margin-right: 0;
+            min-width: 1.2500rem;
+            text-align: center;
+        }
+        
+        .alert>.start-icon {
+            margin-right: 0.3125rem;
+        }
+        
+        .greencross
+        {
+          font-size:1.1250rem;
+              color: #25ff0b;
+            text-shadow: none;
+        }
+        
+        .alert-simple.alert-success
+        {
+          border: 0.0625rem solid rgba(36, 241, 6, 0.46);
+            background-color: rgba(7, 149, 66, 0.12156862745098039);
+            box-shadow: 0.0000rem 0.0000rem 0.1250rem #259c08;
+            color: #0ad406;
+        //   text-shadow: 0.1250rem 0.0625rem #00040a;
+          transition:0.5s;
+          cursor:pointer;
+          margin: 0.0000rem;
+        }
+        .alert-success:hover{
+          background-color: rgba(7, 149, 66, 0.35);
+          transition:0.5s;
+        }
+        .alert-simple.alert-info
+        {
+          border: 0.0625rem solid rgba(6, 44, 241, 0.46);
+            background-color: rgba(7, 73, 149, 0.12156862745098039);
+            box-shadow: 0.0000rem 0.0000rem 0.1250rem #0396ff;
+            color: #0396ff;
+        //   text-shadow: 0.1250rem 0.0625rem #00040a;
+          transition:0.5s;
+          cursor:pointer;
+          margin: 0.0000rem;
+        }
+        
+        .alert-info:hover
+        {
+          background-color: rgba(7, 73, 149, 0.35);
+          transition:0.5s;
+        }
+        
+        .blue-cross
+        {
+          font-size: 1.1250rem;
+            color: #0bd2ff;
+            text-shadow: none;
+        }
+        
+        .alert-simple.alert-warning
+        {
+              border: 0.0625rem solid rgba(241, 142, 6, 0.81);
+            background-color: rgba(220, 128, 1, 0.16);
+            box-shadow: 0.0000rem 0.0000rem 0.1250rem #ffb103;
+            color: #ffb103;
+            // text-shadow: 0.1250rem 0.0625rem #00040a;
+          transition:0.5s;
+          cursor:pointer;
+          margin: 0.0000rem;
+        }
+        
+        .alert-warning:hover{
+          background-color: rgba(220, 128, 1, 0.33);
+          transition:0.5s;
+        }
+        
+        .warning
+        {
+              font-size: 1.1250rem;
+            color: #ffb40b;
+            text-shadow: none;
+        }
+        
+        .alert-simple.alert-danger
+        {
+          border: 0.0625rem solid rgba(241, 6, 6, 0.81);
+            background-color: rgba(220, 17, 1, 0.16);
+            box-shadow: 0.0000rem 0.0000rem 0.1250rem #ff0303;
+            color: #ff0303;
+            // text-shadow: 0.1250rem 0.0625rem #00040a;
+          transition:0.5s;
+          cursor:pointer;
+          margin: 0.0000rem;
+        }
+        
+        .alert-danger:hover
+        {
+             background-color: rgba(220, 17, 1, 0.33);
+          transition:0.5s;
+        }
+        
+        .danger
+        {
+              font-size: 1.1250rem;
+            color: #ff0303;
+            text-shadow: none;
+        }
+        
+        .alert-simple.alert-primary
+        {
+          border: 0.0625rem solid rgba(6, 241, 226, 0.81);
+            background-color: rgba(1, 204, 220, 0.16);
+            box-shadow: 0.0000rem 0.0000rem 0.1250rem #03fff5;
+            color: #03d0ff;
+            // text-shadow: 0.1250rem 0.0625rem #00040a;
+          transition:0.5s;
+          cursor:pointer;
+          margin: 0.0000rem;
+        }
+        
+        .alert-primary:hover{
+          background-color: rgba(1, 204, 220, 0.33);
+           transition:0.5s;
+        }
+        
+        .alertprimary
+        {
+              font-size: 1.1250rem;
+            color: #03d0ff;
+            text-shadow: none;
+        }
+        
+        
+        
+        .fa-times
+        {
+        -webkit-animation: blink-1 2s infinite both;
+                    animation: blink-1 2s infinite both;
+        }
+        
+        
+        /**
+         * ----------------------------------------
+         * animation blink-1
+         * ----------------------------------------
+         */
+        @-webkit-keyframes blink-1 {
+          0%,
+          50%,
+          100% {
+            opacity: 1;
+          }
+          25%,
+          75% {
+            opacity: 0;
+          }
+        }
+        @keyframes blink-1 {
+          0%,
+          50%,
+          100% {
+            opacity: 1;
+          }
+          25%,
+          75% {
+            opacity: 0;
+          }
+        }
+
+        
+        ::-webkit-scrollbar {
+            width: 1.2500rem;
+          }
+
+          ::-webkit-scrollbar-track {
+            background-color: transparent;
+          }
+
+          ::-webkit-scrollbar-thumb {
+            background-color: #d6dee1;
+            border-radius: 1.2500rem;
+            border: 0.3750rem solid transparent;
+            background-clip: content-box;
+          }
+
+          ::-webkit-scrollbar-thumb:hover {
+            background-color: #a8bbbf;
+          }
+
+    }
+
+        
+    //Mobile devices
+    @media (max-width: 27.5000rem) {
+      ::ng-deep {
+      nb-card.componentLevelZoomForNotification{
+          width:20rem;
+          height:25em;
+        }
+    }
+    }
+
+    //Mobile devices
+    @media (min-width: 27.5625rem) and (max-width: 34.3750rem){
+      ::ng-deep {
+      nb-card.componentLevelZoomForNotification{
+          width:20rem;
+          height:25em
+        }
+    }
+    }
+
+
+}
+
+

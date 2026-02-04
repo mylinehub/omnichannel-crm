@@ -1,0 +1,86 @@
+<nb-card id="notificationCard" class="componentLevelZoomForNotification">   
+  <nb-list>
+      <nb-list-item *ngIf="notificationListDataService.generalNotifications.length != 0">
+        <button id="clearAllButton" class="clearAllButton" nbButton status="danger"  (click)="clearAllNotifications()"><nb-icon icon="trash-2-outline"></nb-icon>Clear-All-Notifications</button>
+      </nb-list-item>
+      
+      <nb-list-item *ngIf="notificationListDataService.generalNotifications.length == 0">
+        <span style="width:100%">
+          <div class="alert fade alert-simple alert-info alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+            <i class="start-icon  fa fa-info-circle faa-shake animated"></i>
+            <strong class="font__weight-semibold">{{ notificationListDataService.emptyNotifications.title }}</strong>&nbsp;{{ notificationListDataService.emptyNotifications.message }}
+          </div>
+        </span>
+      </nb-list-item>
+
+      <nb-list-item  *ngFor="let notification of notificationListDataService.generalNotifications; let i = index;">
+
+        <span *ngIf="notification.alertType == 'alert-success'" style="width:100%">
+          <div class="alert fade alert-simple alert-success alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show">
+                  <button type="button" class="close font__size-18" data-dismiss="alert" (click)="deleteNotification(i)">
+                    <span aria-hidden="true"><a>
+                      <i class="fa fa-times greencross"></i>
+                      </a></span>
+                    <span class="sr-only">Close</span> 
+                  </button>
+            <i class="start-icon far fa-check-circle faa-tada animated"></i>
+            <strong class="font__weight-semibold">{{ notification.title }}</strong>&nbsp;{{ notification.message }}
+          </div>
+        </span>
+
+
+        <span *ngIf="notification.alertType == 'alert-info'" style="width:100%">
+          <div class="alert fade alert-simple alert-info alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+                    <button type="button" class="close font__size-18" data-dismiss="alert" (click)="deleteNotification(i)">
+                            <span aria-hidden="true">
+                              <i class="fa fa-times blue-cross"></i>
+                            </span>
+                            <span class="sr-only">Close</span>
+                    </button>
+            <i class="start-icon  fa fa-info-circle faa-shake animated"></i>
+            <strong class="font__weight-semibold">{{ notification.title }}</strong>&nbsp;{{ notification.message }}
+          </div>
+        </span>
+
+
+        <span *ngIf="notification.alertType == 'alert-warning'" style="width:100%">
+          <div class="alert fade alert-simple alert-warning alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+                  <button type="button" class="close font__size-18" data-dismiss="alert" (click)="deleteNotification(i)">
+                    <span aria-hidden="true">
+                      <i class="fa fa-times warning"></i>
+                    </span>
+                    <span class="sr-only">Close</span>
+                  </button>
+            <i class="start-icon fa fa-exclamation-triangle faa-flash animated"></i>
+            <strong class="font__weight-semibold">{{ notification.title }}</strong>&nbsp;{{ notification.message }}
+          </div>
+        </span>
+
+
+        <span *ngIf="notification.alertType == 'alert-danger'" style="width:100%">
+          <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+                  <button type="button" class="close font__size-18" data-dismiss="alert" (click)="deleteNotification(i)">
+                    <span aria-hidden="true">
+                      <i class="fa fa-times danger "></i>
+                    </span>
+                    <span class="sr-only">Close</span>
+                  </button>
+            <i class="start-icon far fa-times-circle faa-pulse animated"></i>
+            <strong class="font__weight-semibold">{{ notification.title }}</strong>&nbsp;{{ notification.message }}
+          </div>
+        </span>
+
+        <span *ngIf="notification.alertType == 'alert-primary'" style="width:100%">
+          <div class="alert fade alert-simple alert-primary alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+                  <button type="button" class="close font__size-18" data-dismiss="alert" (click)="deleteNotification(i)">
+                    <span  aria-hidden="true"><i class="fa fa-times alertprimary"></i></span>
+                    <span class="sr-only">Close</span>
+                  </button>
+            <i class="start-icon fa fa-thumbs-up faa-bounce animated"></i>
+            <strong class="font__weight-semibold">{{ notification.title }}</strong>&nbsp;{{ notification.message }}
+          </div>
+        </span>
+      </nb-list-item>
+
+    </nb-list>
+</nb-card>

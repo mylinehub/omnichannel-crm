@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voicebridge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voicebridge
+  template:
+    metadata:
+      labels:
+        app: voicebridge
+    spec:
+      containers:
+        - name: voicebridge
+          image: mylinehub/voicebridge:latest
+          ports:
+            - containerPort: 8082
+              name: https
+              protocol: TCP
+            - containerPort: 8083
+              name: http
+              protocol: TCP
+            - containerPort: 40000
+              name: rtp
+              protocol: UDP

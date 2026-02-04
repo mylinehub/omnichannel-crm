@@ -1,0 +1,242 @@
+<div class="row">
+    <div class="col-lg-12">
+      <nb-card class="transformNbCardSummaryGraphHeightAdjustment">
+        <nb-card-header>
+          <div class="row">
+            <div class="col-lg-7">  
+              Summary
+            </div>
+            <div class="col-lg-5">
+              <div class="d-flex align-items-center">
+                <div style="text-align: center;" class="container">
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </nb-card-header>
+        <nb-card-body class="transformNbCardSummaryGraphBodyAdjustment">
+          <div class="row transformDownTo70">
+            <ngx-charts-advanced-pie-chart
+              [scheme]="colorScheme"
+              [results]="single"
+              [view]="view"
+              [gradient]="gradient" >
+            </ngx-charts-advanced-pie-chart>
+          </div>
+        </nb-card-body>
+      </nb-card>
+     </div>  
+  </div>
+  
+  <div class="row notOnMobile">
+    <div class="col-lg-12">
+      <nb-card size="medium">
+        <nb-card-body>
+          <nb-stepper orientation="vertical" (stepChange)="handleStepChange($event)">
+            <nb-step label="First step">
+              <h4>Search Guide #1</h4>
+              <br>
+              <p class="lorem">
+                <br>
+                <b>Step 1</b>, explains what you require to do in next steps. This as a whole is a searching ladder. By default the system brings all records associated with organization for this module.
+              </p>
+              <p class="lorem">
+                <b>Step 2</b>, will ask you to choose search criteria from the drop down. <b>Step 3</b>, takes details for the 'type of search' selected in <b>Step 2</b>. <b>Step 4</b>, finally asks for confirmation and submission.
+              </p>
+              <br>
+              <button nbButton disabled nbStepperNext>prev</button>
+              <button nbButton nbStepperNext>next</button>
+            </nb-step>
+            <nb-step label="Second step">
+              <h4>Search Criteria #2</h4>
+              <br>
+              <div id="step2">
+                <div class="row">
+                  <div class="col-sm-6">  
+                    <nb-card size = "tiny">
+                      <nb-card-header>
+                        <nb-tag-list>
+                          <nb-tag status="success" appearance="filled" text="1"></nb-tag>
+                        </nb-tag-list>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Search Type
+                      </nb-card-header>
+                      <nb-card-body>
+                        <nb-radio-group name="search"
+                                        status="warning"
+                                        (valueChange)="onRadioChange($event)">
+                          <nb-radio *ngFor="let radioOption of radioOptions"
+                                    [checked]="radioOption.checked"
+                                    [disabled]="radioOption.disabled"
+                                    [value]="radioOption.value">
+                            {{ radioOption.label }}
+                          </nb-radio>
+                        </nb-radio-group>
+                      </nb-card-body>
+                    </nb-card>
+                  </div>
+  
+                  <div class="col-sm-6">   
+                    <div class="step2LeftContainer">
+                      <p><img src="../../../../assets/images/searchStepper2.png" alt="auth-page-image" width="200" height="130"> </p>
+                        <nb-tag-list>
+                          <nb-tag status="success" appearance="filled" text="2"></nb-tag>
+                        </nb-tag-list>
+                        <span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;Search On&nbsp;<nb-icon nbPrefix icon="alert-circle-outline"></nb-icon></span>  
+                        <br><br>
+                        <div>
+                          <nb-select [(selected)]="selectedOption" id="selectComponent" (selectedChange)="dropDownChange($event)" placeholder="Criteria : Search By" status="warning" optionsWidth = 260>
+  
+                            <nb-option-group *ngFor="let dropDownOption of dropDownOptions; let i = index;">
+                              <nb-option value="{{i}}">
+                                {{ dropDownOption.label }}
+                              </nb-option>
+                            </nb-option-group>
+  
+                            
+                          </nb-select>                  
+                        </div>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm-12"> 
+                    <br>
+                    <button nbButton nbStepperPrevious>prev</button>
+                    <button nbButton id = "stepTwoNextButton" [disabled]="stepTwoNextButton" nbStepperNext>next</button>
+                  </div>
+  
+                </div>
+              </div>
+             
+            </nb-step>
+            <nb-step label="Third step">
+              <h4>Search Input #3</h4>
+              <p class="lorem">
+                <br>
+                There are various features such as <b>search, filter</b> etc. which you can find in below table. By default below table loads all data related to organization. Then why we require this search stepper? 
+              </p>
+              <p class="lorem">
+                <b>System performance</b> sometimes becomes bottleneck when it has to cater large data set. In this case you use this stepper to first restrict data from server, which can be further filtered using below table.
+              </p>
+  
+              <div class="row">
+                <div class="col-sm-4" *ngFor="let input of inputs; let j = index;">
+                  
+                      <nb-card status="success">
+                        <nb-card-header>{{input}}</nb-card-header>
+                        <nb-card-body>
+                          
+                          <input nbInput placeholder="InputString" *ngIf ="types[j] == 'string'" [(ngModel)]="inputValues[j]" (change)="stepInputChange()">
+                          <input nbInput placeholder="InputNumber" *ngIf ="types[j] == 'number'" (change)="stepInputChange($event)" [(ngModel)]="inputValues[j]" >
+                          <nb-toggle *ngIf ="types[j] == 'boolean'" (checkedChange)="stepInputChange($event)" [(ngModel)]="inputValues[j]"></nb-toggle>
+                          <!--<input nbInput placeholder="InputDate" [nbDatepicker]="dateTimePicker" *ngIf ="types[j] == 'date'">-->
+                          <input nbInput placeholder="InputDate" [nbDatepicker]="dateTimePicker"*ngIf ="types[j] == 'date'" [(ngModel)]="inputValues[j]" >
+                          <nb-datepicker (dateChange)="valueChanged($event)" #dateTimePicker></nb-datepicker>
+  
+                        </nb-card-body>
+                      </nb-card>
+  
+                </div>
+              </div>
+  
+              <br>
+              <button nbButton nbStepperPrevious>prev</button>
+              <button nbButton id = "stepThreeNextButton" [disabled]="stepThreeNextButton" nbStepperNext>next</button>
+            </nb-step>
+            <nb-step label="Fourth step">
+              <h4>CONFIRM SEARCH #4</h4>
+              <p><img src="../../../../assets/images/stepSearch.png" alt="auth-page-image" width="400" height="250"> </p>    
+              <button nbButton nbStepperPrevious>prev</button>
+              <button nbButton disabled nbStepperNext>next</button>
+              <span class="align-items-center">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <button nbButton shape="round" size="small" status="success" (click)="search()">Search</button>
+            </nb-step>
+          </nb-stepper>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  
+  <div class="row componentLevelTable">
+    <div class="col-lg-12">
+      <nb-card   class="classname">
+        <nb-card-header> 
+          <div class="row">
+            <div class="col-sm-6">
+              <h1>{{ tableHeading }}</h1>
+            </div>
+            <div class="col-sm-6">
+              <div class="d-flex align-items-center">
+                <div id="downloadMainTableButton" style="text-align: left;" class="container">
+                  <label class="col-form-label">Export Table as:</label>
+                  <span class="align-items-center">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <select class="form-select" [(ngModel)]="downloadAs">
+                    <option value="xlsx">xlsx</option>
+                    <option value="csv">csv</option>
+                    <option value="json">json</option>
+                  </select>
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button nbButton shape="round" size="small" status="success" (click)="export()">
+                    Download
+                  </button>
+                </div>
+            </div>
+            </div>
+          </div>
+        </nb-card-header>
+       <nb-card-body>
+        <div class="row">
+          <ng2-smart-table [settings]="settings" [source]="source" (editConfirm)="onSaveConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)" (createConfirm)="onCreateConfirm($event)" (userRowSelect)="onUserRowSelect($event)" id="lastTable">
+          </ng2-smart-table>
+        </div>
+        <div class="row">
+          <br>
+        </div>
+        </nb-card-body>
+        
+      </nb-card>
+    </div>
+  </div>
+  
+  
+  <div class="row componentLevelZoom" *ngIf="showDetail">
+    <div class="col-lg-12">
+      <nb-card style="max-height: 30rem;"> 
+        <nb-card-header><span>&nbsp;&nbsp;&nbsp;<b>Row Details</b></span></nb-card-header>
+        <nb-card-body>
+          
+          <div class="row">
+            <div class="col-sm-4" *ngFor="let key of keys; let i = index;">
+              <nb-card status="success" style="height: 8rem;">
+                <nb-card-header>{{key}}</nb-card-header>
+                <nb-card-body>
+                  {{values[i]}}
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+  
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  
+  <div class="row componentLevelZoom" *ngIf="showAction">
+    <div class="col-lg-12">
+        <nb-card class="nbCardHeightAdjustment">
+          <nb-card-header><span>&nbsp;&nbsp;&nbsp;<b>Actions</b></span></nb-card-header>
+          <nb-card-body>
+            
+            <div class="row">
+              <div class="col-xxxl-3 col-md-6" *ngFor="let statusCard of statusCards">
+                <ngx-card [title]="statusCard.title" [type]="statusCard.type" [currentRecord] = "currentRecord" (parent)="getChildData($event)">
+                  <i [ngClass]="statusCard.iconClass"></i>
+                </ngx-card>
+              </div>
+            </div>
+  
+          </nb-card-body>
+        </nb-card>
+    </div>
+  </div>
+

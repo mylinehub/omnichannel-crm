@@ -1,0 +1,19 @@
+<nb-card class="calling-card" accent="success">
+    <nb-card-header>Enter number to dial</nb-card-header>
+    <nb-card-body style="width:100%">
+        <div class="callingDiv">
+            <input id="inputText" 
+            type="text" 
+            nbInput 
+            fullwidth 
+            placeholder="Type number to call" 
+            [(ngModel)]="dialValue"
+            class="callInput">
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton outline status="success" (click)="call()">Call</button>
+      &nbsp;&nbsp;
+      <button nbButton outline status="danger" (click)="cancel()">Cancel</button>
+    </nb-card-footer>
+</nb-card>

@@ -1,0 +1,349 @@
+@import '../../../@theme/styles/themes';
+@import 'bootstrap/scss/mixins/breakpoints';
+@import '@nebular/theme/styles/global/breakpoints';
+
+@import '~@nebular/theme/styles/globals';
+
+
+
+@include nb-install-component() {
+
+  
+
+::ng-deep {
+
+  nb-layout-column {
+    height: 80vw;
+  }
+
+  button + button {
+    margin-left: 1rem;
+  }
+
+  .dialog-card {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+
+  @media (min-width: 40rem) {
+    .dialog-card {
+      width: 30rem;
+    }
+  }
+
+  .picture {
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    border-top-left-radius: nb-theme(card-border-radius);
+    border-top-right-radius: nb-theme(card-border-radius);
+    flex: 1;
+  }
+
+  .details {
+    padding: nb-theme(card-padding);
+  }
+
+  .description {
+    text-align: justify;
+  }
+
+  nb-card-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: left;
+  }
+
+  .link-icon {
+    font-size: 1.75rem;
+  }
+
+  nb-icon {
+    font-size: 1.55rem;
+
+    ::ng-deep svg {
+      vertical-align: top;
+    }
+  }
+
+  .location,
+  .date {
+    display: block;
+  }
+
+  .location {
+    margin-bottom: 0.1rem;
+  }
+
+  .today {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .today-temperature {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2rem 1.5rem;
+  }
+
+  .today-icon {
+    color: nb-theme(color-primary-default);
+    font-size: 10rem;
+    line-height: 1;
+    margin-top: -4rem;
+    margin-left: auto;
+    margin-right: 0.4rem;
+  }
+
+  .today-details {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+  }
+
+  .parameter {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .parameter-name{
+    display: block;
+    margin-top: 2rem;
+  }
+
+  .parameter-value {
+    display: block;
+  }
+
+  .caption {
+    text-transform: uppercase;
+  }
+
+  .weekly-forecast {
+    display: flex;
+    justify-content: space-around;
+    margin: auto 0;
+  }
+
+  .day {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .weather-icon {
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .cancel {
+    margin-right: 1rem;
+  }
+  
+}
+  
+  ngx-d3-bar,
+  ngx-d3-pie,
+  ngx-charts-advanced-pie-chart{
+    display: block;
+    width: 100%;
+    height: nb-theme(card-height-small-1);
+
+    ::ng-deep {
+      .pie-label {
+        fill: nb-theme(text-basic-color);
+      }
+
+      text {
+        fill: nb-theme(text-hint-color);
+      }
+
+      .chart-legend {
+        .legend-labels {
+          background: nb-theme(background-basic-color-2);
+        }
+        .legend-label {
+          color: nb-theme(text-hint-color);
+          .active .legend-label-text {
+            color: nb-theme(text-basic-color);
+          }
+        }
+      }
+
+      .total-value,
+      .item-value,
+      .item-percent {
+        line-height: 1.25;
+      }
+
+      .legend-items {
+        overflow-y: hidden;
+      }
+    }}
+  ngx-d3-area-stack,
+  ngx-d3-line,
+  ngx-d3-polar {
+    display: block;
+    width: 100%;
+    height: nb-theme(card-height-medium);
+
+    ::ng-deep {
+      .pie-label {
+        fill: nb-theme(text-basic-color);
+      }
+
+      text {
+        fill: nb-theme(text-hint-color);
+      }
+
+      .chart-legend {
+        .legend-labels {
+          background: nb-theme(background-basic-color-2);
+        }
+        .legend-label {
+          color: nb-theme(text-hint-color);
+          .active .legend-label-text {
+            color: nb-theme(text-basic-color);
+          }
+        }
+      }
+
+      .total-value,
+      .item-value,
+      .item-percent {
+        line-height: 1.25;
+      }
+
+      .legend-items {
+        overflow-y: hidden;
+      }
+    }
+  }
+
+  .solar-card nb-card-header {
+    border: none;
+    padding-bottom: 0;
+  }
+
+  /*
+  @include media-breakpoint-down(sm) {
+    ngx-traffic {
+      display: none;
+    }
+  }
+*/
+
+.recording {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0rem;
+  margin: 0rem;
+}
+
+}
+
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 0.0625rem;
+  margin: -0.0625rem;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 0.0625rem;
+}
+
+#step2 {
+  height: 15.6250rem;
+  width: 34.3750rem;
+  color: #fff;
+}
+
+
+.step2LeftContainer {
+  position: absolute;
+  top: 45%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  padding: 0.6250rem;
+}
+
+
+// //Mobile devices
+// @media (max-width: 27.5000rem) {
+//   ::ng-deep {
+//     .extraPaddingForMobile{
+//         padding-top: 0.2500rem;
+//         padding-bottom: 0.2500rem;
+//       }
+//       .notOnMobile{
+//         display:none;
+//       }
+
+//       .componentLevelTopGraph{
+//         zoom:60%;
+//       }
+
+//       .componentLevelTable{
+//         zoom:70%;
+//       }
+
+//       .componentLevelZoom{
+//         zoom:75%;
+//       }
+
+//       .componentLevelZoom65{
+//         zoom:65%;
+//       }
+
+//       nb-card.nbCardHeightAdjustment{
+//         height: 23.1250rem;
+//       }
+
+//       .picture{
+//          zoom:88%;
+//       }
+      
+//     }
+// }
+
+// //Mobile devices
+// @media (min-width: 27.5625rem) and (max-width: 34.3750rem){
+//   ::ng-deep {
+//     .extraPaddingForMobile{
+//         padding-top: 0.2500rem;
+//         padding-bottom: 0.2500rem;
+//       }
+//   .notOnMobile{
+//     display:none;
+//   }
+
+//   .componentLevelTopGraph{
+//         zoom:60%;
+//       }
+
+//   .componentLevelTable{
+//         zoom:72%;
+//       }
+
+
+//   .componentLevelZoom{
+//     zoom:75%;
+//   }
+
+//   nb-card.nbCardHeightAdjustment{
+//     height: 23.1250rem;
+//   }
+//   }
+// }
+
+
+
+

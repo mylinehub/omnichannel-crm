@@ -1,0 +1,743 @@
+@import '../@theme/styles/themes';
+
+@include nb-install-component() {
+  ::ng-deep router-outlet + * {
+    display: block;
+    animation: fade 1s;
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+    
+  ::ng-deep {
+
+  .customerPicHeading,
+  .productPicHeading{
+    font-size:0.9375rem;
+  }
+
+  .customerPic,
+  .productPic {
+    width: 31.25rem;   /* 500 ÷ 16 */
+    height: 37.5rem;   /* 600 ÷ 16 */
+  }
+
+    ng2-smart-table {
+      .form-control {
+        background-color: nb-theme(input-basic-background-color);
+        border-color: nb-theme(input-basic-border-color);
+        border-style: nb-theme(input-border-style);
+        border-width: nb-theme(input-border-width);
+        color: nb-theme(input-basic-text-color);
+        font-family: nb-theme(input-text-font-family);
+  
+        &::placeholder {
+          color: nb-theme(input-basic-placeholder-text-color);
+          font-family: nb-theme(input-placeholder-text-font-family);
+          text-overflow: ellipsis;
+        }
+  
+        &:focus {
+          outline: none;
+          border-color: nb-theme(input-basic-focus-border-color);
+          background-color: nb-theme(input-basic-background-color);
+        }
+  
+        &:hover {
+          border-color: nb-theme(input-basic-hover-border-color);
+        }
+  
+        &:disabled {
+          background-color: nb-theme(input-basic-disabled-background-color);
+          border-color: nb-theme(input-basic-disabled-border-color);
+          color: nb-theme(input-basic-disabled-text-color);
+  
+          &::placeholder {
+            color: nb-theme(input-basic-disabled-placeholder-text-color);
+          }
+        }
+  
+        &.input-full-width {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  
+  ::ng-deep nb-layout-column {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; // Enables smooth scrolling on iOS
+    height: 100%;
+  }
+
+  // ::ng-deep nb-layout-header {
+  //   position: sticky;
+  //   top: 0;
+  // }
+
+  // ::ng-deep nb-layout-footer {
+  //   position: sticky;
+  //   bottom: 0;
+  // }
+
+}
+
+:host {
+  ::ng-deep .departmentName .ng2-smart-title {
+    width: 7.5rem;
+  }
+}
+
+:host {
+  ::ng-deep .city .ng2-smart-title {
+    width: 8rem;
+  }
+}
+
+:host {
+  ::ng-deep .managerFirstName .ng2-smart-title,
+  ::ng-deep .firstname .ng2-smart-title,
+  ::ng-deep .firstName .ng2-smart-title,
+  ::ng-deep .customerFirstName .ng2-smart-title{
+    width: 6rem;
+  }
+}
+
+:host {
+  ::ng-deep .managerLastName .ng2-smart-title,
+  ::ng-deep .lastname .ng2-smart-title,
+  ::ng-deep .lastName .ng2-smart-title,
+  ::ng-deep .customerLastName .ng2-smart-title{
+    width: 6rem;
+  }
+}
+
+:host {
+  ::ng-deep .phoneNumber .ng2-smart-title,
+  ::ng-deep .phonenumber .ng2-smart-title,
+  ::ng-deep .transfer_phone_1 .ng2-smart-title,
+  ::ng-deep .transfer_phone_2 .ng2-smart-title {
+    width: 7rem;
+  }
+}
+
+:host {
+  ::ng-deep .phoneNumberID .ng2-smart-title {
+    width: 6.5rem;
+  }
+}
+
+:host {
+  ::ng-deep .verifyToken .ng2-smart-title {
+    width: 6.5rem;
+  }
+}
+
+:host {
+  ::ng-deep .whatsAppAccountID .ng2-smart-title {
+    width: 6.5rem;
+  }
+}
+
+
+:host {
+  ::ng-deep .templateName .ng2-smart-title {
+    width: 10rem;
+  }
+}
+
+:host {
+  ::ng-deep .variableName .ng2-smart-title {
+    width: 5rem;
+  }
+}
+
+
+:host {
+  ::ng-deep .business .ng2-smart-title {
+    width: 7rem;
+  }
+}
+
+
+:host {
+  ::ng-deep .description .ng2-smart-title {
+    width: 7rem;
+  }
+}
+
+:host {
+  ::ng-deep .campaignName .ng2-smart-title {
+    width: 7rem;
+  }
+}
+
+
+:host {
+  ::ng-deep .name .ng2-smart-title,
+  ::ng-deep .confname .ng2-smart-title,
+  ::ng-deep .purchaseName .ng2-smart-title{
+    width: 7rem;
+  }
+}
+
+
+:host {
+  ::ng-deep .productStringType .ng2-smart-title {
+    width: 7rem;
+  }
+}
+
+:host {
+  ::ng-deep .units .ng2-smart-title {
+    width: 7rem;
+  }
+}
+
+:host {
+  ::ng-deep .purchasePrice .ng2-smart-title {
+    width: 5.5rem;
+  }
+}
+
+
+
+:host {
+  ::ng-deep .sellingPrice .ng2-smart-title {
+    width: 5.5rem;
+  }
+}
+
+:host {
+  ::ng-deep .taxRate .ng2-smart-title {
+    width: 5.5rem;
+  }
+}
+
+:host {
+  ::ng-deep .employeeName .ng2-smart-title {
+    width: 7rem;
+  }
+}
+
+:host {
+  ::ng-deep .customerName .ng2-smart-title {
+    width: 7rem;
+  }
+}
+
+
+:host {
+  ::ng-deep .remarks .ng2-smart-title,
+  ::ng-deep .reasonForAbsense .ng2-smart-title{
+    width: 8rem;
+  }
+}
+
+:host {
+  ::ng-deep .amiuser .ng2-smart-title {
+    width: 6rem;
+  }
+}
+
+:host {
+  ::ng-deep .absenteeismName .ng2-smart-title {
+    width: 7rem;
+  }
+}
+
+
+:host {
+  ::ng-deep .owner .ng2-smart-title {
+    width: 6.5rem;
+  }
+}
+
+:host {
+  ::ng-deep .menu .ng2-smart-title {
+    width: 6.5rem;
+  }
+}
+
+:host {
+  ::ng-deep .userprofile .ng2-smart-title {
+    width: 6rem;
+  }
+}
+
+
+:host {
+  ::ng-deep .error .ng2-smart-title,
+  ::ng-deep .log .ng2-smart-title{
+    width: 10rem;
+  }
+}
+
+:host {
+  ::ng-deep .data .ng2-smart-title {
+    width: 10rem;
+  }
+}
+
+:host {
+  ::ng-deep .errorClass .ng2-smart-title,
+  ::ng-deep .logClass .ng2-smart-title{
+    width: 6.5rem;
+  }
+}
+
+:host {
+  ::ng-deep .functionality .ng2-smart-title {
+    width: 6.5rem;
+  }
+}
+
+:host {
+  ::ng-deep .type .ng2-smart-title {
+    width: 7rem;
+  }
+}
+
+:host {
+	  ::ng-deep .activityStatus .ng2-smart-title{
+		width: 10rem;
+	  }
+	}
+
+  :host {
+	  ::ng-deep .typeOfTransport .ng2-smart-title,
+	  ::ng-deep .modeOfTransport .ng2-smart-title,
+	  ::ng-deep .transportcapacity .ng2-smart-title{
+		width: 5.5rem;
+	  }
+	}
+
+  :host {
+	  ::ng-deep .connectionString .ng2-smart-title,
+	  ::ng-deep .extraKey .ng2-smart-title,
+	  ::ng-deep .password .ng2-smart-title,
+	  ::ng-deep .pemFileLocation .ng2-smart-title,
+	  ::ng-deep .privateKey .ng2-smart-title,
+	  ::ng-deep .publicKey .ng2-smart-title{
+		width: 9rem;
+	  }
+	}
+  
+  :host {
+	  ::ng-deep .supplierName .ng2-smart-title,
+	  ::ng-deep .providerName .ng2-smart-title,
+	  ::ng-deep .company .ng2-smart-title,
+	  ::ng-deep .supplierPhoneNumber .ng2-smart-title,
+	  ::ng-deep .suppliertype .ng2-smart-title,
+	  ::ng-deep .pemFileName .ng2-smart-title,
+	  ::ng-deep .phonecontext .ng2-smart-title,
+	  ::ng-deep .sshHostType .ng2-smart-title,
+	  ::ng-deep .sshUser .ng2-smart-title{
+		width: 6.7rem;
+	  }
+	}
+
+
+
+::ng-deep nb-card.dialog-card{
+        max-width:40rem;
+        max-height:20rem;
+  }
+
+
+//Mobile devices
+@media (max-width: 27.5000rem) {
+  ::ng-deep {
+
+      nb-card-header > .row > .col-lg-7 > h5 {
+        font-size: 1.2rem;
+        }
+
+      nb-card-header > h5 {
+        font-size: 1.2rem;
+        }
+
+      nb-card-body > div > h4 {
+        font-size: 1.1rem;
+        }
+
+      nb-card.transformNbCardSummaryGraphHeightAdjustment{
+        height: 13rem;
+      }
+
+      nb-card-body.transformNbCardSummaryGraphBodyAdjustment {
+        overflow:hidden;
+      }
+
+    .transformDownTo70 {
+        transform: scale(0.7);
+        transform-origin: top left;
+        width: 142.8571%;
+        height: 142.8571%;
+        display: inline-block;
+      }
+
+    .paddingBottomZero{
+        padding-bottom: 0rem;
+    }
+
+    .extraPaddingForMobileTop{
+        padding-top: 0.8rem;
+    }
+    
+    
+    .extraPaddingForMobile{
+        padding-top: 0.2500rem;
+        padding-bottom: 0.2500rem;
+      }
+
+      .recordingText{
+      font-size: 0.7rem;
+      }
+
+      .notOnMobile{
+        display:none;
+      }
+
+      .audioFrame {
+        width: 14rem;
+        height: 2.5rem;    // shrink height (standard for controls-only)
+      }
+      
+
+      nb-card.nbCardHeightAdjustment{
+        height: 23.1250rem;
+      }
+
+      nb-card.nbCardHeightAdjustmentWithButton{
+        height: 26rem;
+      }
+
+      nb-card.nbCardHeightAdjustmentWithButtonForCust,
+      nb-card.nbCardHeightAdjustmentWithButtonForProduct{
+        height: 28rem;
+      }
+
+
+      div.picture{
+          height:80%;
+          width:80%;
+          left:15%
+      }
+
+      nb-card.dialog-card{
+        max-width:21.5rem;
+        max-height:15rem;
+      }
+
+      nb-card-body.dialog-card-body-font-size{
+          font-size: 1rem;
+      }
+
+      nb-calendar nb-base-calendar nb-card {
+        width:90%;
+      }
+
+      nb-card .details .title {
+        font-size: 1rem;
+      }
+
+
+    nb-tabset {
+      font-size: 0.8rem; /* shrink font size */
+    }
+
+    nb-tabset .tab {
+      padding: 0.3rem 0.6rem !important; /* reduce padding, keep proportion */
+      min-width: auto !important; /* avoid fixed min-width */
+    }
+
+    nb-tabset .tab-text {
+      font-size: 0.75rem !important; /* smaller tab text */
+    }
+
+    nb-tabset .tabset {
+      overflow: hidden !important; /* no scroll */
+    }
+
+    a.tab-link {
+        padding-left:0rem;
+        padding-right:0rem;
+        font-size: 1rem;
+    }
+
+    nb-tabset .tabset {
+      overflow-x: hidden !important; /* no scroll */
+    }
+
+    .profilePicImg,
+    .customerPicImg,
+    .productCorouselCardImage {
+        width:9rem;
+        height:11rem;
+    }
+
+    .doc1Img {
+        width: 17rem;
+        height: 11rem;
+    }
+
+    .doc2Img {
+        width: 17rem;
+        height: 11rem;
+    }
+  
+      ::ng-deep nb-card > nb-card-header > .row > .col-sm-6 > h1 {
+          font-size: 1.5rem;
+        }
+
+      ::ng-deep nb-card > nb-card-header > .row > .col-sm-9 > h1 {
+          font-size: 1.25rem;
+        }
+
+      ::ng-deep ng2-smart-table {
+          font-size: 0.75rem;
+
+          table {
+            width: 100%;
+          }
+
+          th, td {
+            padding: 0.2rem 0.2rem;
+          }
+
+          
+          tr, td{
+              font-size: .875em;
+              margin: 0;
+              padding: .5em .5em;
+          }
+
+          .ng2-smart-actions a {
+            font-size: 0.7rem;
+          }
+
+          .ng2-smart-title {
+            font-size: 0.8rem;
+          }
+        }
+
+      .onlyOnMobile{
+        display: block;
+      }
+
+      .customerPicHeading,
+      .productPicHeading{
+        font-size:0.8375rem !important;
+      }
+
+      .customerPic,
+      .productPic {
+        width: 10rem !important;   /* 500 ÷ 16 */
+        height: 10rem !important;   /* 600 ÷ 16 */
+      }
+
+    }
+}
+
+//Mobile devices
+@media (min-width: 27.5625rem) and (max-width: 34.3750rem){
+  ::ng-deep {
+
+
+      nb-card-header > .row > .col-lg-7 > h5 {
+        font-size: 1.2rem;
+        }
+
+      nb-card-header > h5 {
+        font-size: 1.2rem;
+        }
+
+      nb-card-body > div > h4 {
+        font-size: 1.1rem;
+        }
+
+      nb-card.transformNbCardSummaryGraphHeightAdjustment{
+        height: 13rem;
+      }
+
+      nb-card-body.transformNbCardSummaryGraphBodyAdjustment {
+        overflow:hidden;
+      }
+
+    .transformDownTo70 {
+        transform: scale(0.7);
+        transform-origin: top left;
+        width: 142.8571%;
+        height: 142.8571%;
+        display: inline-block;
+      }
+      
+    .paddingBottomZero{
+        padding-bottom: 0rem;
+      }
+
+      .extraPaddingForMobileTop{
+        padding-top: 0.80rem;
+      }
+
+      .extraPaddingForMobile{
+        padding-top: 0.2500rem;
+        padding-bottom: 0.2500rem;
+      }
+
+      .recordingText{
+      font-size: 0.7rem;
+    }
+
+      .notOnMobile{
+        display:none;
+      }
+
+      .audioFrame {
+        width: 14rem;
+        height: 2.5rem;    // shrink height (standard for controls-only)
+      }
+
+      div.picture{
+          height:80%;
+          width:80%;
+          left:15%;
+      }
+
+       nb-card.dialog-card{
+        max-width:21.5rem;
+        max-height:15rem;
+        }
+
+        nb-card-body.dialog-card-body-font-size{
+            font-size: 1rem;
+        }
+
+      nb-calendar nb-base-calendar nb-card {
+        width:90%;
+      }
+      
+       nb-card .details .title {
+        font-size: 1rem;
+      }
+
+      nb-tabset {
+        font-size: 0.8rem; /* shrink font size */
+      }
+
+      nb-tabset .tab {
+        padding: 0.3rem 0.6rem !important; /* reduce padding, keep proportion */
+        min-width: auto !important; /* avoid fixed min-width */
+      }
+
+      nb-tabset .tab-text {
+        font-size: 0.75rem !important; /* smaller tab text */
+      }
+
+      nb-tabset .tabset {
+        overflow: hidden !important; /* no scroll */
+      }
+
+      a.tab-link {
+          padding-left:0rem;
+          padding-right:0rem;
+          font-size: 1rem;
+      }
+
+      nb-tabset .tabset {
+        overflow-x: hidden !important; /* no scroll */
+      }
+
+      .profilePicImg,
+      .customerPicImg,
+      .productCorouselCardImage {
+          width:9rem;
+          height:11rem;
+      }
+
+      .doc1Img {
+          width: 17rem;
+          height: 11rem;
+      }
+
+      .doc2Img {
+          width: 17rem;
+          height: 11rem;
+      }
+
+      ::ng-deep nb-card > nb-card-header > .row > .col-sm-6 > h1 {
+          font-size: 1.5rem;
+        }
+
+      ::ng-deep nb-card > nb-card-header > .row > .col-sm-9 > h1 {
+          font-size: 1.5rem;
+      }
+
+      ::ng-deep ng2-smart-table {
+          font-size: 0.65rem;
+
+          table {
+            width: 100%;
+          }
+
+          th, td {
+            padding: 0.2rem 0.2rem;
+          }
+
+          tr, td{
+              font-size: .875em;
+              margin: 0;
+              padding: .5em .5em;
+          }
+
+          .ng2-smart-actions a {
+            font-size: 0.6rem;
+          }
+
+          .ng2-smart-title {
+            font-size: 0.7rem;
+          }
+        }
+
+      nb-card.nbCardHeightAdjustment{
+        height: 23.1250rem;
+      }
+
+
+      nb-card.nbCardHeightAdjustmentWithButton{
+        height: 26rem;
+      }
+
+       nb-card.nbCardHeightAdjustmentWithButtonForCust,
+       nb-card.nbCardHeightAdjustmentWithButtonForProduct{
+        height: 28rem;
+      }
+
+     
+      .onlyOnMobile{
+            display:block;
+      }
+
+      .customerPicHeading,
+      .productPicHeading{
+        font-size:0.8375rem !important;
+      }
+
+      .customerPic,
+      .productPic {
+        width: 10rem !important;   /* 500 ÷ 16 */
+        height: 10rem !important;   /* 600 ÷ 16 */
+      }
+  
+  }
+}

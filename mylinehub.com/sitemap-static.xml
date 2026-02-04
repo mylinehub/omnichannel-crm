@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://mylinehub.com/</loc>
+  </url>
+
+  <!-- Core product pages (to be created today) -->
+  <url>
+    <loc>https://mylinehub.com/whatsapp-automation</loc>
+  </url>
+  <url>
+    <loc>https://mylinehub.com/ivr-system</loc>
+  </url>
+  <url>
+    <loc>https://mylinehub.com/cloud-telecom</loc>
+  </url>
+  <url>
+    <loc>https://mylinehub.com/call-center-crm</loc>
+  </url>
+  <url>
+    <loc>https://mylinehub.com/ai-interview-software</loc>
+  </url>
+
+  <!-- Policies -->
+  <url>
+    <loc>https://mylinehub.com/assets/general-policies.html</loc>
+  </url>
+  <url>
+    <loc>https://mylinehub.com/assets/privacy-policy.html</loc>
+  </url>
+  <url>
+    <loc>https://mylinehub.com/assets/refund-policy.html</loc>
+  </url>
+  <url>
+    <loc>https://mylinehub.com/assets/return-policy.html</loc>
+  </url>
+  <url>
+    <loc>https://mylinehub.com/assets/shipping-policy.html</loc>
+  </url>
+  <url>
+    <loc>https://mylinehub.com/assets/terms-conditions.html</loc>
+  </url>
+
+</urlset>

@@ -1,0 +1,157 @@
+@import 'bootstrap/scss/mixins/breakpoints';
+@import '@nebular/theme/styles/global/breakpoints';
+@import '../../styles/themes';
+
+@include nb-install-component() {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  nb-select{
+    margin: 0;
+    padding: 0;
+  }
+
+  .logo-container {
+    display: block;
+    align-items: left;
+    margin: 0;
+    padding: 0;
+  }
+
+  nb-action {
+    height: auto;
+    display: flex;
+    align-content: center;
+  }
+
+  nb-user {
+    cursor: pointer;
+  }
+
+  ::ng-deep nb-search button {
+    padding: 0!important;
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    width: auto;
+
+    .sidebar-toggle {
+      @include nb-ltr(padding-right, 1.25rem);
+      @include nb-rtl(padding-left, 1.25rem);
+      text-decoration: none;
+      color: nb-theme(text-hint-color);
+      nb-icon {
+        font-size: 1.75rem;
+      }
+    }
+
+    .logo {
+      padding: 0 1.25rem;
+      font-size: 1.75rem;
+      @include nb-ltr(border-left, 0.0625rem solid nb-theme(divider-color));
+      @include nb-rtl(border-right, 0.0625rem solid nb-theme(divider-color));
+      white-space: nowrap;
+      text-decoration: none;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .control-item {
+      display: none;
+    }
+    .user-action {
+      border: none;
+      padding: 0;
+    }
+  }
+
+  @include media-breakpoint-down(is) {
+    nb-select {
+      display: none;
+    }
+
+    div.notOnMobile{
+      display: none;
+    }
+  }
+
+  .today-icon {
+   // color: nb-theme(color-primary-default);
+    padding:0rem;
+    margin: 0rem;
+  }
+  .space{
+    display:none;
+  }
+
+ .company-logo-wrapper {
+  display: inline-block;
+}
+
+.company-logo-img {
+  max-width: 100%;
+  height: auto;
+  width: 12rem; /* Default logo width */
+}
+
+
+
+}
+
+
+ //Mobile devices
+ @media (max-width: 31.2500rem) {
+  ::ng-deep {
+
+      .crmheading{
+        font-size:0.8750rem
+      }
+      .today-icon{
+        height: 0.4375rem;
+        width: 0.4375rem;
+      }
+      .space{
+        display:none;
+      }
+      .messagebox{
+        display:none;
+      }
+
+        .company-logo-img {
+          width: 1.3rem
+        }
+    }
+
+    ::ng-deep .cdk-overlay-pane.custom-notification-popover {
+    right: 1.5rem !important;
+  }
+}
+
+//iPads, Tablets
+@media (min-width: 31.3125rem) and (max-width: 48.1250rem) {
+  ::ng-deep { 
+      
+  .crmheading{
+    font-size:1.3750rem
+  }
+  .today-icon{
+    height: 1.1250rem;
+    width: 1.1250rem;
+  }
+  .messagebox{
+    display:none;
+  }
+
+    .company-logo-img {
+    width: 1.3rem;
+  }
+ }
+
+ ::ng-deep .cdk-overlay-pane.custom-notification-popover {
+    right: 1.5rem !important;
+  }
+}
+

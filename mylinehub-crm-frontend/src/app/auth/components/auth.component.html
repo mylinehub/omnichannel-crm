@@ -1,0 +1,120 @@
+
+<span id="backButton" class="backButton" *ngIf="showBackButton">
+   <button [size] = "backButtonSize" nbButton outline status="info" (click)="goToDashboard()"><nb-icon icon="arrow-back-outline"></nb-icon>Go Back</button>
+</span>
+
+<div class="row loginScreen" *ngIf="!registrationStarted">
+     <div *ngIf="loginService.register" class="col-xs-12 col-sm-12 col-md-12 col-lg-6 d-flex align-items-center componentLevelZoomForAuth componentLevelZoomMargin">
+      <div style="display: flex;
+                  justify-content: center; align-items: center;" class="container">
+        <img src="../../../assets/images/loginpage.png"
+            alt="auth-page-image"
+            style="width: 27rem; height: 30rem; filter: blur(0.6250rem);">
+        <nb-card *ngIf="!notIndianWhileRegistration" accent="info" status = "info" [size]="tiny" class="registrationCard" style="position:absolute; width:31.2500rem; height:15.6250rem;">
+            <nb-card-header>
+              <h4>Start Business Registration Now</h4>
+              <div style="color:black; font-size: 1.0625rem; width:100%;" id="registrationHint"><i> {{ registrationError }} </i></div>
+            </nb-card-header>
+            <nb-card-body>
+              <input #businessIdentification nbInput placeholder="Enter Business Identification (GSTIN)" style="width:100%; height:2.5000rem">
+            </nb-card-body>
+            <nb-card-footer>
+              <button class="cancel" nbButton status="danger" (click)="cancel()">Cancel</button><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <button nbButton status="success" (click)="registerNow(businessIdentification.value)">Submit</button><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <button nbButton status="warning" (click)="goToNotIndian()"><nb-icon icon="flag-outline"></nb-icon>Not Indian</button>
+            </nb-card-footer>
+        </nb-card>
+
+        <nb-card *ngIf="notIndianWhileRegistration" accent="info" status = "info" [size]="tiny" class="registrationCard" style="position:absolute; width:31.2500rem; height:15.6250rem;">
+            <nb-card-header>
+              <h4>Start Business Registration Now</h4>
+              <div style="color:black; font-size: 1.0625rem; width:100%;"><i> {{ registrationError }}</i></div>
+            </nb-card-header>
+            <nb-card-body>
+              <i>For international offerings. What's App +919711761156 to create a support ticket.</i>
+            </nb-card-body>
+            <nb-card-footer>
+              <button nbButton status="warning" (click)="backToRegistration()">Back</button>
+            </nb-card-footer>
+        </nb-card>
+      </div>  
+     </div>
+
+      <div *ngIf="!loginService.register" class="col-xs-12 col-sm-12 col-md-12 col-lg-6 d-flex align-items-center componentLevelZoomForAuth componentLevelZoomMargin">
+        <div style="text-align: center;" class="container">
+          <img src="../../../assets/images/loginpage.png"
+            alt="auth-page-image"
+            style="width: 27rem; height: 30rem;">
+        </div>
+     </div>
+
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="display:block; width:100%; height:100%; overflow: hidden; padding:0px; background:#edf1f7">
+    <nb-layout>
+      <nb-layout-column>
+          <div>
+            <span class="notOnMobile"><br><br></span>
+            <nb-auth-block>
+              <router-outlet></router-outlet>  
+            </nb-auth-block>
+          </div>
+      </nb-layout-column>
+   </nb-layout>
+  </div>
+
+</div>
+
+<div class="row mobileStepper" *ngIf="registrationStarted">
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+    <div class="content">
+
+      <span id="errorSpan" class="errorSpan" role="alert" *ngIf="registrationProcessErrorBoolean">
+        {{ registrationProcessErrorString }}
+      </span>
+
+      <nb-stepper *ngIf="!registrationProcessErrorBoolean" [orientation]="orientation">
+                  <nb-step [label]="labelOne">
+                    <ng-template #labelOne>First step</ng-template>
+                    <h4 class="mobileHeading">#1 Verifying Details</h4>
+                    <p class="lorem notOnMobile">
+                      We have send business identification for verification. Stay relaxed while this automated process executes.
+                    </p>
+                    <button style="display:none;" id = "stepOnePrevButton" nbButton disabled nbStepperNext>prev</button>
+                    <button style="display:none;" id = "stepOneNextButton" nbButton nbStepperNext>next</button>
+                  </nb-step>
+                  <nb-step [label]="labelTwo">
+                    <ng-template #labelTwo>Second step</ng-template>
+                    <h4 class="mobileHeading">#2 Submitting Details</h4>
+                    <p class="lorem notOnMobile">
+                      Business identification successful. Submitting details to create organization structure.
+                    </p>
+                    <button style="display:none;" id = "stepTwoPrevButton" nbButton nbStepperPrevious>prev</button>
+                    <button style="display:none;" id = "stepTwoNextButton" nbButton nbStepperNext>next</button>
+                  </nb-step>
+                  <nb-step label="Third step">
+                    <h4 class="mobileHeading">#3 Creating User</h4>
+                    <p class="lorem notOnMobile">
+                      Exciting time begins. Creating admin user. After login, make sure you see graphs, tables and lot more.
+                    </p>
+                    <button style="display:none;" id = "stepThreePrevButton" nbButton nbStepperPrevious>prev</button>
+                    <button style="display:none;" id = "stepThreeNextButton" nbButton nbStepperNext>next</button>
+                  </nb-step>
+                  <nb-step [label]="labelFour">
+                    <ng-template #labelFour>Fourth step</ng-template>
+                    <h4 class="mobileHeading">#4 Completing Onboarding</h4>
+                    <p class="lorem notOnMobile">
+                      Stay tuned, its almost done!!!
+                    </p>
+                    <button style="display:none;" id = "stepFourPrevButton" nbButton nbStepperPrevious>prev</button>
+                    <button style="display:none;" id = "stepFourNextButton" nbButton disabled nbStepperNext>next</button>
+                  </nb-step>
+                </nb-stepper>
+    </div>
+
+      <!-- <div style="display: flex;
+                      justify-content: center; align-items: center;" class="container">
+          
+      </div> -->
+</div>

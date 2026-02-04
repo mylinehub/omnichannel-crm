@@ -1,0 +1,11 @@
+<nb-card class="dialog-card componentLevelZoom" accent="info">
+    <nb-card-header>Delete</nb-card-header>
+    <nb-card-body>
+      {{ message }}
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton outline status="success" (click)="yes()">Yes</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <button nbButton outline status="danger" (click)="no()">No</button>
+    </nb-card-footer>
+</nb-card>

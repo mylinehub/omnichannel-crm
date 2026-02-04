@@ -1,0 +1,216 @@
+
+ <div class="row">
+    <div class="col-lg-12">
+      <nb-accordion>
+        <nb-accordion-item>
+            <nb-accordion-item-header>
+                 👀 Monitor Employees Efficiently
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+                <p><strong>Yes, it's Open Search!</strong> This powerful feature gives you advanced search capabilities with just a single input.</p>
+                
+                <br>
+
+                <h6>📝 <strong>Note:</strong></h6>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">🔍Enter a department name to view associated employees.</li>
+                    <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">👤You can search by extension, first name, last name, or phone number.</li>
+                    <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">❓If your required search type isn’t available, please contact support.</li>
+                    <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">💰If your search is generic enough, there is no additional cost.</li>
+                    <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">🛠️We offer custom enhancements tailored to your needs.</li>
+                </ul>
+
+                <br>
+            </nb-accordion-item-body>
+
+        </nb-accordion-item>
+
+        <nb-accordion-item>
+            <nb-accordion-item-header>📞 Contact Support</nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <ul style="list-style-type: none; padding-left: 0;">
+                <li style="padding-bottom: 0.6rem; padding-left: 0.6rem;">
+                  <p><strong>Need help?</strong> Click the following 
+                    <a [href]="whatsAppSupportlink" target="_blank" rel="noopener">support link</a> 
+                    to connect with us via WhatsApp.
+                  </p>
+                </li>
+              </ul>
+              
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+          
+        </nb-accordion>
+    </div>
+</div>
+<br>
+
+<div class="row">
+   <div class="col-lg-12">
+    <nb-card>
+          <nb-card-body>
+                <div class="row d-flex align-items-left">
+                    <nb-form-field style="width: 100%;">
+                        <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+                        <input id="searchName"  type="text" nbInput fullWidth shape="rectangle" placeholder="Type Search String ..." [(ngModel)]="searchString">
+                    </nb-form-field>
+                </div>
+          </nb-card-body>
+    </nb-card>
+  </div>   
+  </div>
+
+
+<br>
+<div class="row">
+    <div class="col-lg-12">
+        <nb-card size="large" status="danger">
+            <nb-card-header>
+                <div class="d-flex align-items-center">
+                    <div style="text-align: left;" class="container">
+                        <h4 style="color:white;"><nb-icon  icon="pause-circle-outline"></nb-icon><span>&nbsp;&nbsp;</span>Engaged</h4>
+                    </div>
+               </div>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <ng-container  *ngFor="let record of messageListDataService.allEmployeesData; let i = index;">
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3" 
+                        *ngIf="(record.state == 'trying' 
+                                || record.state == 'proceeding' 
+                                || record.state == 'early' 
+                                || record.state == 'confirmed')
+                                && record.presence != 'danger'
+                                && ( 
+                                       (record.firstName != null ? (record.firstName | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.lastName != null ? (record.lastName | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.role != null ? (record.role | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.departmentName != null ? (record.departmentName | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.phonenumber != null ? (record.phonenumber).includes(searchString) : false)
+                                    || (record.extension != null ? (record.extension).includes(searchString) : false)
+                                    || (record.email != null ? (record.email | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.pesel != null ? (record.pesel).includes(searchString) : false)
+                                   )
+                            "
+                        >
+                            <!-- // state = "terminated"   =  "Ready";
+                           // state == "trying"  =  "On the phone";
+                           // state == "proceeding" = "On the phone";
+                           // state == "early" =  "Ringing";
+                           // state == "confirmed" =  "On the phone";  -->
+                           <ngx-monitor-body status = "success" type="engaged" [record] = "record">
+                           </ngx-monitor-body>
+                       </div>
+                    </ng-container>
+                </div>
+            </nb-card-body>
+        </nb-card>
+     </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <nb-card size="large" status="success">
+            <nb-card-header>
+                <div class="d-flex align-items-center">
+                    <div style="text-align: left;" class="container">
+                        <h4 style="color:white;"><nb-icon  icon="play-circle-outline"></nb-icon><span>&nbsp;&nbsp;</span><b>Idle</b></h4>
+                    </div>
+               </div>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <ng-container  *ngFor="let record of messageListDataService.allEmployeesData; let i = index;">
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3" 
+                          *ngIf="record.state == 'terminated' 
+                          && record.presence != 'danger'
+                          && ( 
+                                       (record.firstName != null ? (record.firstName | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.lastName != null ? (record.lastName | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.role != null ? (record.role | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.departmentName != null ? (record.departmentName | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.phonenumber != null ? (record.phonenumber).includes(searchString) : false)
+                                    || (record.extension != null ? (record.extension).includes(searchString) : false)
+                                    || (record.email != null ? (record.email | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.pesel != null ? (record.pesel).includes(searchString) : false)
+                                   )
+                                "
+                        >
+                            <!-- // state = "terminated"   =  "Ready";
+                            // state == "trying"  =  "On the phone";
+                            // state == "proceeding" = "On the phone";
+                            // state == "early" =  "Ringing";
+                            // state == "confirmed" =  "On the phone";  -->
+                            <ngx-monitor-body status = "warning" [record] = "record" type="idle">
+                            </ngx-monitor-body>
+                        </div>
+                    </ng-container>
+                </div>
+            </nb-card-body>
+        </nb-card>
+     </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <nb-card size="large" status="warning">
+            <nb-card-header>
+                <div class="d-flex align-items-center">
+                    <div style="text-align: left;" class="container">
+                        <h4 style="color:white;"><nb-icon  icon="minus-circle-outline"></nb-icon><span>&nbsp;&nbsp;</span>Logged Off</h4>
+                    </div>
+               </div>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <ng-container  *ngFor="let record of messageListDataService.allEmployeesData; let i = index;">
+                        <!-- {{ searchString }} : 
+                        {{ record.firstName }} : 
+                        {{ record.lastName }} : 
+                        {{
+                            ( 
+                                       (record.firstName != null ? (record.firstName | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.lastName != null ? (record.lastName | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.role != null ? (record.role | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.departmentName != null ? (record.departmentName | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.phonenumber != null ? (record.phonenumber).includes(searchString) : false)
+                                    || (record.extension != null ? (record.extension).includes(searchString) : false)
+                                    || (record.email != null ? (record.email | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.pesel != null ? (record.pesel).includes(searchString) : false)
+                             )
+                        }} -->
+                         <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3"  
+                            *ngIf="record.presence == 'danger' 
+                                && ( 
+                                       (record.firstName != null ? (record.firstName | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.lastName != null ? (record.lastName | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.role != null ? (record.role | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.departmentName != null ? (record.departmentName | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.phonenumber != null ? (record.phonenumber).includes(searchString) : false)
+                                    || (record.extension != null ? (record.extension).includes(searchString) : false)
+                                    || (record.email != null ? (record.email | lowercase).includes(searchString | lowercase) : false)
+                                    || (record.pesel != null ? (record.pesel).includes(searchString) : false)
+                                   )
+                                "
+                          > 
+                         <!-- // state = "terminated"   =  "Ready";
+                        // state == "trying"  =  "On the phone";
+                        // state == "proceeding" = "On the phone";
+                        // state == "early" =  "Ringing";
+                        // state == "confirmed" =  "On the phone";  -->
+                        <ngx-monitor-body status="danger" type="logoff" [record] = "record">
+                        </ngx-monitor-body>
+                         </div>
+                    </ng-container>
+                </div>
+            </nb-card-body>
+        </nb-card>
+     </div>
+</div>
+
+
+
+ 
+  

@@ -1,0 +1,11 @@
+<nb-card class="dialog-card" accent="info">
+    <nb-card-header>Send File</nb-card-header>
+    <nb-card-body>
+      {{ message }}
+    </nb-card-body>
+    <nb-card-footer>
+       <button nbButton outline status="warning" (click)="viaServer()">Via-Server</button>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+       <button *ngIf="type != 'dotOffline'" nbButton outline status="success" (click)="directlyToPeer()">Direct-To-Peer</button>
+    </nb-card-footer>
+</nb-card>

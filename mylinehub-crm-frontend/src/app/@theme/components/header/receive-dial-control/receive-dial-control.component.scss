@@ -1,0 +1,62 @@
+@import 'bootstrap/scss/mixins/breakpoints';
+@import '@nebular/theme/styles/global/breakpoints';
+@import '../../../styles/themes';
+
+@include nb-install-component() {
+
+nb-card {
+    border: 0;
+    margin-bottom: 0;
+  }
+
+  nb-card-body {
+    border: 0;
+    margin-bottom: 0;
+    padding: 0;
+    margin-left: 1.3rem;
+    margin-top: 0.5rem;
+  }
+
+  .timer {
+    text-align: center;
+    font-size: 1.8750rem;
+  }
+
+ 
+  //Mobile devices
+@media (max-width: 27.5000rem) {
+  ::ng-deep {
+    
+  div.custom-receive-call-popover{
+    // width: 2rem;  /* 100 / 0.7 ≈ 142.8571% */
+    height: 7rem;
+  }
+  nb-card.componentLevelZoomForReceiveDialCallComponent {
+    transform: scale(0.7);
+    transform-origin: top left;
+    width: 142.8571%;  /* 100 / 0.7 ≈ 142.8571% */
+    height: 142.8571%;
+    display: inline-block;
+  }
+}
+}
+
+//Mobile devices
+@media (min-width: 27.5625rem) and (max-width: 34.3750rem){
+  ::ng-deep {
+    
+  div.custom-receive-call-popover {
+    // width: 2rem;  /* 100 / 0.7 ≈ 142.8571% */
+    height: 7rem;
+  }
+  nb-card.componentLevelZoomForReceiveDialCallComponent {
+    transform: scale(0.7);
+    transform-origin: top left;
+    width: 142.8571%;  /* 100 / 0.7 ≈ 142.8571% */
+    height: 142.8571%;
+    display: inline-block;
+  }
+}
+}
+
+}

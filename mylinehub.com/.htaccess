@@ -1,0 +1,154 @@
+# =========================================================
+# MYLINEHUB - .htaccess (SEO + Performance + Articles)
+# Apache / LiteSpeed
+# =========================================================
+
+Options -Indexes
+
+# Block hidden dot-files, allow /.well-known/ for SSL verification
+<FilesMatch "^\.((?!well-known).)*$">
+    Require all denied
+</FilesMatch>
+
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# ---------------------------------------------------------
+# 0) IMPORTANT: Never rewrite static folders
+# (prevents /images/* being routed to articles/view.php)
+# ---------------------------------------------------------
+RewriteRule ^(images|assets|partials|sections|data)/ - [L,NC]
+
+# ---------------------------------------------------------
+# 1) Canonical: HTTPS + NON-WWW + clean homepage
+# ---------------------------------------------------------
+
+# Force HTTPS
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# Force non-www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+# Redirect /index.html or /index.php -> /
+RewriteCond %{THE_REQUEST} \s/+index\.(html|php)\s [NC]
+RewriteRule ^index\.(html|php)$ https://mylinehub.com/ [R=301,L]
+
+# ---------------------------------------------------------
+# 2) Serve dynamic sitemap at /sitemap.xml
+# (File: /sitemap.xml.php)
+# ---------------------------------------------------------
+RewriteRule ^sitemap\.xml$ sitemap.xml.php [L]
+
+# ---------------------------------------------------------
+# 3) Articles routing
+# A) /articles -> /articles/ (canonical)
+# B) /articles/slug -> /articles/view.php?slug=slug
+# ---------------------------------------------------------
+
+# Canonicalize /articles to /articles/
+RewriteRule ^articles$ articles/ [R=301,L]
+
+# Pretty article URL
+RewriteRule ^articles/([a-z0-9-]+)/?$ articles/view.php?slug=$1 [L,QSA,NC]
+
+# ---------------------------------------------------------
+# 4) Top-level slug routing (Optional, keep if you want /slug)
+# /slug -> /articles/view.php?slug=slug
+# only if not a real file/dir AND not reserved
+# ---------------------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# exclude folders (added images here too)
+RewriteCond %{REQUEST_URI} !^/(assets|partials|sections|data|articles|images)/ [NC]
+
+# exclude important root endpoints/files
+RewriteCond %{REQUEST_URI} !^/(robots\.txt|sitemap\.xml|sitemap\.xml\.php|favicon\.ico)$ [NC]
+
+RewriteRule ^([a-z0-9-]+)/?$ articles/view.php?slug=$1 [L,QSA,NC]
+
+</IfModule>
+
+# ---------------------------------------------------------
+# 5) Compression
+# ---------------------------------------------------------
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+<IfModule mod_headers.c>
+Header append Vary Accept-Encoding
+</IfModule>
+
+# ---------------------------------------------------------
+# 6) Cache rules
+# ---------------------------------------------------------
+<IfModule mod_expires.c>
+ExpiresActive On
+
+# HTML/PHP short cache (pages)
+ExpiresByType text/html "access plus 5 minutes"
+
+# CSS/JS medium cache (version with ?v= or hash)
+ExpiresByType text/css "access plus 30 days"
+ExpiresByType application/javascript "access plus 30 days"
+ExpiresByType text/javascript "access plus 30 days"
+
+# Images long cache
+ExpiresByType image/jpeg "access plus 365 days"
+ExpiresByType image/jpg  "access plus 365 days"
+ExpiresByType image/png  "access plus 365 days"
+ExpiresByType image/gif  "access plus 365 days"
+ExpiresByType image/webp "access plus 365 days"
+ExpiresByType image/svg+xml "access plus 365 days"
+ExpiresByType image/x-icon "access plus 365 days"
+
+# Fonts long cache
+ExpiresByType font/woff2 "access plus 365 days"
+ExpiresByType font/woff  "access plus 365 days"
+ExpiresByType application/font-woff2 "access plus 365 days"
+</IfModule>
+
+<IfModule mod_headers.c>
+
+    # Default cache headers for pages
+    <FilesMatch "\.(html|htm|php)$">
+        Header set Cache-Control "public, max-age=300, must-revalidate"
+    </FilesMatch>
+
+    # Strong cache for static assets
+    <FilesMatch "\.(css|js|jpg|jpeg|png|gif|webp|svg|ico|woff|woff2)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # ---------------------------------------------------------
+    # 6B) NEVER cache dynamic endpoints (comments / engagement)
+    # ---------------------------------------------------------
+    <FilesMatch "^(comment-list|comment-submit|engagement-submit|activity-submit)\.php$">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+
+    # Security headers
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+</IfModule>
+
+# ---------------------------------------------------------
+# 7) Correct MIME types
+# ---------------------------------------------------------
+<IfModule mod_mime.c>
+AddType image/svg+xml svg svgz
+AddType font/woff2 woff2
+AddType font/woff woff
+</IfModule>
+
+# Optional custom error page
+# ErrorDocument 404 /404.html

@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+    <!--  <start-class>com.mylinehub.crm.SpringBootApp</start-class> -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>support.mylinehub</groupId>
+    <artifactId>crm</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>crm</name>
+    <description>MyLineHub CRM BACKEND APPLICATION</description>
+
+    <properties>
+        <java.version>1.17</java.version>
+        <!-- automatically run annotation processors within the incremental compilation -->
+        <m2e.apt.activation>jdt_apt</m2e.apt.activation>
+        <start-class>com.mylinehub.crm.SpringBootApp</start-class>
+    </properties>
+
+    <dependencies>
+        <!--Spring-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+		
+		<dependency>
+		   <groupId>org.springframework.boot</groupId>
+		   <artifactId>spring-boot-starter-tomcat</artifactId>
+		   <!--<scope>provided</scope>-->
+		</dependency>
+
+		<dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-messaging</artifactId>
+        </dependency>
+        
+         <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-actuator</artifactId>
+	    </dependency>
+    
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>stomp-websocket</artifactId>
+            <version>2.3.3</version>
+        </dependency>
+        
+		<dependency>
+	        <groupId>commons-io</groupId>
+	        <artifactId>commons-io</artifactId>
+	        <version>2.15.1</version>
+    	</dependency>
+    
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+		<!--<dependency>
+		    <groupId>com.squareup.okhttp3</groupId>
+		    <artifactId>okhttp</artifactId>
+		    <version>5.0.0-alpha.12</version>
+		</dependency>-->
+
+		<dependency>
+	        <groupId>com.squareup.okhttp3</groupId>
+	        <artifactId>okhttp</artifactId>
+	    </dependency>
+	    
+	    <dependency>
+	        <groupId>org.jetbrains.kotlin</groupId>
+	        <artifactId>kotlin-stdlib</artifactId>
+	    </dependency>
+    
+        <!--Security-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+ 
+		<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-websocket</artifactId>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-messaging</artifactId>
+		</dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		</dependency>
+
+        <dependency>
+		    <groupId>io.hypersistence</groupId>
+		    <artifactId>hypersistence-utils-hibernate-55</artifactId>
+		    <version>3.7.0</version>
+		</dependency>
+		<!-- PostgreSQL JDBC driver -->
+		<dependency>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>42.6.0</version> <!-- or latest stable -->
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.asteriskjava</groupId>
+		    <artifactId>asterisk-java</artifactId>
+		    <version>3.38.0</version>
+		</dependency>
+		
+		<dependency>
+	       <groupId>com.github.mrmike</groupId>
+	       <artifactId>ok2curl</artifactId>
+	       <version>0.7.0</version> <!-- Use the latest version -->
+	    </dependency>
+		
+        <!--jwt-->
+       <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.2</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.2</version>
+            <scope>runtime</scope>
+        </dependency>
+
+		<dependency>
+		     <groupId>com.google.api-client</groupId>
+		     <artifactId>google-api-client</artifactId>
+		     <version>1.32.1</version>
+		</dependency>
+		  
+		  <!-- 
+		  <dependency>
+		    <groupId>com.google.api-client</groupId>
+		    <artifactId>google-api-client-gson</artifactId>
+		    <version>2.1.1</version>
+		 </dependency>
+		 
+		 <dependency>
+		    <groupId>com.google.oauth-client</groupId>
+		    <artifactId>google-oauth-client-jetty</artifactId>
+		    <version>1.34.1</version>
+		 </dependency>
+          -->
+  
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+		<dependency>
+		    <groupId>commons-beanutils</groupId>
+		    <artifactId>commons-beanutils</artifactId>
+		    <version>1.9.4</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId> 
+		</dependency>
+
+<!--        Uncomment this next dependency if you are using JDK 10 or earlier and you also want to use-->
+<!--             RSASSA-PSS (PS256, PS384, PS512) algorithms.  JDK 11 or later does not require it for those algorithms:-->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.60</version>
+            <scope>runtime</scope>
+        </dependency>
+
+		<dependency>
+		    <groupId>net.lingala.zip4j</groupId>
+		    <artifactId>zip4j</artifactId>
+		    <version>2.11.5</version>
+		</dependency>
+
+                <!--openpdf-->
+        <dependency>
+            <groupId>com.github.librepdf</groupId>
+            <artifactId>openpdf</artifactId>
+            <version>1.3.23</version>
+        </dependency>
+
+        <!--Thymeleaf-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+        </dependency>
+
+        <!--Databases-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        
+
+		<!-- OpenAI official Java SDK (optional, you can use OkHttp directly) -->
+		<dependency>
+		  <groupId>com.openai</groupId>
+		  <artifactId>openai-java</artifactId>
+		  <version>3.7.1</version>
+		</dependency>
+		
+		<!-- Archives -->
+		<dependency>
+		  <groupId>com.github.junrar</groupId>
+		  <artifactId>junrar</artifactId>
+		  <version>7.4.0</version>
+		</dependency>
+		
+		
+		<!-- Optional: JavaCV if you want native ffmpeg-based media split (big native deps) -->
+		<dependency>
+		  <groupId>org.bytedeco</groupId>
+		  <artifactId>javacv</artifactId>
+		  <version>1.5.8</version>
+		</dependency>
+		
+		<!-- pgvector support - you already have langchain4j-pgvector but include pgvector-java if desired -->
+		<!--<dependency>
+		  <groupId>io.github.paulcwarren</groupId>
+		  <artifactId>pgvector-java</artifactId>
+		  <version>0.1.2</version>
+		</dependency>-->
+		
+		<dependency>
+		    <groupId>com.pgvector</groupId>
+		    <artifactId>pgvector</artifactId>
+		    <version>0.1.6</version>
+		</dependency>
+
+		<!-- Commons Compress (ZIP/TAR) -->
+		<dependency>
+		  <groupId>org.apache.commons</groupId>
+		  <artifactId>commons-compress</artifactId>
+		  <version>1.25.0</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>net.sourceforge.tess4j</groupId>
+		  <artifactId>tess4j</artifactId>
+		  <version>5.6.0</version>
+		</dependency>
+		
+		<!-- Metadata extractor for image metadata (optional) -->
+		<dependency>
+		  <groupId>com.drewnoakes</groupId>
+		  <artifactId>metadata-extractor</artifactId>
+		  <version>2.18.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.tika</groupId>
+		    <artifactId>tika-core</artifactId>
+		    <version>2.9.2</version> <!-- latest stable as of now -->
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.tika</groupId>
+		    <artifactId>tika-parsers-standard-package</artifactId>
+		    <version>2.9.2</version>
+		</dependency>
+
+
+        
+        <!-- LangChain4J -->
+		    <dependency>
+		        <groupId>dev.langchain4j</groupId>
+		        <artifactId>langchain4j</artifactId>
+		        <version>0.33.0</version>
+		    </dependency>
+		    <dependency>
+		        <groupId>dev.langchain4j</groupId>
+		        <artifactId>langchain4j-open-ai</artifactId>
+		        <version>0.33.0</version>
+		    </dependency>
+		    <dependency>
+		        <groupId>dev.langchain4j</groupId>
+		        <artifactId>langchain4j-pgvector</artifactId>
+		        <version>0.33.0</version>
+		    </dependency>
+
+		    <!-- Jsoup for HTML cleaning and URL crawling -->
+		    <dependency>
+		        <groupId>org.jsoup</groupId>
+		        <artifactId>jsoup</artifactId>
+		        <version>1.17.1</version>
+		    </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.flywaydb</groupId>-->
+<!--            <artifactId>flyway-core</artifactId>-->
+<!--        </dependency>-->
+
+        <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		
+        <!--Lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--swagger-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor -->
+		<dependency>
+		    <groupId>org.mapstruct</groupId>
+		    <artifactId>mapstruct-processor</artifactId>
+		    <version>1.5.5.Final</version>
+		</dependency>
+
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+
+        <!--other-->
+        <!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
+		<dependency>
+		    <groupId>com.jcraft</groupId>
+		    <artifactId>jsch</artifactId>
+		    <version>0.1.55</version>
+		</dependency>
+       <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.2-jre</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.4.2.Final</version>
+        </dependency>
+
+        <!--tests-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--Apache POI-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20250107</version>
+		</dependency>
+        <!--  
+        <dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok-mapstruct-binding</artifactId>
+	    <version>0.1.0</version>
+	    </dependency>  
+	    -->
+
+        <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-configuration-processor</artifactId>
+        	<optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <activatedProperties>dev</activatedProperties>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <activatedProperties>prod</activatedProperties>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+            			<mainClass>com.mylinehub.crm.SpringBootApp</mainClass>
+            			<layout>JAR</layout>
+       			 </configuration>
+       			 <executions>
+		      	  <execution>
+		            <goals>
+		                <goal>repackage</goal>
+		            </goals>
+		          </execution>
+		         </executions>
+            </plugin>
+            
+           <!--  <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+		            <execution>
+		                <configuration>
+		            			<mainClass>com.mylinehub.crm.SpringBootApp</mainClass>
+       					 </configuration>
+		            </execution>
+		        </executions>
+		        
+                <configuration>
+		            <executable>true</executable>
+		            <jvmArguments>
+		                -Xms3g
+		                -Xmx4g
+		            </jvmArguments>
+		        </configuration>
+            </plugin>  -->
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                 <!-- or newer version -->
+                <configuration>
+                    <source>1.8</source> <!-- depending on your project -->
+                    <target>1.8</target> <!-- depending on your project -->
+                    <annotationProcessorPaths>
+					<!-- This is needed when using Lombok 1.18.16 and above -->
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok-mapstruct-binding</artifactId>
+							<version>0.2.0</version>
+						</path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.4.2.Final</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.22</version>
+                        </path>
+                         
+                    <!--  <path>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok-mapstruct-binding</artifactId>
+                        <version>0.1.0</version>
+                    </path>-->
+                    
+                    </annotationProcessorPaths>
+                    <compilerArgs>
+				       <compilerArg>
+				             -Amapstruct.defaultComponentModel=spring
+				       </compilerArg>
+                     </compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

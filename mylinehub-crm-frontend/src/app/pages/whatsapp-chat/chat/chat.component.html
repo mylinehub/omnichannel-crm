@@ -1,0 +1,521 @@
+
+<div id="whatsAppChatFixedOuterBlock" class="chatContainer">
+  <form action="">
+    <input (change)="setWhatsAppMediaMessageToDataService($event)" class="form-control visuallyhidden" type="file" name="file" id="setWhatsAppMediaMessageToDataService">
+  </form>
+
+  <!-- Row 1 -->
+  <div class="row chatControl">
+      <div class="col-lg-12" style="padding:0px">
+        <nb-accordion fullwidth>
+          <nb-accordion-item>
+            <nb-accordion-item-header class="accordion-header-small">
+                 💬 <mark class="currentChatInfoText notOnMobile">1️⃣Select Display</mark><span class="notOnMobile">&nbsp;</span>Manage WhatsApp Support
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+                <div class="row" style="width: 100%; padding:0px; margin:0px">
+                  <div class="col-12 col-lg-4 chatHeadDivCol chatHeadDivColSelectDisplay">
+                    <nb-button-group [size]="buttonGroupSize" single (valueChange)="updateSingleSelectGroupValue($event)">
+                        <button nbButtonToggle pressed #toggleBtn value="Support Numbers" (click)="onDisplayChange($event)">
+                          <nb-icon icon="phone-call-outline"></nb-icon> <span class="notOnMobile">Support Numbers</span><span *ngIf="itsMobile">All-Numbers</span>
+                        </button>
+                        <button nbButtonToggle #toggleBtn value="Customer" (click)="onDisplayChange($event)">
+                          <nb-icon icon="info-outline"></nb-icon> Customer
+                        </button>
+                        <button *ngIf="itsMobile" nbButtonToggle #toggleBtn value="Chat" (click)="onDisplayChange($event)">
+                          <nb-icon icon="message-square-outline"></nb-icon> Chat
+                        </button>
+                    </nb-button-group>
+                  </div>
+                  <div class="col-12 col-lg-8 currentChatInfoText chatHeadDivCol chatHeadDivColChatInfo" *ngIf="itsMobile">
+                     <ng-container *ngTemplateOutlet="currenChatInformation"></ng-container>
+                  </div>
+
+                  <div class="col-12 col-lg-12">
+                    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
+                      <button
+                        nbButton
+                        size="tiny"
+                        status="success"
+                        (click)="downloadChatHistoryExcelDbOnly()">
+                        Download
+                      </button>
+
+                      <span
+                        style="
+                          font-size: 12px;
+                          color: #6c757d;
+                          line-height: 1.3;
+                          max-width: 220px;
+                        ">
+                        ℹ️ Last <b>3 days</b> data can be fetched using this tool
+                      </span>
+                    </div>                
+                  </div>
+              </div>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+          </nb-accordion>
+      </div>
+  </div>
+  <br>
+
+
+    <!-- Row 2 -->
+    <div class="row chatData">
+        <!-- Left panel: 30% width, 100% height -->
+        <div id="leftDisplayPanel" class="leftDisplayPanel" [@chatDisplayAnimator]="displayBlockAnimationState" (@chatDisplayAnimator.done)="resetDisplayBlockAnimationStateAnimationState()">
+            <!-- Content for left panel -->
+             <div id="supportNumbersDiv" class="supportNumbersDiv" *ngIf="(whatsappDataServiceService.selectedAction === 'Support Numbers') && (displayBlockAnimationState == '')">
+              <ng-container *ngTemplateOutlet="supportPane"></ng-container>
+             </div>
+             <div id="chatDiv" class="chatDiv" *ngIf="(whatsappDataServiceService.selectedAction === 'Chat') && (itsMobile) && (displayBlockAnimationState == '')">
+                  <ng-container *ngTemplateOutlet="messageContent"></ng-container>
+             </div>
+             <div id="customerdiv" class="customerdiv" *ngIf="(whatsappDataServiceService.selectedAction === 'Customer') && (displayBlockAnimationState == '')">
+                 <ng-container *ngTemplateOutlet="customerPane"></ng-container>
+             </div>
+        </div>
+
+        <!-- Right panel: 70% width, 100% height -->
+        <div id="rightDisplayPanel" class="rightDisplayPanel" [@fixedChatDisplayAnimator]="fixedChatDisplayAnimationString"  (@fixedChatDisplayAnimator.done)="resetFixedChatDisplayAnimationStateAnimation()">
+             <ng-container *ngTemplateOutlet="messageContent"></ng-container>
+        </div>
+
+        <ng-template #messageContent>
+          <nb-card accent="info" class="whatsappMessageContentCard"  style="width:100%; height:100%; margin:0px;">
+            <nb-card-header *ngIf="!itsMobile">
+              <ng-container *ngTemplateOutlet="currenChatInformation"></ng-container> 
+            </nb-card-header>
+            <nb-card-body #whatsAppCardBody id="whatsAppCardBody" class="whatsAppCardBody">
+              <div id="whatsAppChatArea" class="whatsAppChatArea">
+                <span *ngFor="let data of whatsappDataServiceService.allChatData; let i = index;">
+                  <span class="chatRowSpan">
+                  <span *ngIf="data?.outbound === false">
+                    <div class="whatsapp-message-wrapper whatsapp-reverse">
+                      <div class="whatsapp-message-content">
+                        <div class="row whatsapp-date-rev-container"><small class="whatsapp-date">
+                          {{ data?.createdOn | date: 'd, MMM y - h:mma' }}
+                        </small></div>
+                        <p class="whatsapp-name">
+                          👤 {{ (whatsappDataServiceService.currentCustomerRecord?.firstname?.trim() || '') + ' ' + (whatsappDataServiceService.currentCustomerRecord?.lastname?.trim() || '') }}&nbsp;
+                        </p>
+
+                        <span *ngIf="isWhatsAppMessageText(data?.messageType)">
+                          <div class="whats-app-message-reverse whats-app-message-justify">
+                            <span *ngIf="!(data?.messageString?.includes?.('@'))" style="white-space: pre-line;">
+                              {{ data?.messageString }}
+                            </span>
+                            <span *ngIf="data?.messageString?.includes?.('@')" style="white-space: pre-line;">
+                              {{ formatMentions(data?.messageString) }}
+                            </span>
+                          </div>
+                        </span>
+
+                        <span *ngIf="!isWhatsAppMessageText(data?.messageType)">
+                          <div class="whatsapp-message-file" [style.cursor]="downloadCursor" (click)="downloadMessageFile(i, j)">
+                            <div class="icon whats-app-sketch">
+                              <!-- SVG icon stays unchanged -->
+                              <!-- ... -->
+                            </div>
+                            <div class="whats-app-file-info">
+                              <div class="whats-app-file-name">{{ data?.fileName }}.{{ data?.blobType }}</div>
+                              <div class="whats-app-file-size">{{ data?.fileSizeInMB }}MB</div>
+                            </div>
+                          </div>
+
+                          <div class="whats-app-message-reverse  whats-app-message-justify" *ngIf="data?.messageString?.trim()">
+                            <span *ngIf="!(data?.messageString?.includes?.('@'))" style="white-space: pre-line;">
+                              {{ data?.messageString }}
+                            </span>
+                            <span *ngIf="data?.messageString?.includes?.('@')" style="white-space: pre-line;">
+                              {{ formatMentions(data?.messageString) }}
+                            </span>
+                          </div>
+                        </span>
+                      </div>
+                    </div>
+                  </span>
+
+                  <span *ngIf="data?.outbound === true">
+                    <div class="whatsapp-message-wrapper whatsapp-straight">
+                      <div class="whatsapp-profile-picture">
+                        <!-- <nb-user size="large"
+                                [name]="data?.fromName || ''"
+                                [title]="data?.fromTitle || ''"
+                                [onlyPicture]="true"
+                                [showInitials]="true">
+                        </nb-user> -->
+                        <!-- For ai-message type -->
+                        <img *ngIf="data?.messageOrigin === 'ai' && !isWhite" 
+                            src="../../../../assets/images/ai-bot/aichatbot-color.png" 
+                            alt="AI Bot" 
+                            [title]="data?.fromName || ''"
+                            style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+
+                        <!-- For campaign-message type -->
+                        <img *ngIf="data?.messageOrigin === 'template' && !isWhite" 
+                            src="../../../../assets/images/ai-bot/template-color.png" 
+                            alt="Campaign Bot" 
+                            [title]="data?.fromName || ''"
+                            style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+
+                        <img *ngIf="data?.messageOrigin === 'ai' && isWhite" 
+                            src="../../../../assets/images/ai-bot/aichatbot-white.png" 
+                            alt="AI Bot" 
+                            [title]="data?.fromName || ''"
+                            style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+
+                        <!-- For campaign-message type -->
+                        <img *ngIf="data?.messageOrigin === 'template' && isWhite" 
+                            src="../../../../assets/images/ai-bot/template-white.png" 
+                            alt="Campaign Bot" 
+                            [title]="data?.fromName || ''"
+                            style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+
+
+                        <!-- For other message types, show nb-user -->
+                        <nb-user *ngIf="data?.messageOrigin !== 'ai' && data?.messageOrigin !== 'template'"
+                                size="large"
+                                [name]="data?.fromName || ''"
+                                [title]="data?.fromTitle || ''"
+                                [onlyPicture]="true"
+                                [showInitials]="true">
+                        </nb-user>
+
+                      </div>
+                      <div class="whatsapp-message-content">
+                        <small class="whatsapp-date">
+                          {{ data?.createdOn | date: 'd, MMM y - h:mma' }}
+                        </small>
+
+                        <p class="whatsapp-name">
+                            {{ data?.fromName }}
+                              <span
+                                [ngClass]="data | messageStatusClass"
+                                class="status-text"
+                                [title]="data | messageStatus"
+                              >
+                                {{ data | messageStatus }}
+                              </span>
+                        </p>
+
+                        <span *ngIf="isWhatsAppMessageText(data?.messageType)">
+                          <div class="whats-app-message  whats-app-message-justify">
+                            <span *ngIf="!(data?.messageString.includes?.('@'))" style="white-space: pre-line;">
+                              {{ data?.messageString }}
+                            </span>
+                            <span *ngIf="data?.messageString.includes?.('@')"  style="white-space: pre-line;">
+                              {{ formatMentions(data?.messageString) }}
+                            </span>
+                          </div>
+                        </span>
+
+                        <span *ngIf="!isWhatsAppMessageText(data?.messageType)">
+                          <div class="whatsapp-message-file" [style.cursor]="downloadCursor" (click)="downloadMessageFile(i, j)">
+                            <div class="icon whats-app-sketch">
+                              <!-- SVG icon stays unchanged -->
+                              <!-- ... -->
+                            </div>
+                            <div class="whats-app-file-info">
+                              <div class="whats-app-file-name">{{ data?.fileName }}.{{ data?.blobType }}</div>
+                              <div class="whats-app-file-size">{{ data?.fileSizeInMB }}MB</div>
+                            </div>
+                          </div>
+
+                          <div class="whats-app-message  whats-app-message-justify" *ngIf="data?.messageString?.trim()">
+                            <span *ngIf="!(data?.messageString?.includes?.('@'))" style="white-space: pre-line;">
+                              {{ data?.messageString }}
+                            </span>
+                            <span *ngIf="data?.messageString?.includes?.('@')" style="white-space: pre-line;">
+                              {{ formatMentions(data?.messageString) }}
+                            </span>
+                          </div>
+                        </span>
+                      </div>
+                    </div>
+                  </span>
+                  </span>
+                </span>
+
+              </div>
+            </nb-card-body>
+            <nb-card-footer>
+              <div id="chatFooter" class="whatsAppChatTypingAreaWrapper" style="width:100%;">
+                    <div class="row">
+                    <div class="chat-input-container">
+                        <nb-form-field style="width:100%;">
+                          <textarea nbInput
+                          fullWidth
+                          fieldSize="medium"
+                          placeholder="Type your message..."
+                          [(ngModel)]="voiceRecognitionService.messageValue"
+                          [disabled]="whatsappDataServiceService.sendMessageDisabled"
+                          (keydown)="handleKeyDown($event)"
+                          rows="2"
+                          style="resize: none; height:2.7rem"></textarea>
+                          <button nbSuffix nbButton ghost
+                                  style="margin-right:0.9375rem"
+                                  [nbTooltip]="voiceRecognitionService.listeningToolTip"
+                                  [disabled]="whatsappDataServiceService.sendMessageDisabled"
+                                  (click)="startListening()"
+                                  *ngIf="whatsappDataServiceService.showTextDictate">
+                                  <nb-icon
+                                            [icon]="voiceRecognitionService.listeningNow ? 'mic-off-outline' : 'mic-outline'"
+                                            pack="eva"
+                                            [attr.aria-label]="voiceRecognitionService.listeningNow ? 'listening now' : 'start listen'"
+                                    ></nb-icon>
+                          </button>
+                        </nb-form-field>
+              
+                        <button nbButton status="danger" class="chat-icon-button"
+                        nbTooltip="send-file"
+                        nbTooltipPlacement="top"
+                        [disabled]="whatsappDataServiceService.sendMessageDisabled"
+                        (click)="sendWhatsAppAttachedMessage()">
+                          <nb-icon icon="attach-outline"></nb-icon>
+                        </button>
+                        <button nbButton status="danger" class="chat-icon-button"
+                        nbTooltip="send-message"
+                        nbTooltipPlacement="top"
+                        [disabled]="whatsappDataServiceService.sendMessageDisabled"
+                        (click)="whatsAppSendMessage()">
+                          <nb-icon icon="paper-plane-outline"></nb-icon>
+                        </button>
+                      </div>
+                    </div>
+              </div>
+            </nb-card-footer>
+          </nb-card>
+        </ng-template>
+
+
+        <ng-template #supportPane>
+          <div class = "row" style="height:100%; padding-top:0.6rem;padding-right: 1.1rem;padding-left:1.1rem;">
+            <div id = "searchAllWhatsAppParticipants" class="searchAllWhatsAppParticipants">
+              <input #autoWhatsAppParticipantListInput
+                      type="text"
+                      nbInput
+                      fullWidth
+                      fieldSize="medium"
+                      class="searchAllWhatsAppParticipantsInput"
+                      (input)="onSupportPhoneInputValueChanged()"
+                      placeholder="🔍 All Assigned Whatsapp Numbers"
+                      [nbAutocomplete]="autoWhatsAppParticipantsList"
+                      style="height:100%;width:100%"/>
+<!--                 
+                      <nb-toggle
+                        size="small"
+                        [(checked)]="searhToggleEnabled"
+                        [status]="searhToggleEnabled ? 'success' : 'danger'"
+                        (checkedChange)="onSearhToggleChange($event)"
+                        style="margin-left: 0.25rem;"
+                      >
+                        Set Search
+                      </nb-toggle> -->
+
+              <nb-autocomplete #autoWhatsAppParticipantsList (selectedChange)="onWhatsAppParticipantSelectionChange($event)">
+                      <nb-option *ngFor="let option of whatsappDataServiceService.filteredOptions$ | async; let j = index;" [value]="option.phoneNumber" style="margin-left:0.5000rem; margin-right:0.4375rem;margin-top:0.1875rem;margin-bottom:0.1875rem">
+                        <div class="searchParticipantOptionEven">
+                          <h8>☎️ {{ option?.phoneNumber }}</h8>
+                        </div>
+                      </nb-option>
+              </nb-autocomplete>
+            </div>
+
+            <div class="listAllWhatsAppParticipants">
+              <nb-card>
+                <nb-card-body class="listAllWhatsAppParticipantsBody">
+                  <div class="listAllWhatsAppParticipantsScroll">
+                    <nb-list>
+                      <nb-list-item *ngFor="let participant of whatsappDataServiceService.participants; let i = index;">
+                        <div class="listAllWhatsAppParticipantsElements">
+                          <div class="listAllWhatsAppParticipantsContainer">
+                            <div class="listAllWhatsAppParticipantsElement" (click)="messageParticipantClicked(i)">
+                              <nb-user
+                                [name]="(participant?.firstName.trim() + ' ' + participant?.lastName.trim()).length > maxNameLength
+                                          ? (participant?.firstName.trim() + ' ' + participant?.lastName.trim()).slice(0, maxNameLength) + '...'
+                                          : (participant?.firstName.trim() + ' ' + participant?.lastName.trim())"
+                                [title]="participant.phoneNumber | hideStringFromEmployee"
+                                [onlyPicture]="false"
+                                [showInitials]="true">
+                              </nb-user>
+
+                            </div>
+                          </div>
+                          <div class="listAllWhatsAppParticipantsActions">
+                            <div class="listAllWhatsAppParticipantsButtons">
+                              <button class="listAllWhatsAppParticipantsAction" *ngIf="participant.badgeText === 0"
+                                      nbButton ghost status="danger"
+                                      [disabled]="whatsappDataServiceService.clearChatDisabled"
+                                      nbTooltip="delete-chat" nbTooltipPlacement="top"
+                                      (click)="clearSingleChat(i)">
+                                <nb-icon icon="trash-2-outline"></nb-icon>
+                              </button>
+                              <button class="listAllWhatsAppParticipantsAction"
+                                      nbButton ghost status="success"
+                                      [disabled]="whatsappDataServiceService.allowCallDisabled"
+                                      nbTooltip="make-a-call" nbTooltipPlacement="top"
+                                      (click)="makeACallToParticipant(i)">
+                                <nb-icon icon="phone-call-outline"></nb-icon>
+                              </button>
+                              <div class="listAllWhatsAppParticipantsBadge" *ngIf="participant.badgeText != 0">
+                                <button nbButton size="tiny" status="warning">+ {{ participant.badgeText }}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </nb-list-item>
+                    </nb-list>
+                  </div>
+                </nb-card-body>
+              </nb-card>
+            </div>
+
+            <!-- <div class="clearAllWhatsAppParticipants">
+              <button  [disabled]="clearAllChatsDisabled" id="clearAllWhatsAppButton" class="clearAllWhatsAppButton" nbButton status="danger"  (click)="clearAllChats()"><nb-icon icon="trash-2-outline"></nb-icon>{{ clearAll }}</button>
+            </div> -->
+         </div> 
+        </ng-template>
+
+        <ng-template #customerPane>
+          <nb-card class="customerCard">
+          <nb-card-body class="customerCardBody">
+              <div class="row d-flex align-items-center justify-content-center">
+                <div class="customerImageDiv">
+                    <img 
+                      class="customerImage"
+                      [src]="base64ImageData" 
+                      alt="not found">
+                  </div>
+              </div>
+              
+              <div class="row d-flex align-items-center justify-content-center">
+                  <!-- Name -->
+                  <span class="customerName" *ngIf="whatsappDataServiceService?.currentCustomerRecord">
+                    {{ whatsappDataServiceService.currentCustomerRecord.firstname?.trim() || '' }}
+                    <span>&nbsp;</span>
+                    {{ whatsappDataServiceService.currentCustomerRecord.lastname?.trim() || '' }}
+                  </span>
+              </div>
+
+
+              <div class="customerdivData" *ngIf="whatsappDataServiceService?.currentCustomerRecord">
+                <div class="row" style="padding-bottom: 0.5rem;">
+                  <div class="col-12 d-flex flex-wrap">
+                    <div style="min-width: 7.9rem; font-weight: bold;">Phone&nbsp;Number&nbsp;:</div>
+                    <div style="flex: 1; margin-left:0.2rem; text-align: left;">
+                      <input style="padding:4px;" nbInput readonly fullWidth placeholder="Phone Number" [value]="whatsappDataServiceService.currentCustomerRecord.phoneNumber?.trim()  | hideStringFromEmployee">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="padding-bottom: 0.5rem;">
+                  <div class="col-12 d-flex flex-wrap">
+                    <div style="min-width: 7.9rem; font-weight: bold;">Business&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</div>
+                    <div style="flex: 1; margin-left:0.2rem; text-align: left;">
+                      <textarea style="padding:4px;" nbInput readonly fullWidth placeholder="Business" [value]="whatsappDataServiceService.currentCustomerRecord.business?.trim()"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="padding-bottom: 0.5rem;">
+                  <div class="col-12 d-flex flex-wrap">
+                    <div style="min-width: 7.9rem; font-weight: bold;">Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</div>
+                    <div style="flex: 1; margin-left:0.2rem; text-align: left;">
+                      <input style="padding:4px;" nbInput readonly fullWidth placeholder="Description" [value]="whatsappDataServiceService.currentCustomerRecord.description?.trim()">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="padding-bottom: 0.5rem;">
+                  <div class="col-12 d-flex flex-wrap">
+                    <div style="min-width: 7.9rem; font-weight: bold;">Converted&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</div>
+                    <div style="flex: 1; margin-left:0.2rem; text-align: left;">
+                      <input style="padding:4px;" nbInput readonly fullWidth placeholder="Converted" [value]="whatsappDataServiceService.currentCustomerRecord.coverted">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="padding-bottom: 0.5rem;">
+                  <div class="col-12 d-flex flex-wrap">
+                    <div style="min-width: 7.9rem; font-weight: bold;">City&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</div>
+                    <div style="flex: 1; margin-left:0.2rem; text-align: left;">
+                      <input style="padding:4px;" nbInput readonly fullWidth placeholder="City" [value]="whatsappDataServiceService.currentCustomerRecord.city?.trim()">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="padding-bottom: 0.5rem;">
+                  <div class="col-12 d-flex flex-wrap">
+                    <div style="min-width: 7.9rem; font-weight: bold;">Country&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</div>
+                    <div style="flex: 1; margin-left:0.2rem; text-align: left;">
+                      <input style="padding:4px;" nbInput readonly fullWidth placeholder="Country" [value]="whatsappDataServiceService.currentCustomerRecord.country?.trim()">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+          </nb-card-body>
+          </nb-card>
+        </ng-template>
+
+    </div>
+
+    <ng-template #currenChatInformation>
+      <ng-container>      
+        <span *ngIf="(whatsappDataServiceService.participants.length == 0)">
+          <mark class="notOnMobile">2️⃣Chat Information</mark> 
+          {{ whatsappDataServiceService.phoneNumberMain && whatsappDataServiceService.phoneNumberMain.trim() !== '' 
+            ? whatsappDataServiceService.phoneNumberMain 
+            : 'No ' }}
+          WhatsApp Number, No Participant ❌📱🤷‍♂️
+        </span>
+
+        <div class="chat-info-row" *ngIf="whatsappDataServiceService?.phoneNumberMain &&
+                    whatsappDataServiceService?.participants &&
+                    whatsappDataServiceService?.participants[whatsappDataServiceService.currentSelectedPhoneNumber] &&
+                    whatsappDataServiceService?.currentCustomerRecord &&
+                    whatsappDataServiceService.participants.length != 0"
+            style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
+
+          <mark class="notOnMobile">2️⃣Chat Information</mark>&nbsp;📞&nbsp;
+          <span class="notOnMobile">💁‍♂️</span> 
+          &nbsp;{{ whatsappDataServiceService.phoneNumberMain }}&nbsp;↔️&nbsp;
+          <span class="notOnMobile">👤</span>
+
+          <!-- ✅ Only show name if firstname doesn't start with a digit -->
+          <ng-container *ngIf="isValidName(whatsappDataServiceService.currentCustomerRecord.firstname)">
+            {{ whatsappDataServiceService.currentCustomerRecord.firstname?.trim() }}&nbsp;
+            {{ whatsappDataServiceService.currentCustomerRecord.lastname?.trim() }}
+          </ng-container>
+
+          &nbsp;{{ whatsappDataServiceService.participants[whatsappDataServiceService.currentSelectedParticipantNumber]?.phoneNumber | hideStringFromEmployee }}
+
+            <!-- Auto-Reply Toggle -->
+            <ng-container *ngIf="showCustomeCloseAI">
+              <label 
+                (click)="toggleAutoReply()" 
+                style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 0; user-select: none; font-size: 14px;">
+
+                <span 
+                  [style]="getToggleStyle()"
+                  style="position: relative; width: 38px; height: 20px; display: inline-block; border-radius: 12px; transition: background-color 0.3s; flex-shrink: 0;">
+                  
+                  <span 
+                    [style]="getCircleStyle()"
+                    style="position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; transition: transform 0.3s, background-color 0.3s;">
+                  </span>
+                </span>
+
+                Auto-Reply
+              </label>
+            </ng-container>
+        </div>           
+      </ng-container>
+    </ng-template>
+
+
+
+
+</div>

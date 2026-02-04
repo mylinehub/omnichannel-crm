@@ -1,0 +1,1 @@
+Use SIPp to call 7000 and echo RTP using -rtp_echo.

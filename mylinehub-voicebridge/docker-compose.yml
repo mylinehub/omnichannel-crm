@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  voicebridge:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: voicebridge
+    ports:
+      - "8082:8082/tcp"   # HTTPS/WSS
+      - "8083:8083/tcp"   # HTTP/WS (secondary)
+      - "40000:40000/udp" # RTP
+    restart: unless-stopped
+    environment:
+      # Point to your external Asterisk + OpenAI + MyLineHub, etc.
+      # Override anything from application.properties if needed:
+      # SPRING_PROFILES_ACTIVE: "prod"
+      # JAVA_OPTS: "-Xms256m -Xmx512m"
+      TZ: "Asia/Kolkata"
+    # If you have config/keystore outside of jar, mount here:
+    # volumes:
+    #   - ./config/application.properties:/opt/voicebridge/application.properties:ro
+    #   - ./keystore/keystore.jks:/opt/voicebridge/keystore.jks:ro

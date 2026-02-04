@@ -1,0 +1,183 @@
+<div class="row componentLevelTable">
+
+    <div class="col-lg-6">
+        <nb-card size="large">
+                      
+            <nb-card-header>
+                <h6><button nbButton status="success"><nb-icon icon="star"></nb-icon></button><span>&nbsp;&nbsp;</span>Customer Info Received : {{ previewScheduleDataServiceService.dateReceived}}<span>&nbsp;&nbsp;&nbsp;&nbsp;</span></h6>
+            </nb-card-header>
+            <div class="picture" style.background-image="url('assets/images/{{ imageURL }}.png')"></div>
+            <div class="details">
+                  <nb-card>
+                    <nb-card-body>
+                        <div class="description">
+                              <div class="row">
+                                <div class="col-sm-6">
+                                  <b>Name : </b>{{ previewScheduleDataServiceService.currentRecord.firstname }}<span>&nbsp;</span>{{ previewScheduleDataServiceService.currentRecord.lastname }}
+                                </div>
+                                <div class="col-sm-6">
+                                  <b>Email : </b>{{ previewScheduleDataServiceService.currentRecord.email }}
+                                </div>
+                              </div>
+                          </div>
+                          <br class="notOnMobile">
+                          <div class="description">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <b>Country : </b>{{ previewScheduleDataServiceService.currentRecord.country }}
+                              </div>
+                              <div class="col-sm-6">
+                                <b>Phone : </b>{{ previewScheduleDataServiceService.currentRecord.phoneNumber }}
+                              </div>
+                            </div>
+                        </div>
+                          <br class="notOnMobile">
+                          <div class="description">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <b>Converted : </b>{{ previewScheduleDataServiceService.currentRecord.coverted }}
+                              </div>
+                              <div class="col-sm-6 notOnMobile">
+                                <b>Business: </b>{{ previewScheduleDataServiceService.currentRecord.business }}
+                              </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="description notOnMobile">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <b>Zip Code : </b>{{ previewScheduleDataServiceService.currentRecord.zipCode }}
+                            </div>
+                            <div class="col-sm-6">
+                              <b>City : </b>{{ previewScheduleDataServiceService.currentRecord.city }}
+                            </div>
+                          </div>
+                         </div>
+                    </nb-card-body> 
+                  </nb-card>
+            </div>
+          </nb-card>
+    </div>
+
+  
+  <div class="col-lg-6">
+    <nb-card size="large">
+                  
+        <nb-card-header>
+            <h6><button nbButton status="success"><nb-icon icon="thermometer-plus-outline"></nb-icon></button><span>&nbsp;&nbsp;</span>Additonal Information</h6>
+        </nb-card-header>
+        <div class="picture" style.background-image="url('assets/images/{{ addtionalInfoImageURL }}.png')"></div>
+        <div class="details">
+          <nb-card>
+            <nb-card-body>
+                <div class="description">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <b>IsCalled: </b>{{ previewScheduleDataServiceService.currentRecord.iscalledonce }}
+                        </div>
+                        <div class="col-sm-6">
+                          <b>Remind Call: </b>{{ previewScheduleDataServiceService.currentRecord.remindercalling }}
+                        </div>
+                      </div>
+                  </div>
+                <br claass="notOnMobile">
+                <div class="description">
+                      <div class="row">
+                        <div class="col-sm-6 notOnMobile">
+                          <b>Context: </b>{{ previewScheduleDataServiceService.currentRecord.phoneContext }}
+                        </div>
+                        <div class="col-sm-6">
+                          <b>Cron: </b>{{ previewScheduleDataServiceService.currentRecord.cronremindercalling }}
+                        </div>
+                      </div>
+                  </div>
+                <br class="notOnMobile">
+                  <div class="description notOnMobile">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <b>Image: </b>{{ previewScheduleDataServiceService.currentRecord.imageType }}
+                      </div>
+                      <div class="col-sm-6">
+                        <b>Name: </b>{{ previewScheduleDataServiceService.currentRecord.imageName }}
+                      </div>
+                    </div>
+                </div>
+                <br class="notOnMobile">
+                <div class="description notOnMobile">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <b>Data Type: </b>{{ previewScheduleDataServiceService.currentRecord.datatype }}
+                    </div>
+                    <div class="col-sm-6">
+                      <b>Pesel: </b>{{ previewScheduleDataServiceService.currentRecord.pesel }}
+                    </div>
+                  </div>
+              </div>
+
+            </nb-card-body> 
+          </nb-card>
+        </div>
+
+      </nb-card>
+</div>
+
+
+<div class="col-lg-6">
+  <nb-card size="large">
+      <nb-tabset fullWidth>
+    
+        <nb-tab tabTitle="Customer Image">
+          <div class="row">
+           <div class="col-lg-12">
+            <div class="d-flex align-items-center">
+              <div style="text-align: center;" class="container">
+                  <br><br>
+                  <nb-card>
+                      <nb-card-body>
+                        <a download="{{ previewScheduleDataServiceService.currentRecord.firstname }}.png" [href]="previewScheduleDataServiceService.base64ImageData"><img nbTooltip="Click to download" nbTooltipStatus="primary" [src]="previewScheduleDataServiceService.base64ImageData" alt="not found" width="350" height="400"></a>
+                      </nb-card-body>
+                    </nb-card>
+              </div>
+            </div>
+          </div>
+      </div>
+        </nb-tab>
+
+      </nb-tabset>
+    </nb-card>
+    
+</div>
+
+<div class="col-lg-6">
+  <nb-card size="large">
+      <nb-card-header><span>&nbsp;&nbsp;&nbsp;<b>Actions</b></span></nb-card-header>
+      <nb-card-body>
+        
+        <div class="row">
+          <div class="col-lg12" *ngFor="let statusCard of statusCards">
+            <ngx-card [title]="statusCard.title" [type]="statusCard.type" [currentRecord] = "currentRecord" (parent)="getChildData($event)">
+              <i [ngClass]="statusCard.iconClass"></i>
+            </ngx-card>
+          </div>
+        </div>
+
+      </nb-card-body>
+  </nb-card>   
+</div>
+
+</div>
+
+<div class="row componentLevelCourosel">
+  <div class="col-lg-6">
+    <nb-card size="large">
+      <nb-card-header>
+        <span>&nbsp;&nbsp;&nbsp;<b>Customer Product Interest <u><i>(Count - {{ previewScheduleDataServiceService.interestedProductsLength }})</i></u></b></span>
+      </nb-card-header>
+      <nb-card-body>          
+        <ngx-image-corousel [interestedProducts] = "previewScheduleDataServiceService.interestedProducts" [currentRecord] = "previewScheduleDataServiceService.currentRecord" [base64InterestedProductImageData]="previewScheduleDataServiceService.base64InterestedProductImageData">
+        </ngx-image-corousel>
+      </nb-card-body>
+      </nb-card>   
+    </div>
+</div>
+

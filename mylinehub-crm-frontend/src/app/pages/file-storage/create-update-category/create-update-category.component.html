@@ -1,0 +1,32 @@
+<nb-card class="file-storage-dialog-card" accent="info">
+    <nb-card-header>{{ type }} Folder</nb-card-header>
+    <nb-card-body>
+
+      <div class="input-item">
+        <div class="mandatory-asterisk" style="color: red;">*</div>
+        <div class="input-container">
+          <b>Image :</b> &nbsp;&nbsp;<input class="inputAttachFileWidth" nbInput type="file" (change)="onCategoryImageFileUpload($event)" name="file-category-image" >
+        </div>
+        
+      </div>
+      <div class="input-item">
+        <div class="mandatory-asterisk" style="color: red;">*</div>
+        <div class="input-container">
+          <input id="folder-name" type="text" class="inputWidth" nbInput fullWidth placeholder="Name" [(ngModel)]="name">
+        </div>
+      </div>
+      <div class="input-item">
+        <div class="mandatory-asterisk" style="color: red;">*</div>
+        <div class="input-container">
+          <input id="folder-businesstype" type="text" class="inputWidth" nbInput fullWidth placeholder="Business Type" [(ngModel)]="businessType">
+          <!-- <input type="text" nbInput fullWidth placeholder="Business Type" [(ngModel)]="businessType"> -->
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton outline status="success" (click)="createOrUpdate()">{{ type }}</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <button nbButton outline status="danger" (click)="dismiss()">Close</button>
+    </nb-card-footer>
+</nb-card>
