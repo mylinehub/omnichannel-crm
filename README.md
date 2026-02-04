@@ -1,7 +1,9 @@
-MyLineHub Omnichannel CRM – Setup & Deployment Guide
+MyLineHub Omnichannel CRM + Autodialer – Setup & Deployment Guide
 Target OS: Ubuntu 24.04 LTS
 Deployment Type: Production / Self-Hosted
 Repository Type: Monorepo (Backend, Frontend, AI, Voice)
+YOUTUBE : https://www.youtube.com/@mylinehub-wq2mg?app=desktop
+LinkdIn : https://www.linkedin.com/in/anand-goel-a6a23719/
 
 Overview
 MyLineHub is an open-source omnichannel CRM ecosystem designed to handle customer engagement across voice, email, web, and chat channels.
