@@ -1,0 +1,153 @@
+ISSUE:
+Aug 30 20:50:00 ubuntu-HP-Notebook start-spring.sh[898]: Inside WhatsAppHardInsertReportDataRunnable
+Aug 30 20:50:00 ubuntu-HP-Notebook start-spring.sh[898]: [2118620.602s][warning][os,thread] Failed to start thread "Unknown thread" - pthread_create failed (EAGAIN) for attributes: stacksize: 1024k, guardsize: 0k, detached.
+Aug 30 20:50:00 ubuntu-HP-Notebook start-spring.sh[898]: [2118620.602s][warning][os,thread] Failed to start the native thread for java.lang.Thread "crontaskscheduler-16100"
+Aug 30 20:50:00 ubuntu-HP-Notebook start-spring.sh[898]: [2118620.603s][warning][os,thread] Failed to start thread "Unknown thread" - pthread_create failed (EAGAIN) for attributes: stacksize: 1024k, guardsize: 0k, detached.
+Aug 30 20:50:00 ubuntu-HP-Notebook start-spring.sh[898]: [2118620.603s][warning][os,thread] Failed to start the native thread for java.lang.Thread "crontaskscheduler-16101"
+Aug 30 20:55:00 ubuntu-HP-Notebook start-spring.sh[898]: [2118920.602s][warning][os,thread] Failed to start thread "Unknown thread" - pthread_create failed (EAGAIN) for attributes: stacksize: 1024k, guardsize: 0k, detached.
+Aug 30 20:55:00 ubuntu-HP-Notebook start-spring.sh[898]: [2118920.603s][warning][os,thread] Failed to start the native thread for java.lang.Thread "crontaskscheduler-16102"
+
+
+
+Fix Steps:
+
+1) First we run below command
+ps aux | grep java
+
+
+ubuntu@ubuntu-HP-Notebook:~$ ps aux | grep java
+root         866  0.0  0.0  19640  4852 ?        S    Aug06   0:00 sudo java -Xms3G -Xmx5G -jar /home/ubuntu/crm.jar
+root         898  0.2  5.4 18602956 436764 ?     Sl   Aug06  77:26 java -Xms3G -Xmx5G -jar /home/ubuntu/crm.jar
+ubuntu   3291870  0.0  0.0   9144  2296 pts/0    S+   20:49   0:00 grep --color=auto java
+
+
+Meaning of above Logs
+PID 898 is the running Java process for crm.jar. It has been running since Aug 6, and its status is Sl, which means it's in a sleeping state and actively running.
+
+PID 866 is a sudo process that started the Java application, but it’s not running the Java code anymore.
+
+The third line is your grep command, which is used to find the Java process. It has PID 3319889.
+
+
+
+2) Then we run
+pgrep -f 'mylinehub-backend'
+
+It gave no result
+
+
+3) Generate the Thread Dump using jstack:
+Once you have the PID, you can use the jstack tool to generate a thread dump. For example, if your PID is 898:
+
+jstack 898 > thread-dump.txt
+
+Above command restarted Java application automatically
+
+
+4) Check System Limits (ulimit):
+Ensure that the system's user is not hitting the maximum allowed processes/threads. Check the following limits:
+
+ulimit -u for max processes per user.
+
+ulimit -n for the number of open files (which affects threads as well).
+
+ulimit -s for the stack size of each thread.
+
+
+sudo nano /etc/security/limits.conf, add below lines
+
+*               soft    nproc           unlimited
+*               hard    nproc           unlimited
+*               soft    nofile          65535
+*               hard    nofile          65535
+
+sudo nano /etc/pam.d/common-session, add below line
+session required pam_limits.so
+
+
+sudo nano /etc/sysctl.conf, add below line
+fs.file-max = 2097152
+
+sudo sysctl -p
+
+
+
+
+4) What to do next, we enabled JMX in application
+
+Use jconsole or jvisualvm:
+
+These tools can connect to the running JVM and provide real-time statistics, including thread dumps, garbage collection logs, heap memory usage, and more.
+
+To connect with jconsole:
+
+jconsole
+
+
+Select the Java process and start monitoring.
+
+For thread dumps, you can get them directly from jconsole or jvisualvm (by triggering a thread dump manually).
+
+
+5) Use jvmstat to Gather JVM Metrics
+
+For JVM-level statistics (including thread counts and thread state information), you can use tools like jvmstat. It’s a Java tool for monitoring JVM performance.
+
+jstat -gcutil <pid> 1000
+
+
+This will provide you with useful garbage collection statistics. You can also monitor thread counts with jstat:
+
+jstat -thread <pid>
+
+
+
+
+
+Summary
+
+System-Wide Monitoring: Use tools like top, htop, vmstat, dmesg, and ulimit to monitor the system resources and track when the system might hit resource limits.
+
+JVM-Level Monitoring: Utilize tools like jstack, jconsole, and jvmstat to get JVM thread dumps and stats, even when the application is unresponsive.
+
+Preemptive Monitoring: Set up Spring Boot Actuator to expose critical metrics, and use Prometheus + Grafana for visualization and alerts.
+
+Thread Pool Monitoring: If you use custom thread pools, expose metrics via Spring Boot Actuator to track pool usage and potential blockages.
+
+System Failover: Set up a failover mechanism using process managers (like systemd) and increase system limits to handle more threads.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3)Increase the System Limits:
+
+Check and increase the limits on processes and threads:
+
+ulimit -a  # Check current limits
+
+
+Specifically, check the maximum number of processes (nproc) for the current user. If it is too low, increase it in /etc/security/limits.conf:
+
+* soft nproc 4096
+* hard nproc 65535
+
+
+Also, consider increasing the maximum number of open files (nofile):
+
+* soft nofile 10240
+* hard nofile 65535
+
+

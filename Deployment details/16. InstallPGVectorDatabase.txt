@@ -1,0 +1,31 @@
+-- Enable pgvector extension
+CREATE EXTENSION IF NOT EXISTS vector;
+
+-- Create the embedding table
+CREATE TABLE IF NOT EXISTS public.embedding (
+    id BIGSERIAL PRIMARY KEY,
+    document_chunk_id BIGINT NOT NULL,
+    organization TEXT NOT NULL,
+    vector vector(1536) NOT NULL
+);
+
+-- Index for fast lookup by document chunk
+CREATE INDEX IF NOT EXISTS idx_embedding_documentChunkId 
+    ON public.embedding(document_chunk_id);
+
+-- Index for fast lookup by organization
+CREATE INDEX IF NOT EXISTS idx_embedding_org 
+    ON public.embedding(organization);
+
+-- ivfflat index for vector similarity search (nearest neighbor)
+-- Skip WITH clause if your pgvector version doesn't support it
+CREATE INDEX IF NOT EXISTS idx_embedding_vector 
+    ON public.embedding USING ivfflat (vector vector_l2_ops);
+
+-- Optional composite index: filter by organization
+CREATE INDEX IF NOT EXISTS idx_embedding_org_vector
+    ON public.embedding USING ivfflat (vector vector_l2_ops)
+    WHERE organization IS NOT NULL;
+
+-- Analyze table for query planner
+ANALYZE public.embedding;

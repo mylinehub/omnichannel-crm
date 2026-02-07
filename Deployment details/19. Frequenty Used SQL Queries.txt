@@ -1,0 +1,79 @@
+SELECT * FROM public.whats_app_flatten_message where whats_app_display_phone_number = '+919723790480'
+
+"595217710339203"
+"926347800560891"
+Select distinct whats_app_phone_number_id from whats_app_flatten_message
+
+"+919711761156"
+"+919723790480"
+Select distinct whats_app_display_phone_number from whats_app_flatten_message
+
+"sent"	    	191
+"read"	    	156
+"failed"	388
+	        130
+"delivered"	160
+Select statuses_status, count(*) from whats_app_flatten_message where whats_app_display_phone_number = '+919723790480' group by statuses_status
+
+Select * from whats_app_flatten_message where whats_app_display_phone_number = '+919723790480' and statuses_status =''
+Select * from whats_app_flatten_message where whats_app_display_phone_number = '+919723790480' and statuses_status ='sent'
+Select * from whats_app_flatten_message where whats_app_display_phone_number = '+919723790480' and statuses_status ='read'
+Select * from whats_app_flatten_message where whats_app_display_phone_number = '+919723790480' and statuses_status ='failed'
+Select * from whats_app_flatten_message where whats_app_display_phone_number = '+919723790480' and statuses_status ='delivered'
+
+
+Select id,created_on,message_from,message_id,message_media,message_text,message_type,name,whats_App_wa_id from whats_app_flatten_message where whats_app_display_phone_number = '+919723790480' and statuses_status =''
+
+Select distinct name from whats_app_flatten_message where whats_app_display_phone_number = '+919723790480' and statuses_status =''
+
+Select * from whats_app_flatten_message where whats_app_display_phone_number = '+919723790480' and statuses_status ='failed'
+
+
+
+
+Select distinct name,message_from from whats_app_flatten_message where whats_app_display_phone_number = '+919723790480' and statuses_status =''
+
+
+SELECT phone_number_with, count(*) FROM public.whats_app_chat_history where organization = 'PRObroker' group by phone_number_with
+
+DELETE FROM public.whats_app_chat_history
+WHERE phone_number_with IN (
+    SELECT phone_number_with
+    FROM public.whats_app_chat_history
+    WHERE organization = 'PRObroker'
+    GROUP BY phone_number_with
+    HAVING COUNT(*) = 1
+)
+AND organization = 'PRObroker';
+
+
+
+DELETE FROM public.whats_app_chat_history
+WHERE organization = 'PRObroker'
+  AND message_string ILIKE '%probroker__collection_ve%';
+
+
+
+UPDATE customer_property_inventory i
+SET "updatedByAi" = true
+FROM customers c
+WHERE i."CUSTOMER_ID" = c."CUSTOMER_ID"
+  AND c."organization" = 'PRObroker'
+  AND c."phoneNumber" IN (
+    '+917228883335',
+    '+919998545385',
+    '+919409229632',
+    '+919825929703',
+    '+919574703133',
+    '+917226876755',
+    '+919724151624'
+  );
+
+
+"probrokeranil"	"+918141817353"
+"Vinod Liya"	"+919724151624"
+"probroker customer support"	"+919825929703"
+"Ashokkumar Raval"	"+919821124840"
+"Devendrabhai"	"+919409229632"
+"Anand Goel"	"+919625048379"
+

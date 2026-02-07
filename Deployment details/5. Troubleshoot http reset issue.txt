@@ -1,0 +1,184 @@
+
+1) ip a
+
+    enp7s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether fc:3f:db:59:60:dd brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.3/24 brd 192.168.0.255 scope global noprefixroute enp7s0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::fe3f:dbff:fe59:60dd/64 scope link
+       valid_lft forever preferred_lft forever
+
+
+2) sudo tcpdump -i enp7s0 'tcp[tcpflags] & tcp-rst != 0' -n -vv
+
+This will:
+Only show TCP packets with the RST flag set
+Avoid resolving hostnames (-n)
+Show verbose TCP info (-vv)
+
+
+
+3)Analyze the output
+Here’s a sample line:
+   (YourIP).(YourPort) > (Remote IP).(Remort_Port)
+IP 192.168.1.100.20025 > 93.184.216.34.443: Flags [R], seq 123456, win 0, length 0
+
+If the RST is going from your machine (source IP is yours):
+➤ Your Spring Boot client is sending the reset — likely a socket timeout, TLS failure, or app-initiated abort.
+
+If the RST is coming from the server (destination IP is yours):
+➤ The server is rejecting the connection, maybe due to rate limiting, bad TLS handshake, or IP blocks.
+
+If the RST is from your router/gateway/firewall (e.g. IP is the router's):
+➤ The network device is injecting the RST, possibly due to bad NAT, port forwarding conflict, or firewall policy.
+
+
+4) Capture full logs
+sudo tcpdump -i enp7s0 'tcp port 80 or port 443 or portrange 20001-30000' -w full-trace.pcap
+
+➤ Then open full-trace.pcap in Wireshark and filter using:
+tcp.flags.reset == 1
+➤ Or to see specific connection flows:
+ip.addr == YOUR_SERVER_IP
+
+5) To see reset in both direction use
+sudo tcpdump -i enp7s0 'tcp[13] & 4 != 0' -n
+
+
+6) Check SSL - Test without SNI (connect by IP):
+openssl s_client -connect 13.201.205.167:443
+
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_128_GCM_SHA256
+    Session-ID: 5CABB621A69C4F9453F787E8F72D176B2E22FB768054B1D11C1286D7BF68467F
+    Session-ID-ctx:
+    Resumption PSK: DD31CAA2534116C57B654A86B36867FD944FF5EC6AC8DEEE852BACCDD9CD4E69
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 86400 (seconds)
+    TLS session ticket:
+    0000 - 01 f1 ee c8 7a 53 bb 03-1c 33 6a 08 ec c8 ff 97   ....zS...3j.....
+    0010 - eb 59 13 e7 31 ac ea f3-3f 0d 7a 55 f3 61 e2 46   .Y..1...?.zU.a.F
+    0020 - 4d 26 af da bd 88 a2 78-1d 6d 1b 5d 9e d2 cf 09   M&.....x.m.]....
+    0030 - 36 e1 0f 7b e7 ee b1 9c-b6 fd 28 75 4d d3 96 6d   6..{......(uM..m
+    0040 - ee 33 15 2b 11 c2 7f 69-87 27 48 e1 cf 9a 92 79   .3.+...i.'H....y
+    0050 - 77 0c 50 c2 e0 45 93 ad-ae 9b 94 d4 03 3e 5d 85   w.P..E.......>].
+    0060 - 50 91 18 08 3e 52 0e cf-de ae d4 a3 fd 34 01 e4   P...>R.......4..
+    0070 - 46 1e 0e ec 8d 89 78 0e-63 22 e8 26 d0 7f 3b bd   F.....x.c".&..;.
+    0080 - 90 da 12 2d 50 95 07 e1-55 5c                     ...-P...U\
+
+    Start Time: 1752855325
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+
+7) Run below curl (From postman)
+
+curl -v --location 'https://production.deepvue.tech/v1/authorize' \
+  --header 'Content-Type: application/json' \
+  --data '{"client_id": "free_tier_support_f80b5dd26a", "client_secret": "fd8146439b0948b083442c7d44f18a2e"}'
+
+
+8) Run below curl (From articles)
+
+curl -v --location 'https://13.201.205.167/v1/authorize' \
+  --header 'Content-Type: application/json' \
+  --data '{"client_id": "free_tier_support_f80b5dd26a", "client_secret": "fd8146439b0948b083442c7d44f18a2e"}'
+
+
+9) Run below curl (From articles)
+
+curl -v --location 'https://production.deepvue.tech/v1/authorize' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data 'client_id=free_tier_support_f80b5dd26a&client_secret=fd8146439b0948b083442c7d44f18a2e'
+
+
+
+10) Use openssl to see the TLS handshake outcome
+
+openssl s_client -connect production.deepvue.tech:443
+
+
+11) Find exact using below command
+nmap -sV --script ssl-enum-ciphers -p 443 production.deepvue.tech
+
+
+12) If Nmap fails to tell SSL version use below
+git clone https://github.com/drwetter/testssl.sh.git
+cd testssl.sh
+./testssl.sh production.deepvue.tech
+
+
+12) Or else Try different SSL version
+curl --tlsv1.2 --location 'https://production.deepvue.tech/v1/authorize' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data 'client_id=free_tier_support_f80b5dd26a&client_secret=fd8146439b0948b083442c7d44f18a2e'
+
+
+TLS 1.3	--tlsv1.3	Most secure, supported by modern servers and clients
+TLS 1.2	--tlsv1.2	Widely supported, still industry standard
+TLS 1.1	--tlsv1.1	Deprecated (RFC 8996); some old servers still accept it
+TLS 1.0	--tlsv1.0	Deprecated and insecure; only try for legacy systems
+SSLv3	--sslv3	        Almost universally disabled; use only for legacy testing
+
+
+13) Convert router to DMZ
+
+
+How to use TCP Dump
+
+
+sudo apt-get install tcpdump
+
+Why tcpdump -i any port 443 is suggested when you're using source ports 20001–30000? ✅ Short answer: Because you're making outgoing HTTPS requests, the destination port is always 443 (the standard port for HTTPS). So, capturing traffic on port 443 catches the relevant packets going to (and coming from) the remote server.
+sudo tcpdump -i any -w capture.pcap port 80 or port 443
+
+sudo tcpdump -i any tcp and 'tcp[13] & 2 != 0'  # captures SYN packets
+
+If you want to filter just your custom port range, use
+sudo tcpdump -i any 'tcp portrange 20001-30000' -w source_ports.pcap
+
+But this might miss responses from the server (which come from port 443 and to your custom port). So a more complete filter would be:
+sudo tcpdump -i any '(tcp src port 443 or tcp dst portrange 20001-30000)' -w trace.pcap
+
+
+
+netstat -antp:
+This command can help you see the state of your TCP connections, including the TIME_WAIT sockets. Look for connections with (TIME_WAIT) in the state column.
+
+netstat -s:
+This command shows connection statistics, including resets. Look for the number of resets and analyze their cause. 
+
+dmesg | grep -i tcp
+journalctl -k | grep -i tcp
+
+
+Logs Prompt:
+
+If you see below logs from using command "sudo tcpdump -i enp7s0 'tcp[tcpflags] & tcp-rst != 0' -n -vv" . Https request was trigger to 13.201.205.167.443. The request was trigger from 192.168.0.3.20003 (Spring boot server)
+49.205.174.53.57731 is client machine from where application was opened from browser. He registered, http trigger from spring boot to vue server.
+Not sure 160.191.88.232.53690 ip is whose. Can you analyze below logs and tell me where problem is
+
+tcpdump: listening on enp7s0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+19:34:30.182245 IP (tos 0x0, ttl 62, id 242, offset 0, flags [none], proto TCP (6), length 40)
+    13.201.205.167.443 > 192.168.0.3.20003: Flags [R.], cksum 0x360b (correct), seq 4158552654, ack 3003279499, win 16, length 0
+19:34:30.199909 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 40)
+    192.168.0.3.20003 > 13.201.205.167.443: Flags [R], cksum 0xa858 (correct), seq 3003279499, win 0, length 0
+19:34:30.200381 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 40)
+    192.168.0.3.20003 > 13.201.205.167.443: Flags [R], cksum 0xa858 (correct), seq 3003279499, win 0, length 0
+19:34:30.200493 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 40)
+    192.168.0.3.20003 > 13.201.205.167.443: Flags [R], cksum 0xa858 (correct), seq 3003279499, win 0, length 0
+19:34:30.200895 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 40)
+    192.168.0.3.20003 > 13.201.205.167.443: Flags [R], cksum 0xa858 (correct), seq 3003279499, win 0, length 0
+19:34:30.219183 IP (tos 0x20, ttl 121, id 16263, offset 0, flags [DF], proto TCP (6), length 40)
+    49.205.174.53.57731 > 192.168.0.3.8080: Flags [R.], cksum 0xe06b (correct), seq 2865928900, ack 1138533423, win 0, length 0
+19:34:39.758894 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 40)
+    192.168.0.3.25553 > 160.191.88.232.53690: Flags [R.], cksum 0x35d5 (correct), seq 0, ack 690708721, win 0, length 0
+19:34:39.867770 IP (tos 0x0, ttl 247, id 9958, offset 0, flags [none], proto TCP (6), length 40)
+    160.191.88.232.53690 > 192.168.0.3.25553: Flags [R], cksum 0x3135 (correct), seq 690708721, win 1200, length 0

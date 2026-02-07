@@ -1,0 +1,169 @@
+
+1) Understanding difference between site-availability and site-enabled
+
+The sites-* folders are managed by nginx_ensite and nginx_dissite. For Apache httpd users who find this with a search, the equivalents is a2ensite/a2dissite.
+The sites-available folder is for storing all of your vhost configurations, whether or not they're currently enabled.
+The sites-enabled folder contains symlinks to files in the sites-available folder. This allows you to selectively disable vhosts by removing the symlink.
+
+conf.d does the job, but you have to move something out of the folder, delete it, or make changes to it when you need to disable something. The sites-* folder abstraction makes things a little more organized and allows you to manage them with separate support scripts.
+
+
+2) run following commands and paste below content
+
+sudo nano /etc/nginx/sites-available/app.mylinehub.com
+
+
+# Redirect all HTTP to HTTPS
+server {
+    if ($host = app.mylinehub.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    listen [::]:80;
+    server_name app.mylinehub.com www.app.mylinehub.com;
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+
+
+}
+
+# Main HTTPS server
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    server_name app.mylinehub.com www.app.mylinehub.com;
+
+    root /var/www/html/dist;
+    index index.html index.htm;
+
+    # SSL certs managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/app.mylinehub.com-0001/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/app.mylinehub.com-0001/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    # Frontend app
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    error_page 404 /index.html;
+
+    # Proxy backend services
+    location /sprint1/8080/ {
+        proxy_pass http://127.0.0.1:8080/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /sprint1/8081/ {
+        proxy_pass http://127.0.0.1:8081/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /sprint2/8082/ {
+        proxy_pass http://127.0.0.1:8082/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /sprint2/8083/ {
+        proxy_pass http://127.0.0.1:8083/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /sprint2/8084/ {
+        proxy_pass http://127.0.0.1:8084/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /sprint2/8085/ {
+        proxy_pass http://127.0.0.1:8085/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /sprint2/8086/ {
+        proxy_pass http://127.0.0.1:8086/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /sprint2/8087/ {
+        proxy_pass http://127.0.0.1:8087/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+    location /sprint2/8088/ {
+        proxy_pass http://127.0.0.1:8088/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /sprint2/8089/ {
+        proxy_pass http://127.0.0.1:8089/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+
+    client_max_body_size 50M;
+
+}
+
+
+
+
+
+3) Verify setup - 
+sudo nginx -t
+sudo systemctl reload nginx
+sudo ufw allow 'Nginx Full'
+sudo ufw status
+
+sudo ln -s /etc/nginx/sites-available/app.mylinehub.com /etc/nginx/sites-enabled/
+sudo unlink /etc/nginx/sites-enabled/default
+
+sudo nginx -t
+sudo systemctl restart nginx
+
+sudo snap install core; sudo snap refresh core
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+
+
+
+
+
+
+
+
+

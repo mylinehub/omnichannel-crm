@@ -1,0 +1,5 @@
+npm run replace-zoom
+
+
+Prompt:
+For all html, css, scss, ts files , replace zoom to transform for angular project. Write a js script for same and steps to insert into package .json for script , npm run command. Replace it in index.html (in root folder) while @theme, auth, pages, pipe, services, and app component insider /src/app folder. Pick each and every file , look for zoom and replace by transform. Put logs of changes made. Do not put log after each line. Limit it to changes but add few in between to know where flow break, if broken.

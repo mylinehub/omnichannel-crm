@@ -1,0 +1,10 @@
+﻿
+ngrok config add-authtoken 
+
+
+To start https server (even http will start https server for public use):
+ngrok https 8080
+
+
+To start http server
+ngrok http 8081

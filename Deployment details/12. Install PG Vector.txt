@@ -1,0 +1,52 @@
+Windows:
+
+🔧 1. Install Visual Studio Build Tools (if not already done) - In powershell
+winget install --id Microsoft.VisualStudio.2022.BuildTools
+Remove-Item "C:\Program Files\PostgreSQL\16\lib\vector.dll" -ErrorAction SilentlyContinue
+Remove-Item "C:\Program Files\PostgreSQL\16\share\extension\vector*" -ErrorAction SilentlyContinue
+
+📦 2. Open the Correct Developer Command Prompt
+Search: x64 Native Tools Command Prompt for VS 2022
+Right-click → Run as Administrator
+
+📦 3. Build and Install pgvector
+In the VS command prompt (not PowerShell), run: 
+rmdir /S /Q "C:\Program Files\PostgreSQL\16\include\server\extension\vector"
+cd /d %TEMP%
+rmdir /S /Q pgvector
+git clone https://github.com/pgvector/pgvector.git
+cd pgvector
+set PGROOT=C:\Progra~1\PostgreSQL\16
+nmake /f Makefile.win PG_CONFIG="%PGROOT%\bin\pg_config.exe" install
+
+📦 4. Restart Server
+net stop postgresql-x64-16
+net start postgresql-x64-16
+
+📦 5. Verify installation
+DROP EXTENSION IF EXISTS vector CASCADE;
+CREATE EXTENSION vector;
+SELECT extversion FROM pg_extension WHERE extname = 'vector';
+
+
+
+
+
+
+
+Ubuntu, Linux
+# 1 - Update packages
+sudo apt update
+
+# 2 - Install pgvector extension
+sudo apt install -y postgresql-contrib postgresql-16-pgvector
+# or use 15/17 depending on your version
+# sudo apt install -y postgresql-contrib postgresql-15-pgvector
+
+3 - Verify
+sudo -u postgres psql
+-- Check available extensions
+SELECT * FROM pg_available_extensions WHERE name = 'vector';
+
+
+

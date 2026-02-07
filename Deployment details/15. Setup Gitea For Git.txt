@@ -1,0 +1,145 @@
+
+
+🟢 Gitea (Recommended)
+
+Lightweight Git server (GitHub-like UI), runs on any port, integrates easily with existing NGINX.
+
+✅ Minimal – won’t touch current configs
+
+
+
+It’s 1/10 the size of GitLab, doesn’t hijack ports, and runs cleanly alongside your existing NGINX.
+
+Here’s how to install and set it up safely:
+
+🧰 Step 1 — Install Dependencies
+sudo apt update
+sudo apt install -y git sqlite3
+
+
+⚙️ Step 2 — Create a Gitea User
+sudo adduser --system --group --shell /bin/bash --home /home/anand anand
+sudo adduser --system --group --shell /bin/bash --home /home/sourabh sourabh
+
+📦 Step 3 — Download and Run Gitea (latest stable)
+cd /usr/local/bin
+sudo wget -O gitea https://dl.gitea.com/gitea/1.22.3/gitea-1.22.3-linux-amd64
+sudo chmod +x gitea
+💡 Check latest version here: https://dl.gitea.com/gitea/
+
+
+🗂️ Step 4 — Create Folders and Set Permissions
+sudo mkdir -p /var/lib/gitea/{custom,data,log}
+sudo groupadd giteausers
+sudo usermod -aG giteausers anand
+sudo usermod -aG giteausers sourabh
+sudo mkdir /etc/gitea
+sudo chown root:giteausers /etc/gitea
+sudo chmod 770 /etc/gitea
+sudo chmod -R 750 /var/lib/gitea
+
+
+
+
+
+🧩 Step 5 — Create a Systemd Service
+sudo nano /etc/systemd/system/gitea.service
+Paste this:
+
+[Unit]
+Description=Gitea (Git with a cup of tea)
+After=network.target
+Wants=network-online.target
+
+[Service]
+RestartSec=2s
+Type=simple
+User=git
+Group=git
+WorkingDirectory=/var/lib/gitea/
+ExecStart=/usr/local/bin/gitea web --config /etc/gitea/app.ini
+Restart=always
+Environment=USER=git
+Environment=HOME=/home/git
+Environment=GITEA_WORK_DIR=/var/lib/gitea
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+Save and enable it:
+sudo systemctl daemon-reload
+sudo systemctl enable gitea
+sudo systemctl start gitea
+
+
+
+🌐 Step 6 — Access Gitea Setup Wizard
+
+
+Now visit:
+
+http://app.mylinehub.com:3000
+Configure as follows:
+Database Type: SQLite (simple, built-in)
+Application URL: https://git.app.mylinehub.com
+
+SSH Port: 22
+HTTP Port: 3000
+Admin User: create your first admin
+Click Install Gitea.
+
+
+
+🌍 Step 7 — Integrate with Existing NGINX (Reverse Proxy)
+
+Create a new NGINX config:
+
+sudo nano /etc/nginx/sites-available/gitea.conf
+Paste:
+
+server {
+    listen 80;
+    server_name git.yourdomain.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+Enable site and reload:
+
+sudo ln -s /etc/nginx/sites-available/gitea.conf /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+
+
+Now you can access:
+https://git.app.mylinehub.com
+(Optional) Add SSL:
+
+If you already use Let’s Encrypt:
+
+sudo certbot --nginx -d git.app.mylinehub.com
+
+
+🔑 Step 8 — Test and Use
+You can now:
+git clone https://git.app.mylinehub.com/<username>/<repo>.git
+or via SSH:
+
+git clone git@git.app.mylinehub.com:<username>/<repo>.git
+🧠 Why Gitea is Ideal for You
+
+
+
+
+Simple dailyStep 9 -  backup (SQLite + repos):
+
+tar czf /backup/gitea-$(date +%F).tar.gz /var/lib/gitea
+🔐 Optional Enhancements

@@ -1,0 +1,39 @@
+1) Fetch all logs
+journalctl -u mylinehub-backend.service > mylinehub-backend.log
+
+2) Clear logs
+
+sudo systemctl stop mylinehub-backend.service
+sudo journalctl --rotate
+sudo journalctl --vacuum-time=1s --unit=mylinehub-backend.service
+sudo systemctl start mylinehub-backend.service
+sudo journalctl -f -n 1000 -u mylinehub-backend
+sudo journalctl -f -u mylinehub-backend
+sudo journalctl -f -u mylinehub-backend --since "2026-01-16 11:25:00"
+
+
+
+sudo systemctl stop mylinehub-voicebridge.service
+sudo journalctl --rotate
+sudo journalctl --vacuum-time=1s --unit=mylinehub-voicebridge.service
+sudo systemctl start mylinehub-voicebridge.service
+sudo journalctl -f -n 1000 -u mylinehub-voicebridge
+sudo journalctl -f -u mylinehub-voicebridge
+sudo journalctl -f -u mylinehub-voicebridge --since "2026-01-16 11:25:00"
+
+
+sudo rm -rf /var/lib/voicebridge/probroker-ai-recording/*
+
+
+
+sudo tcpdump -n -i any host 122.180.253.252 and udp -c 30
+sudo tcpdump -n -i any host 103.212.22.115 and udp -c 30
+
+watch -n 1 "ss -ntpi '( sport = :8088 )'"
+sudo tcpdump -nn -i any 'tcp port 8088 and (tcp[tcpflags] & (tcp-fin|tcp-rst) != 0)'
+
+FreePBX backup:
+File location: /var/spool/asterisk/backup/20260119-202541-1768854341-17.0.24-1847061877.tar.gz 
+
+
+

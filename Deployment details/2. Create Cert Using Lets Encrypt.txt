@@ -1,0 +1,64 @@
+In summary, there are four different ways to present certificates and their components:
+PEM - Governed by RFCs, used preferentially by open-source software because it is text-based and therefore less prone to translation/transmission errors. It can have a variety of extensions (.pem, .key, .cer, .cert, more)
+PKCS7 - An open standard used by Java and supported by Windows. Does not contain private key material.
+PKCS12 - A Microsoft private standard that was later defined in an RFC that provides enhanced security versus the plain-text PEM format. This can contain private key and certificate chain material. Its used preferentially by Windows systems, and can be freely converted to PEM format through use of openssl.
+DER - The parent format of PEM. It's useful to think of it as a binary version of the base64-encoded PEM file. Not routinely used very much outside of Windows.
+
+
+(ONE TIME ACTIVITY) SHOULD BE ALREADY DONE ONE TIME ACTIVITY:
+Install CertBot (It generates PEM files)
+(Donot Run below 4 commands)
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo apt-get update
+
+(Run this command)
+sudo apt-get install certbot python3-certbot-nginx  (It comes different package for apache)
+sudo snap install core; sudo snap refresh core
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+
+
+
+(RENEW ACTIVITY)
+sudo su
+cd /etc/letsencrypt/live
+rm -r ./app.mylinehub.com/  (Donot delete-0001)
+certbot delete
+sudo certbot --nginx -d app.mylinehub.com
+sudo systemctl status certbot.timer
+sudo certbot renew --dry-run
+
+If Required use (rm -rf app.mylinehub.com-0001- it removes directory which is non empty) or else rename (mv -T app.mylinehub.com-0001 app.mylinehub.com )
+Copy contents of one folder to another (cp -a /etc/letsencrypt/live/app.mylinehub.com/. /etc/letsencrypt/live/app.mylinehub.com-0001/)
+
+
+root@ubuntu-HP-Notebook:/etc/letsencrypt/live/app.mylinehub.com# sudo certbot --nginx -d app.mylinehub.com
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Requesting a certificate for app.mylinehub.com
+
+Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/app.mylinehub.com/fullchain.pem
+Key is saved at:         /etc/letsencrypt/live/app.mylinehub.com/privkey.pem
+This certificate expires on 2025-10-10.
+These files will be updated when the certificate renews.
+Certbot has set up a scheduled task to automatically renew this certificate in the background.
+
+Deploying certificate
+Successfully deployed certificate for app.mylinehub.com to /etc/nginx/sites-enabled/default
+Congratulations! You have successfully enabled HTTPS on https://app.mylinehub.com
+
+
+cd /etc/letsencrypt/live/app.mylinehub.com/
+
+
+Convert PEM files to PK12 and Cert files using Open SSL
+Install OpenSSL
+sudo apt update
+sudo apt install openssl
+
+
+
+Deprecated
+sudo add-apt-repository ppa:certbot/certbot         (It is deprecated and not required now. Run command sudo add-apt-repository -r ppa:certbot/certbot to remove)
+

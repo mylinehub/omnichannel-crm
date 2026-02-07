@@ -1,0 +1,268 @@
+Setup and Deployment Guide for Ubuntu 24.04 Server
+
+1. Add Current User to sudoers
+
+Run:
+
+sudo nano /etc/sudoers
+
+Add your username at the end (replace username):
+
+username ALL=(ALL) NOPASSWD:ALL
+
+Save and exit.
+
+---
+
+2. Configure GoDaddy DNS
+
+* Log into GoDaddy.
+* Add an A record for your subdomain, e.g.:
+
+{{your-domain}} → [Your Server IP]
+
+---
+
+3. Ubuntu Firewall Setup (UFW)
+
+sudo apt-get install ufw
+sudo ufw enable
+sudo ufw allow 80       # HTTP
+sudo ufw allow 443      # HTTPS
+sudo ufw allow 8080     # App port 1
+sudo ufw allow 8081     # App port 2
+sudo ufw allow 5432     # PostgreSQL
+
+---
+
+4. Install PostgreSQL 16
+
+sudo apt update
+sudo apt install postgresql-16
+
+---
+
+5. Configure PostgreSQL to Allow External Connections
+
+Edit postgresql.conf:
+
+sudo nano /etc/postgresql/16/main/postgresql.conf
+
+Find and change:
+
+#listen_addresses = 'localhost'
+
+to
+
+listen_addresses = '*'
+
+Edit pg_hba.conf:
+
+sudo nano /etc/postgresql/16/main/pg_hba.conf
+
+Add or modify line to allow all IPs with md5 auth:
+
+host    all             all             0.0.0.0/0               md5
+
+Restart PostgreSQL:
+
+sudo systemctl restart postgresql
+
+Set password for postgres user:
+
+sudo -u postgres psql template1
+ALTER USER postgres WITH ENCRYPTED PASSWORD 'your_password';
+\q
+
+---
+
+6. Install and Configure NGINX
+
+sudo apt update
+sudo apt upgrade -y
+sudo apt install nginx
+
+Replace default config files in /etc/nginx/sites-available and /etc/nginx/nginx.conf as needed.
+
+Test config and restart nginx:
+
+sudo nginx -t
+sudo systemctl restart nginx
+
+To reinstall nginx if needed:
+
+sudo apt-get purge nginx nginx-common nginx-full
+sudo apt-get install nginx
+
+---
+
+7. Install Java (OpenJDK 17)
+
+sudo apt install openjdk-17-jdk
+
+---
+
+8. Install NodeJS 14.x (Optional)
+
+curl -sL [https://deb.nodesource.com/setup_14.x](https://deb.nodesource.com/setup_14.x) | sudo -E bash -
+sudo apt install -y nodejs
+node -v          # Verify node version
+npm -v           # Verify npm version
+npm install -g @angular/cli@11.2.5
+
+---
+
+9. SSL Certificates (Let’s Encrypt)
+
+Using Windows-generated Certificates:
+
+sudo openssl pkcs12 -export -in certificate.crt -inkey private.key -name str -out guruautodailer.p12
+
+# Enter passphrase: 123456
+
+sudo keytool -importkeystore -deststorepass 123456 -destkeystore keystore.jks -srckeystore guruautodailer.p12 -srcstoretype PKCS12
+
+# Enter password: 123456
+
+sudo keytool -import -alias str -file certificate.crt -storetype PKCS12 -keystore server.truststore
+
+Using Ubuntu-generated Certificates:
+
+sudo openssl pkcs12 -export -in cert.pem -inkey privkey.pem -certfile chain.pem -name "mylinehub" -out keystore.p12
+
+sudo keytool -importkeystore -srckeystore keystore.p12 -srcstoretype PKCS12 -destkeystore keystore.jks -deststoretype JKS -alias "mylinehub"
+
+sudo keytool -import -alias "mylinehub" -file cert.pem -keystore truststore.jks
+
+Keep all passwords as 123456 for simplicity.
+
+Certificates locations:
+
+/etc/letsencrypt/live/app.mylinehub.com/keystore.p12
+/etc/letsencrypt/live/app.mylinehub.com/keystore.jks
+/etc/letsencrypt/live/app.mylinehub.com/truststore.jks
+
+Copy certs to user directory:
+
+cp -a /etc/letsencrypt/live/app.mylinehub.com/. /home/ubuntu/
+
+---
+
+10. Java Spring Boot SSL Configuration (application.properties)
+
+server.ssl.enabled=true
+server.ssl.keyStoreType=PKCS12
+server.ssl.keyAlias=
+server.ssl.key-store=keystore.jks
+server.ssl.key-store-password=
+server.ssl.key-alias=
+
+---
+
+11. Build & Package Backend (Maven)
+
+OS Check using maven
+mvn -q help:evaluate -Dexpression=webrtc.classifier -DforceStdout
+
+
+cd /path/to/your/project
+mvn clean install -Dmaven.test.skip=true
+mvn clean package -Dmaven.test.skip=true
+
+Build using POM profile
+mvn clean package -Pmylinehub -Dmaven.test.skip=true -Dwebrtc.classifier=linux-x86_64
+mvn clean package -Pmylinehub -Dmaven.test.skip=true
+
+
+WebRTC check:
+jar tf target/voicebridge-mylinehub.jar | grep -i webrtc | head
+
+
+Useful Maven commands:
+
+mvn dependency:go-offline
+mvn eclipse:eclipse
+mvn spring-boot:run
+
+---
+
+12. Deploy Backend
+
+sudo touch /home/ubuntu/crm-error.log
+sudo touch /home/ubuntu/crm-output.log
+
+chmod +x /home/ubuntu/crm.jar
+nohup java -Xms3G -Xmx5G -jar /home/ubuntu/crm.jar > /home/ubuntu/crm-output.log 2> /home/ubuntu/crm-error.log &
+
+To monitor logs:
+
+tail -f /home/ubuntu/crm-output.log
+tail -f /home/ubuntu/crm-error.log
+
+To enable SSL debug (optional):
+
+java -Djavax.net.ssl.trustStore=keystore.p12 -Djavax.net.debug=SSL -jar /home/ubuntu/crm.jar
+
+---
+
+13. Swagger URLs
+
+[http://app.mylinehub.com:8081/swagger-ui.html](http://app.mylinehub.com:8081/swagger-ui.html)
+[https://app.mylinehub.com:8080/swagger-ui.html](https://app.mylinehub.com:8080/swagger-ui.html)
+
+---
+
+14. Build & Deploy Frontend (Angular)
+
+Build Angular frontend:
+
+ng build --prod
+
+Copy frontend build to server:
+
+cd /var/www/html/
+sudo rm -rf dist/
+sudo cp -r /home/ubuntu/dist/ .
+sudo systemctl restart nginx
+sudo nginx -t
+
+cd /var/www/html/
+sudo rm -r ./dist/
+cd /home/ubuntu
+unrar x -r dist.rar
+sudo cp -r ./dist /var/www/html/
+
+
+---
+
+15. Managing Source Code on Server
+
+To unpack Java source code:
+
+unrar x -r src.rar
+cd src/main/
+sudo rm -rf java/
+sudo rm -rf webapp/
+
+---
+
+16. Kill Backend Process (If needed)
+
+ps aux | grep 'crm.jar' | grep -v grep | awk '{print $2}' | xargs sudo kill -9
+
+or by port:
+
+sudo kill -9 $(lsof -ti :8080)
+
+---
+
+Notes:
+
+* Replace username and paths as needed.
+* PostgreSQL version 16 is explicitly installed and configured.
+* Adjust ports and file paths according to your environment.
+* Make sure GoDaddy DNS points to your server’s public IP.
+
+---
+
+If you want, I can help create a ready-to-use plain text file or a markdown version. Just ask!

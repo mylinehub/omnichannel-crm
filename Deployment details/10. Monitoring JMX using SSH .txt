@@ -1,0 +1,52 @@
+
+1) Download jmxterm on wndows from : https://docs.cyclopsgroup.org/jmxterm
+2) java -jar jmxterm-1.0.2-uber.jar
+
+3) One min tutorial:
+
+jiaqi@happycow:~$ java -jar jmxterm-1.0.2-uber.jar
+Welcome to JMX terminal. Type "help" for available commands.
+?$
+
+Once you are in the console, help command shows all available commands and help with command name or command with -h option shows the usage of each command. For example
+> help get
+usage: get [-b <val>] [-d <val>] [-h] [-i] [-q] [-s]
+
+Get value of MBean attribute(s)
+-b,--bean <val> MBean name where the attribute is. Optional if bean has
+been set
+
+-d,--domain <val> Domain of bean, optional
+-h,--help Display usage
+-i,--info Show detail information of each attribute
+-q,--quots Quotation marks around value
+-s,--simple Print simple expression of value without full expression
+* stands for all attributes. eg. get Attribute1 Attribute2 or get *
+
+
+4) After inside JMXTerm , connect to application endpoint via below command
+> open localhost:1099
+
+
+5) Browse Available MBeans
+To check all available MBeans that your Spring Boot application exposes, use the following command:
+beans
+
+This will display all the registered MBeans. For example, you might see something like:
+mylinehub.backend:type=ThreadPool,name=AsyncExecutor
+mylinehub.backend:type=Memory,name=HeapMemory
+...
+
+
+6) Query MBeans for Specific Metrics
+You can query specific MBeans to get detailed metrics. For example:
+Threads in your Spring Boot application:
+get -b mylinehub.backend:type=ThreadPool,name=AsyncExecutor
+
+Memory usage of your application:
+get -b mylinehub.backend:type=Memory,name=HeapMemory
+
+
+7) Exit JMXTerm
+Once you're done, you can exit the JMXTerm interface by typing:
+exit

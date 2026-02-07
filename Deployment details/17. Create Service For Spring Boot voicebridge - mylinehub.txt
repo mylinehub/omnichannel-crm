@@ -1,0 +1,129 @@
+
+Step 0 — Pre-Requisite (FIX Sudo Access For Scripts)
+sudo systemctl restart sshdsudo visudo -f /etc/sudoers.d/mylinehub
+
+add the below lines
+ubuntu ALL=(ALL) NOPASSWD:ALL
+
+and don't forget to restart sshd
+sudo systemctl restart sshd
+
+
+
+Step 1 — Create a service
+sudo nano /etc/systemd/system/mylinehub-voicebridge.service
+cd /home/ubuntu/ 
+sudo touch voicebridge-mylinehub-output.log (Create empty file)
+sudo touch voicebridge-mylinehub-error.log  (Create empty file)
+
+
+Copy paste below
+
+
+
+[Unit]
+Description=Mylinehub voicebridge Java REST bridge
+[Service]
+User=ubuntu
+# The configuration file application.properties should be here:
+#change this to your workspace
+WorkingDirectory=/home/ubuntu
+#path to executable. 
+#executable is a bash script which calls jar file 
+ExecStart=/home/ubuntu/start-mylinehub-voicebridge.sh
+ExecStop=/home/ubuntu/stop-mylinehub-voicebridge.sh
+StandardOutput=file:voicebridge-mylinehub-output.log
+StandardError=file:voicebridge-mylinehub-error.log
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=5
+[Install]
+WantedBy=multi-user.target
+
+
+-mylinehub
+
+Create Start script
+sudo nano /home/ubuntu/start-mylinehub-voicebridge.sh
+
+Copy paste below in above file:
+#!/bin/bash
+sudo java -Xms3G -Xmx5G -jar "/home/ubuntu/voicebridge-mylinehub.jar" --spring.profiles.active=mylinehub
+#sudo java -Dcom.sun.management.jmxremote \
+#     -Dcom.sun.management.jmxremote.port=1099 \
+#     -Dcom.sun.management.jmxremote.rmi.port=1099 \
+#     -Dcom.sun.management.jmxremote.authenticate=false \
+#     -Dcom.sun.management.jmxremote.ssl=false \
+#     -Xms3G -Xmx5G -jar "/home/ubuntu/voicebridge-1.0.0.jar"
+
+
+Create Stop script
+sudo nano /home/ubuntu/stop-mylinehub-voicebridge.sh
+
+OLD: Copy paste below in above file:
+#!/bin/bash
+sudo kill -9 $(lsof -ti :8082)
+
+
+New:
+#!/bin/bash
+PORT=8082
+
+# Find PID of process using port 8082
+PID=$(sudo lsof -ti :$PORT)
+
+if [ -z "$PID" ]; then
+  echo "❌ No Spring Boot app running on port $PORT"
+  exit 0
+fi
+
+echo "🛑 Sending SIGTERM to process $PID for graceful shutdown..."
+sudo kill -15 $PID
+
+# Wait up to 20 seconds for graceful shutdown
+for i in {1..40}; do
+  if ps -p $PID > /dev/null; then
+    echo "⏳ Waiting for app to stop... ($i sec)"
+    sleep 1
+  else
+    echo "✅ App stopped gracefully."
+    exit 0
+  fi
+done
+
+echo "⚠️ App did not stop in time, forcing shutdown..."
+sudo kill -9 $PID
+echo "💀 Forced stop completed."
+
+
+
+
+Step 3 - Verify that the script file is executable:
+sudo chmod +x /home/ubuntu/start-mylinehub-voicebridge.sh
+sudo chmod +x /home/ubuntu/stop-mylinehub-voicebridge.sh
+
+sudo systemctl daemon-reload
+sudo systemctl enable mylinehub-voicebridge.service
+sudo systemctl start mylinehub-voicebridge
+sudo systemctl stop mylinehub-voicebridge
+sudo systemctl status mylinehub-voicebridge
+
+sudo systemctl stop mylinehub-voicebridge && sudo journalctl -u mylinehub-voicebridge -f
+
+
+Step 4 — Setup Logging
+sudo journalctl --unit=mylinehub-voicebridge
+
+See realtime logs using -f option.
+Use -n <# of lines> to view specified number of lines of log
+sudo journalctl -f -n 1000 -u mylinehub-voicebridge
+
+Tail the live log using -f option
+sudo journalctl -f -u mylinehub-voicebridge
+
+See Logs After specific Time
+sudo journalctl -f -u mylinehub-voicebridge --since "2025-09-26 15:40:00"
+
+Stop the service
+sudo systemctl stop mylinehub-voicebridge
