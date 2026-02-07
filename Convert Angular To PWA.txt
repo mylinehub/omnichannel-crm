@@ -1,0 +1,148 @@
+✅ STEPS TO CONVERT ANGULAR APP TO PWA AND AUTO RELOAD ON VERSION CHANGE
+
+===========================================
+1. INSTALL ANGULAR PWA PACKAGE
+-------------------------------------------
+Run in terminal:
+
+    ng add @angular/pwa
+
+This will:
+✔ Add service worker support
+✔ Create ngsw-config.json
+✔ Update angular.json for production builds
+✔ Add manifest and icons
+✔ Does NOT affect `ng serve`
+
+===========================================
+2. VERIFY angular.json CONFIG
+-------------------------------------------
+Under "projects" > "your-project-name" > "architect" > "build" > "configurations" > "production"
+
+Ensure this is present:
+
+    "serviceWorker": true,
+    "ngswConfigPath": "ngsw-config.json"
+
+===========================================
+3. UPDATE AppModule FOR SERVICE WORKER
+-------------------------------------------
+Open: src/app/app.module.ts
+
+Add this import:
+
+    import { ServiceWorkerModule } from '@angular/service-worker';
+    import { isDevMode } from '@angular/core';
+
+Add this in the imports array:
+
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+    })
+
+===========================================
+4. ADD VERSION UPDATE HANDLER IN APP
+-------------------------------------------
+Open: src/app/app.component.ts
+
+Add this code:
+
+    import { Component, OnInit } from '@angular/core';
+    import { SwUpdate } from '@angular/service-worker';
+
+    @Component({
+      selector: 'app-root',
+      templateUrl: './app.component.html'
+    })
+    export class AppComponent implements OnInit {
+      constructor(private swUpdate: SwUpdate) {}
+
+      ngOnInit() {
+        if (this.swUpdate.isEnabled) {
+          this.swUpdate.versionUpdates.subscribe(event => {
+            if (event.type === 'VERSION_READY') {
+              console.log('New version detected, reloading...');
+              window.location.reload();
+            }
+          });
+        }
+      }
+    }
+
+This will force reload the app when a new version is deployed.
+
+===========================================
+5. VERIFY ngsw-config.json (OPTIONAL)
+-------------------------------------------
+Located at: ngsw-config.json
+
+Default is OK, but here is a basic version:
+
+    {
+      "index": "/index.html",
+      "assetGroups": [
+        {
+          "name": "app",
+          "installMode": "prefetch",
+          "resources": {
+            "files": [
+              "/favicon.ico",
+              "/index.html",
+              "/*.css",
+              "/*.js"
+            ]
+          }
+        },
+        {
+          "name": "assets",
+          "installMode": "lazy",
+          "updateMode": "prefetch",
+          "resources": {
+            "files": [
+              "/assets/**",
+              "/*.(png|jpg|jpeg|svg|webp|ico)"
+            ]
+          }
+        }
+      ]
+    }
+
+===========================================
+6. BUILD FOR PRODUCTION
+-------------------------------------------
+Use the same command:
+
+    npm run build:prod
+
+✔ This includes service worker automatically
+✔ It outputs: ngsw.json, ngsw-worker.js, etc.
+
+===========================================
+7. DEPLOY OVER HTTPS
+-------------------------------------------
+Make sure your server uses HTTPS (required for PWA)
+Localhost also works for testing.
+
+To test locally after build:
+
+    npx http-server -p 8080 -c-1 dist/mylinehub-crm-frontend
+
+Then open: http://localhost:8080
+
+Check service worker in Chrome DevTools:
+- Application > Service Worker
+- Console will log "New version detected" on update
+
+===========================================
+8. OPTIONAL: DISPLAY VERSION IN APP
+-------------------------------------------
+You can add this manually in a config file or service:
+
+    export class AppConfigService {
+      public static VERSION = '0.0.1';
+    }
+
+You may automate version bumping with a script or CI step later.
+
+===========================================
+✅ DONE! YOUR APP IS NOW A PWA WITH AUTO RELOAD!

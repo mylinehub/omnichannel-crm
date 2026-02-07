@@ -1,0 +1,25 @@
+# Step 1: Uninstall Angular CLI globally
+npm uninstall -g @angular/cli
+
+# Step 2: Clear NPM cache
+npm cache clean --force
+
+# Step 3: Remove Angular CLI-related folders from user directory
+Remove-Item -Recurse -Force "$env:APPDATA\npm\node_modules\@angular"
+Remove-Item -Recurse -Force "$env:APPDATA\npm\@angular"
+Remove-Item -Recurse -Force "$env:USERPROFILE\.angular"
+Remove-Item -Recurse -Force "$env:USERPROFILE\AppData\Roaming\npm\node_modules\@angular"
+Remove-Item -Recurse -Force "$env:USERPROFILE\AppData\Roaming\npm\@angular"
+
+# Step 4: Optionally, remove npm and Node.js (if you want full cleanup)
+# CAUTION: This will remove Node.js completely from your system
+# Uncomment below lines if you want that too
+
+# winget uninstall OpenJS.NodeJS
+# Remove-Item -Recurse -Force "$env:ProgramFiles\nodejs"
+# Remove-Item -Recurse -Force "$env:APPDATA\npm"
+# Remove-Item -Recurse -Force "$env:APPDATA\npm-cache"
+
+# Step 5: Verify it's gone
+Write-Host "`nChecking Angular CLI version..."
+ng version

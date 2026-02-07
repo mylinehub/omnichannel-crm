@@ -1,0 +1,45 @@
+CRONS
+schedulerService.removeIfExistsAndScheduleACronTask(jobId, custEmpCampUpdatePeriodicRunnable, "0 */59 * * * ?");
+schedulerService.removeIfExistsAndScheduleACronTask(jobId, deletedPreviousChustomerPageRunnable, "0 */40 * * * ?");
+schedulerService.removeIfExistsAndScheduleACronTask(jobId, saveOrganizationDataRunnable, "0 */60 * * * ?");
+schedulerService.removeIfExistsAndScheduleACronTask(jobId, refreshBackEndConnectionRunnable, "0 */60 * * * ?");
+schedulerService.removeIfExistsAndScheduleACronTask(jobId, hardInsertCallDetailAndCostRunnable, "0 */5 * * * ?")
+schedulerService.removeIfExistsAndScheduleACronTask(jobId, hardInsertChatHistoryRunnable, "0 */30 * * * ?");
+schedulerService.removeIfExistsAndScheduleACronTask(jobId, whatsAppHardInsertReportDataRunnable, "0 */50 * * * ?");
+schedulerService.removeIfExistsAndScheduleACronTask(jobId, whatsAppHardInsertChatHistoryUpdatesRunnable, "0 */20 * * * ?");
+schedulerService.removeIfExistsAndScheduleACronTask(jobId, whatsAppCleanCustomerDataRunnable, "0 1 * * * ?");
+schedulerService.removeIfExistsAndScheduleACronTask(jobId, whatsAppHardInsertFlattenMessageRunnable, "0 */20 * * * ?");
+schedulerService.removeIfExistsAndScheduleACronTask(jobId, lowAmountNotificationRunnable, "0 0 */3 * * ?");
+schedulerService.removeIfExistsAndScheduleACronTask(jobId, recalculateOrganizationStorageRunnable, "0 0 0 ? * SUN");schedulerService.removeIfExistsAndScheduleACronTask(jobId, threadDumpRunnable, "0 9 1 * * ?");
+
+
+
+Here's a clear and organized **table** showing the details for each of the `schedulerService.removeIfExistsAndScheduleACronTask()` calls you've provided.
+
+| **Runnable Name**                              | **Cron Expression** | **Cron Explanation (English)**                                 |
+| ---------------------------------------------- | ------------------- | -------------------------------------------------------------- |
+| `custEmpCampUpdatePeriodicRunnable`            | `0 */59 * * * ?`    | Every **59 minutes**                                           |
+| `deletedPreviousChustomerPageRunnable`         | `0 */40 * * * ?`    | Every **40 minutes**                                           |
+| `saveOrganizationDataRunnable`                 | `0 */60 * * * ?`    | Every **60 minutes** (i.e., every hour)                        |
+| `refreshBackEndConnectionRunnable`             | `0 */60 * * * ?`    | Every **60 minutes** (i.e., every hour)                        |
+| `hardInsertCallDetailAndCostRunnable`          | `0 */5 * * * ?`     | Every **5 minutes**                                            |
+| `hardInsertChatHistoryRunnable`                | `0 */30 * * * ?`    | Every **30 minutes**                                           |
+| `whatsAppHardInsertReportDataRunnable`         | `0 */50 * * * ?`    | Every **50 minutes**                                           |
+| `whatsAppHardInsertChatHistoryUpdatesRunnable` | `0 */20 * * * ?`    | Every **20 minutes**                                           |
+| `whatsAppCleanCustomerDataRunnable`            | `0 1 * * * ?`       | **At 1 minute past every hour**                                |
+| `whatsAppHardInsertFlattenMessageRunnable`     | `0 */20 * * * ?`    | Every **20 minutes**                                           |
+| `lowAmountNotificationRunnable`                | `0 0 */3 * * ?`     | Every **3 hours**, at the top of the hour (00:00, 03:00, etc.) |
+| `recalculateOrganizationStorageRunnable`       | `0 0 0 ? * SUN`     | Every **Sunday at 00:00 (midnight)**                           |
+| `threadDumpRunnable`                           | `0 9 1 * * ?`       | On the **1st day of every month at 09:00 AM**                  |
+
+---
+
+### 📌 Notes:
+
+* All cron expressions are in **Quartz format** (6 fields: `sec min hour day month dayOfWeek`)
+* The `/` operator (e.g., `*/5`) means “every X units starting at the beginning”
+* The `?` in `dayOfWeek` or `dayOfMonth` means “no specific value” (used to avoid conflicts)
+
+---
+
+Let me know if you also want to include **descriptions of what each runnable does**, or want to **optimize** any of the schedules (e.g., reduce overlap or load).
